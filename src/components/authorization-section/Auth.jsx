@@ -16,14 +16,12 @@ function Auth(props) {
           updateToken={props.updateToken}
           handleSwitch={handleSwitch}
           updateCurrentId={props.updateCurrentId}
-          updateIsAdmin={props.updateIsAdmin}
         />
       ) : (
         <Signup
           updateToken={props.updateToken}
           handleSwitch={handleSwitch}
           updateCurrentId={props.updateCurrentId}
-          updateIsAdmin={props.updateIsAdmin}
         />
       )}
     </>
