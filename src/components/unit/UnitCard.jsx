@@ -176,12 +176,11 @@ function UnitCardF(props) {
                 >
                   View Unit
                 </Button>
-                {props.currentId === props.unit.userId ||
-                props.isAdmin === "true" ? (
+                {props.unit.userId ? (
                   <div>
                     {/* delete button */}
                     <Button
-                      color="danger"
+                      color=""
                       style={{ border: "1px solid black" }}
                       onClick={toggle}
                     >
@@ -190,7 +189,7 @@ function UnitCardF(props) {
 
                     {/* update button */}
                     <Button
-                      color="danger"
+                      color=""
                       style={{ border: "1px solid black" }}
                       onClick={handleToggleUpdate}
                     >

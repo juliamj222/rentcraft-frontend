@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import UnitFeed from "./UnitFeed";
+import UnitFeed from "./../unit/UnitFeed";
 import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
-import UnitCreate from "./UnitCreate";
+import UnitCreate from "./../unit/UnitCreate";
 
 const MainIndex = (props) => {
   const [unitFeedItems, setUnitFeedItems] = useState([]);
@@ -26,7 +26,7 @@ const MainIndex = (props) => {
       setUser_id(data.user_id);
     } catch (error) {
       console.error(error);
-      /* props.updateToken(null); */
+      /*  props.updateToken(null); */
     }
   }
 
@@ -48,21 +48,23 @@ const MainIndex = (props) => {
 
   return (
     <>
-      {unitFeed ? (
-        <UnitCreate
-          token={props.token}
-          handleSwitchUnits={handleSwitchUnits}
-          fetchUnitFeed={fetchUnitFeed}
-        />
-      ) : (
-        <UnitFeed
-          token={props.token}
-          currentId={props.currentId}
-          unitFeedItems={unitFeedItems}
-          handleSwitchUnits={handleSwitchUnits}
-          fetchUnitFeed={fetchUnitFeed}
-        />
-      )}
+      <div style={{ background: "var(--primary)" }}>
+        {unitFeed ? (
+          <UnitCreate
+            token={props.token}
+            handleSwitchUnits={handleSwitchUnits}
+            fetchUnitFeed={fetchUnitFeed}
+          />
+        ) : (
+          <UnitFeed
+            token={props.token}
+            currentId={props.currentId}
+            unitFeedItems={unitFeedItems}
+            handleSwitchUnits={handleSwitchUnits}
+            fetchUnitFeed={fetchUnitFeed}
+          />
+        )}
+      </div>
     </>
   );
 };

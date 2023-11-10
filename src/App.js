@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App" /* style={{ background: "var(--primary)" }} */>
       {token && <NavBar />}
       <Routes>
         <Route path="/" element={<MainIndex />} />
