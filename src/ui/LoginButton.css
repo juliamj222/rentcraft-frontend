@@ -1,0 +1,29 @@
+.Login-Button{
+    background-color: var(--secondary); 
+    padding: 10px;
+    /*color: var(#c2dedc);*/
+    border-radius: 5px; 
+    text-align: center; 
+    cursor: pointer; 
+    border: #116a7b; 
+    border-radius: 8px;
+
+}
+
+.Login-Button:hover {
+    opacity: 0.8;
+} 
+
+.Login-Button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px); 
+}
+
+:root {
+    --primary: #ece5c7;
+    --secondary: #cdc2ae;
+    --tertiary: #c2dedc;
+    --quarternary: #116a7b;
+  } 
+
