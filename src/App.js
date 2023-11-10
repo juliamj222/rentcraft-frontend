@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import MainIndex from "./components/main-section/MainIndex";
 import NavBar from "./components/navigation-section/NavBar";
+import ProfileView from "./components/profile-section/ProfileView";
 
 //imre import useeffect
 import React, { useState, useEffect } from "react";
@@ -26,6 +27,7 @@ function App() {
       {token && <NavBar />}
       <Routes>
         <Route path="/" element={<MainIndex />} />
+        <Route path="/profile" element={<ProfileView />} />
       </Routes>
     </div>
   );
