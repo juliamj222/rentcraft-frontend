@@ -1,0 +1,22 @@
+.App-logo {
+    height: 150px;
+} 
+
+header {
+    height: 175px; 
+    background-color: var(--quarternary);
+
+} 
+
+.header-stripe {
+    height: 75px;
+    border-top: 5px solid white;
+    border-bottom: 5px solid white;
+  } 
+
+  :root {
+    --primary: #ece5c7;
+    --secondary: #cdc2ae;
+    --tertiary: #c2dedc;
+    --quarternary: #116a7b;
+  }
