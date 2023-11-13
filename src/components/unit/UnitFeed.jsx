@@ -10,21 +10,24 @@ function UnitFeed(props) {
         {/*mapping*/}
         {props.unitFeedItems.map((unit, index) => (
           <UnitCardF
-            //  key={index}
+            key={index}
+            unit={unit}
             address={unit}
             currentId={props.currentId}
             city={props.city}
             fetchUnitFeed={props.fetchUnitFeed}
             token={props.token}
+            user={props.user}
+            userId={props.userId}
           />
         ))}
 
         {/* Buttons */}
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <button className="button rounded" onClick={props.handleSwitchRooms}>
+        {/*         <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <button className="button rounded" onClick={props.handleSwitchUnits}>
             Create a unit
           </button>
-        </div>
+        </div> */}
         {/* Buttons End */}
       </div>
     </>

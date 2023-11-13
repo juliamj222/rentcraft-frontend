@@ -1,70 +1,72 @@
+import { Col, Container, NavLink, Row } from "reactstrap";
 import React, { useState, useEffect } from "react";
-import UnitFeed from "./UnitFeed";
+import UnitFeed from "./../unit/UnitFeed";
+import UnitCreate from "./../unit/UnitCreate";
 import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
-import UnitCreate from "./UnitCreate";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
+import { useParams } from "react-router-dom";
 
-const MainIndex = (props) => {
+function MainIndex(props) {
+  const params = useParams();
+  console.log(params);
+
   const [unitFeedItems, setUnitFeedItems] = useState([]);
-  const [user_id, setUser_id] = useState("");
+  const [userId, setUserId] = useState("");
   async function fetchUnitFeed() {
     try {
-      //Headers
+      // Headers
       const myHeaders = new Headers();
       myHeaders.append("Authorization", props.token);
-      //Request Options
+      // Request Options
       let requestOptions = {
         method: "GET",
         headers: myHeaders,
       };
-      //Send Request  (open a file quickly ctrl,p  file name)
-      const response = await fetch(API_UNIT_VIEW_ALL, requestOptions);
-      //Get a response
+      // Send Request
+      const response = await fetch(
+        API_UNIT_VIEW_ALL,
+
+        requestOptions
+      );
+      //  Get A Response
       const data = await response.json();
       console.log(data);
-      //Set state
+
+      // Set State
       setUnitFeedItems(data.units.reverse());
-      setUser_id(data.user_id);
+      setUserId(data.userId);
     } catch (error) {
       console.error(error);
-      /* props.updateToken(null); */
     }
   }
 
-  //uef
+  // uef
+  //  putting [props.token] will make it so that it only runs when the token changes
   useEffect(() => {
-    //check to see if we have a token
-    if (props.token === "") {
-      return;
-    }
-    // exit clause
+    if (!props.token) return;
     fetchUnitFeed();
   }, [props.token]);
-  console.log(props.token);
 
-  const [unitFeed, setUnitFeed] = useState(true);
-  function handleSwitchUnits() {
-    setUnitFeed(!unitFeed);
-  }
+  if (!props.token) return <ReturnToAuth />;
 
   return (
     <>
-      {unitFeed ? (
-        <UnitCreate
-          token={props.token}
-          handleSwitchUnits={handleSwitchUnits}
-          fetchUnitFeed={fetchUnitFeed}
-        />
-      ) : (
-        <UnitFeed
-          token={props.token}
-          currentId={props.currentId}
-          unitFeedItems={unitFeedItems}
-          handleSwitchUnits={handleSwitchUnits}
-          fetchUnitFeed={fetchUnitFeed}
-        />
-      )}
+      <Container className="mt-5">
+        <Row>
+          <Col md="8">
+            <UnitFeed
+              unitFeedItems={unitFeedItems}
+              token={props.token}
+              fetchUnitFeed={fetchUnitFeed}
+              userId={userId}
+              currentId={props.currentId}
+              //   user={props.user}
+            />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
-};
+}
 
 export default MainIndex;

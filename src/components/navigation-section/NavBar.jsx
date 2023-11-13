@@ -40,16 +40,16 @@ function Navigation(props) {
               <NavLink href="/auth"> Login / Signup </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">View Users</NavLink>
+              <NavLink href="">View Your Profile</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/unitcreate">Create Unit</NavLink>
+              <NavLink href="/unit/create">Register a Unit</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">View Tenants</NavLink>
+              <NavLink href="">View Your Tenants</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">View Payments</NavLink>
+              <NavLink href="">View Rent Payments</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

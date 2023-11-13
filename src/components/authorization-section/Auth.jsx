@@ -1,13 +1,16 @@
-import Login from "./Login";
-import Signup from "./Signup";
-import { useState } from "react";
+import { useState } from "react"
+import LoginButton from "../../ui/LoginButton";
+import Login from "./Login"
+import Register from "./Register" 
 
-function Auth(props) {
-  const [isLogin, setIsLogin] = useState(true);
+const Auth = (props) => {
+    const [showLogin, setShowLogin]= useState(false); 
 
-  function handleSwitch() {
-    setIsLogin(!isLogin);
-  }
+    function handleToggle(){
+        if(showLogin === false) {
+          setShowLogin(true); 
+        }else {setShowLogin(false)} 
+        }
 
   return (
     <>
@@ -16,19 +19,25 @@ function Auth(props) {
           updateToken={props.updateToken}
           handleSwitch={handleSwitch}
           updateCurrentId={props.updateCurrentId}
-          updateIsAdmin={props.updateIsAdmin}
         />
       ) : (
         <Signup
           updateToken={props.updateToken}
           handleSwitch={handleSwitch}
           updateCurrentId={props.updateCurrentId}
-          updateIsAdmin={props.updateIsAdmin}
         />
       )}
     </>
   );
 }
 
+    <div className="d-flex justify-content-center align-items-center">
+    {/* <Login updateToken={props.updateToken} />  */}
+    {/* <Register updateToken={props.updateToken} />  */}
+    <LoginButton title="Login/Register" onClick={handleToggle} /> 
+    </div>
+    </> 
+    );
+}
+ 
 export default Auth;
-

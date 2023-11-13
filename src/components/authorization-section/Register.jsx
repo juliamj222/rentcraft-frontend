@@ -57,7 +57,7 @@ const Register = (props) => {
                 // ! increase pixel height
                 height: "500px"
                 }}>
-                    <h2 className="text-center font-primary bold">SIGNUP FORM</h2>
+                    <h2 className="text-center font-primary bold">Register</h2>
                     <Form>
                         {/* Form Group First Name */}
                         <FormGroup>
