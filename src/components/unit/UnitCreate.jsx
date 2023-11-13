@@ -53,8 +53,10 @@ function UnitCreate(props) {
   return (
     <>
       <div
-        className="d-flex neutral-background rounded p-5 m-2 flex-column"
-        style={{ background: "var(--secondary)" }}
+        className="d-flex neutral-background rounded p-3 m-5 flex-column"
+        style={{
+          background: "var(--secondary)",
+        }}
       >
         <h2 className="font-primary text-center">Register Your Unit</h2>
         <Form>
@@ -72,48 +74,54 @@ function UnitCreate(props) {
             />
           </FormGroup>
           {/* Form Group address ends */}
-          {/* Form Group city */}
-          <FormGroup>
-            <Label for="city">City</Label>
-            <Input
-              type="text"
-              name="city"
-              id="city"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </FormGroup>
-          {/* Form Group city ends */}
-          {/* Form Group state */}
-          <FormGroup>
-            <Label for="state">State</Label>
-            <Input
-              type="text"
-              name="state"
-              id="state"
-              placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-          </FormGroup>
-          {/* Form Group state ends */}
-          {/* Form Group zip */}
-          <FormGroup>
-            <Label for="zip">Zip</Label>
-            <Input
-              type="text"
-              name="zip"
-              id="zip"
-              placeholder="Zipcode"
-              value={zip}
-              onChange={(e) => {
-                const numericValue = e.target.value.replace(/\D/g, "");
-                setZip(numericValue);
-              }}
-            />
-          </FormGroup>
-          {/* Form Group zip ends */}
+          <div
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <FormGroup className="col  col-3.2">
+              <Label for="city">City</Label>
+              <Input
+                type="text"
+                name="city"
+                id="city"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </FormGroup>
+
+            <FormGroup className="col col-3.2">
+              <Label for="state">State</Label>
+              <Input
+                type="text"
+                name="state"
+                id="state"
+                placeholder="State"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </FormGroup>
+
+            <FormGroup className="col col-3.2">
+              <Label for="zip">Zip</Label>
+              <Input
+                type="text"
+                name="zip"
+                id="zip"
+                placeholder="Zipcode"
+                value={zip}
+                onChange={(e) => {
+                  const numericValue = e.target.value.replace(/\D/g, "");
+                  setZip(numericValue);
+                }}
+              />
+            </FormGroup>
+          </div>
           {/* Form Group monthlyRent */}
           <FormGroup>
             <Label for="monthlyRent">Monthly Rent</Label>

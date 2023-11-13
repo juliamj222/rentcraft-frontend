@@ -12,9 +12,24 @@ const Auth = (props) => {
         }else {setShowLogin(false)} 
         }
 
-    return ( 
-    <> 
-    {showLogin ? <Login updateToken = {props.updateToken}/> : <Register updateToken = {props.updateToken}/>} 
+  return (
+    <>
+      {isLogin ? (
+        <Login
+          updateToken={props.updateToken}
+          handleSwitch={handleSwitch}
+          updateCurrentId={props.updateCurrentId}
+        />
+      ) : (
+        <Signup
+          updateToken={props.updateToken}
+          handleSwitch={handleSwitch}
+          updateCurrentId={props.updateCurrentId}
+        />
+      )}
+    </>
+  );
+}
 
     <div className="d-flex justify-content-center align-items-center">
     {/* <Login updateToken={props.updateToken} />  */}

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { API_UNIT_VIEW_BY_ID } from "../constants/endpoints";
 //imrse
 import React, { useState, useEffect } from "react";
-import UnitDisplay from "../room/UnitDisplay";
+import UnitDisplay from "../unit/UnitDisplay";
 
 //rsfc
 function UnitFeedById(props) {
@@ -44,7 +44,7 @@ function UnitFeedById(props) {
       <UnitDisplay
         token={props.token}
         currentId={props.currentId}
-        room={unitPost}
+        unit={unitPost}
       />
     </>
   );

@@ -21,7 +21,7 @@ function UnitFeed(props) {
 
         {/* Buttons */}
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <button className="button rounded" onClick={props.handleSwitchRooms}>
+          <button className="button rounded" onClick={props.handleSwitchUnits}>
             Create a unit
           </button>
         </div>

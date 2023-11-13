@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import MainHeader from "./components/header-section/MainHeader";
 import MainIndex from "./components/main-section/MainIndex";
 import NavBar from "./components/navigation-section/NavBar";
+import ProfileView from "./components/profile-section/ProfileView";
 
 
 //imre import useeffect
@@ -26,13 +27,16 @@ function App() {
 
 
   return (
-    <div className="App"> 
+
+    <div className="App" /* style={{ background: "var(--primary)" }} */>
     <MainHeader />
+
       {token && <NavBar />}
 
       <Routes>
         <Route path="/" element={<MainIndex />} /> 
         <Route path="/auth" element={<Auth updateToken={updateToken} />} />
+        <Route path="/profile" element={<ProfileView />} />
       </Routes>
     </div>
   );
