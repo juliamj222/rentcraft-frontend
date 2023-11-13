@@ -1,6 +1,7 @@
 import { Form, FormGroup, Input, Label } from "reactstrap";
 import React, { useState } from "react";
 import { API_UNIT_CREATE } from "../constants/endpoints";
+import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
 
 function UnitCreate(props) {
   const [user_id, setUser_id] = useState("");
@@ -16,15 +17,16 @@ function UnitCreate(props) {
     evt.preventDefault();
     console.log("Create Unit Clicked");
     //trycatch
+
     try {
       //headers
-      const myHeaders = new Headers();
+      let myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", props.token);
       //body
       const body = {
-        /*    user_id: user_id, */
-        tenant_id: tenant_id,
+        /* user_id: user_id, */
+        /*     tenant_id: tenant_id, */
         address: address,
         city: city,
         state: state,
@@ -42,14 +44,14 @@ function UnitCreate(props) {
       //send request
       const response = await fetch(API_UNIT_CREATE, requestOptions);
       //get a response
-
+      const data = await response.json();
       // refresh the unit feed
-      props.fetchUnitFeed();
-      props.handleSwitchUnits();
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   }
+
   return (
     <>
       <div
@@ -151,7 +153,7 @@ function UnitCreate(props) {
             />
           </FormGroup>
           {/* Form Group unitState ends */}
-          {/* Form Group information */}
+          {/* Form Group tenant id */}
           <FormGroup>
             <Label for="tenant_id">Tenant ID</Label>
             <Input
@@ -163,21 +165,15 @@ function UnitCreate(props) {
               onChange={(e) => setTenant_id(e.target.value)}
             />
           </FormGroup>
-          {/* Form Group city ends */}
+          {/* Form Group tenant id ends */}
           {/* Buttons */}
           <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <button
-              className="button rounded"
-              onClick={props.handleSwitchUnits}
-            >
-              Change to View Units
-            </button>
             <button
               className="button rounded"
               title="Create unit"
               onClick={handleSubmit}
             >
-              Create Unit
+              Register this unit
             </button>
           </div>
           {/* Buttons End */}

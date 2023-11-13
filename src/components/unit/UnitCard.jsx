@@ -10,6 +10,7 @@ import {
   Input,
   Form,
   ButtonGroup,
+  FormGroup,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,6 +22,8 @@ import React, { useState } from "react";
 import DeleteConfirmation from "../../ui/DeleteConfirmation";
 
 function UnitCardF(props) {
+  // const currentId = props.user._id;
+
   const {
     user_id,
     tenant_id,
@@ -31,6 +34,7 @@ function UnitCardF(props) {
     monthlyRent,
     unitState,
     _id,
+    userId,
   } = props.unit;
   const navigate = useNavigate();
   //usf usestate
@@ -43,23 +47,30 @@ function UnitCardF(props) {
   const [zipInput, setZipInput] = useState(zip);
   const [monthlyRentInput, setMonthlyRentInput] = useState(monthlyRent);
   const [unitStateInput, setUnitStateInput] = useState(unitState);
-
-  /*  const [removeSwitch, setRemoveSwitch] = useState(false); */
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+
+  if (!props.unit) {
+    return <div>Unit information not available</div>;
+  }
 
   function handleView() {
     // Copy to clipboard
     navigate("/view-by-id/" + _id);
   }
 
+  function handleShare() {
+    // Copy to clipboard
+    navigator.clipboard.writeText("http://localhost:3000/feed/" + _id);
+  }
+
   // this function just toggles to the opposite, sets true to false etc
-  function handleToggleUpdate() {
+  function handleToggleEdit() {
     console.log("Edit Toggle Works");
     setEditModeEnabled(!editModeEnabled);
   }
 
-  async function handleUpdate() {
+  async function handleEdit() {
     // Headers
     let myHeaders = new Headers();
     myHeaders.append("Authorization", props.token);
@@ -76,18 +87,18 @@ function UnitCardF(props) {
       unitState: unitStateInput,
       _id: _id,
     };
-    // Request options
+    // Request Options
     const requestOptions = {
       method: "PATCH",
       headers: myHeaders,
       body: JSON.stringify(body),
     };
-    // Send request
+    // Send Request
     const response = await fetch(
       API_UNIT_UPDATE_BY_ID + "/" + _id,
       requestOptions
     );
-    // Get a response
+    //  Get A Response
     const data = await response.json();
     console.log(data);
     // refresh the feed
@@ -97,6 +108,8 @@ function UnitCardF(props) {
   }
 
   async function handleDelete() {
+    //if (props.user._id === props.unit.user_id)
+    console.log(props.user._id);
     try {
       // Headers
       const myHeaders = new Headers();
@@ -107,21 +120,191 @@ function UnitCardF(props) {
         headers: myHeaders,
       };
       // Send Request
-      const response = await fetch(API_UNIT_DELETE_BY_ID + _id, requestOptions);
+      const response = await fetch(
+        API_UNIT_DELETE_BY_ID + "/" + _id,
+        requestOptions
+      );
       //  Get A Response
       const data = await response.json();
       console.log(data);
       // Refresh the feed
       props.fetchUnitFeed();
-      toggle();
     } catch (error) {
       console.error(error);
     }
   }
 
+  function EditModeForm() {
+    return (
+      <>
+        <Label for="address">Address</Label>
+        <Input
+          id="address"
+          value={addressInput}
+          onChange={(e) => setAddressInput(e.target.value)}
+          className="mb-2"
+          type="text"
+        />
+
+        <div
+          className="form-row"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
+        >
+          <FormGroup className="col  col-3.2">
+            <Label for="city">City</Label>
+            <Input
+              type="text"
+              name="city"
+              id="city"
+              placeholder="City"
+              value={cityInput}
+              onChange={(e) => setCityInput(e.target.value)}
+            />
+          </FormGroup>
+
+          <FormGroup className="col col-3.2">
+            <Label for="state">State</Label>
+            <Input
+              type="text"
+              name="state"
+              id="state"
+              placeholder="State"
+              value={stateInput}
+              onChange={(e) => setStateInput(e.target.value)}
+            />
+          </FormGroup>
+
+          <FormGroup className="col col-3.2">
+            <Label for="zip">Zip</Label>
+            <Input
+              type="text"
+              name="zip"
+              id="zip"
+              placeholder="Zipcode"
+              value={zipInput}
+              onChange={(e) => {
+                setZipInput(e.target.value);
+              }}
+            />
+          </FormGroup>
+        </div>
+        {/* Form Group monthlyRent */}
+        <FormGroup>
+          <Label for="monthlyRent">Monthly Rent</Label>
+          <Input
+            type="text"
+            name="monthlyRent"
+            id="monthlyRent"
+            placeholder="Expected monthly rent"
+            value={monthlyRentInput}
+            onChange={(e) => {
+              setMonthlyRentInput(e.target.value);
+            }}
+          />
+        </FormGroup>
+        {/* Form Group monthlyRent ends */}
+        {/* Form Group unitState */}
+        <FormGroup>
+          <Label for="unitState">State of the unit:</Label>
+          <Input
+            type="text"
+            name="unitState"
+            id="unitState"
+            placeholder="Is the unit rented, vacant, or unavailable?"
+            value={unitStateInput}
+            onChange={(e) => setUnitStateInput(e.target.value)}
+          />
+        </FormGroup>
+        {/* Form Group unitState ends */}
+        {/* Form Group information */}
+        <FormGroup>
+          <Label for="tenant_id">Tenant ID</Label>
+          <Input
+            type="tenant_id"
+            name="tenant_id"
+            id="tenant_id"
+            placeholder="Tenant ID"
+            value={tenant_idInput}
+            onChange={(e) => setTenant_idInput(e.target.value)}
+          />
+        </FormGroup>
+        <Button color="success" onClick={handleEdit}>
+          Save
+        </Button>
+
+        {/* Form Group tenant id ends */}
+      </>
+    );
+  }
+
+  function RegularView() {
+    //console.log(props.updateCurrentId);
+    // props.user._Id === user_id &&
+    console.log(props.unit.user_id);
+    return (
+      <>
+        <CardTitle name="address">{address}</CardTitle>
+        <div
+          className="form-row"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Label for="city">City:</Label>
+          <CardText className="city text-muted">{city}</CardText>
+          <Label for="state">State:</Label>
+          <CardText className="state text-muted">{state}</CardText>
+          <Label for="zip">Zipcode:</Label>
+          <CardText className="zip text-muted">{zip}</CardText>
+        </div>
+        <div
+          className="form-row"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Label for="monthlyRent">Monthly rent:</Label>
+          <CardText className="monthlyRent text-muted">{monthlyRent}</CardText>
+          <Label for="unitState">Unit state:</Label>
+          <CardText className="unitState text-muted">{unitState}</CardText>
+          <Label for="tenant_id">Tenant:</Label>
+          <CardText className="tenant_id text-muted">{tenant_id}</CardText>
+        </div>
+        <Label for="user_id">User ID:</Label>
+        <CardText className="user_id text-muted">{user_id}</CardText>
+        <div
+          className="form-row"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Button onClick={handleShare}>Share Post</Button>
+          <Button onClick={handleView}>Share View</Button>
+
+          <Button color="warning" onClick={handleToggleEdit}>
+            Edit
+          </Button>
+          <Button color="danger" onClick={toggle}>
+            Delete
+          </Button>
+        </div>
+      </>
+    );
+  }
   return (
+    //    {props.unit.user_id.includes(props.currentId)}
     <>
-      (
       <Form>
         <Card
           className="mb-3 mt-3"
@@ -132,91 +315,14 @@ function UnitCardF(props) {
           }}
         >
           <CardBody>
-            <>
-              <Label for="address">Address</Label>
-              <Input
-                id="address"
-                value={addressInput}
-                onChange={(e) => setAddressInput(e.target.value)}
-                className="mb-2"
-              />
-
-              <CardSubtitle className="mb-2 text-muted" tag="h6">
-                {props.unit?.addedUsers?.firstName}
-                {editModeEnabled ? (
-                  <>
-                    <Label
-                      for="switch"
-                      style={{ marginLeft: "3px", color: "var(--tritary)" }}
-                    >
-                      {" "}
-                      Remove?
-                    </Label>
-                  </>
-                ) : null}
-              </CardSubtitle>
-              {editModeEnabled ? (
-                <>
-                  <Label for="city">City</Label>
-                  <Input
-                    id="city"
-                    value={cityInput}
-                    onChange={(e) => setCityInput(e.target.value)}
-                    className="mb-2"
-                    type="text"
-                  />
-                </>
-              ) : (
-                <CardText>{city}</CardText>
-              )}
-              <ButtonGroup className="my-2 d-flex justify-content-center">
-                <Button
-                  onClick={handleView}
-                  style={{ border: "1px solid black", borderRadius: "5px" }}
-                >
-                  View Unit
-                </Button>
-                {props.unit.userId ? (
-                  <div>
-                    {/* delete button */}
-                    <Button
-                      color=""
-                      style={{ border: "1px solid black" }}
-                      onClick={toggle}
-                    >
-                      Delete
-                    </Button>
-
-                    {/* update button */}
-                    <Button
-                      color=""
-                      style={{ border: "1px solid black" }}
-                      onClick={handleToggleUpdate}
-                    >
-                      {editModeEnabled ? "Cancel" : "Update"}
-                    </Button>
-                    {/* save button, if editmode is enabled... && */}
-                    {editModeEnabled && (
-                      <Button
-                        color="success"
-                        style={{ border: "1px solid black" }}
-                        onClick={handleUpdate}
-                      >
-                        Save
-                      </Button>
-                    )}
-                  </div>
-                ) : null}
-              </ButtonGroup>
-            </>
+            {editModeEnabled ? EditModeForm() : RegularView()}
           </CardBody>
         </Card>
       </Form>
-      ) : null}
       <DeleteConfirmation
         modal={modal}
         toggle={toggle}
-        address={address}
+        name={address}
         function={handleDelete}
       />
     </>
