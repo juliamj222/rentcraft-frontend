@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import MainHeader from "./components/header-section/MainHeader";
@@ -9,6 +8,8 @@ import ProfileView from "./components/profile-section/ProfileView";
 //imre import useeffect
 import React, { useState, useEffect } from "react";
 import Auth from "./components/authorization-section/Auth";
+import TenantsIndex from "./components/tenants-section/TenantsIndex";
+import PaymentsIndex from "./components/payments-section/PaymentsIndex";
 import UnitCreate from "./components/unit/UnitCreate";
 import UnitUpdate from "./components/unit/UnitUpdate";
 
@@ -33,7 +34,7 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
+    useEffect(() => {
     const currentId = localStorage.getItem("CurrentId");
     if (currentId) {
       setCurrentId(currentId);
@@ -52,10 +53,15 @@ function App() {
       <Routes>
         <Route path="/:id" element={<MainIndex token={token} />} />
         <Route path="/auth" element={<Auth updateToken={updateToken} />} />
+
+        <Route path="/user/:id" element={<ProfileView token={token} />} />
+        <Route path="/tenants" element={<TenantsIndex token={token} />} />
+        <Route path="/payments" element={<PaymentsIndex token={token} />} />
+
         <Route path="/unit/create" element={<UnitCreate token={token} />} />
-        <Route path="/profile" element={<ProfileView token={token} />} />
         <Route path="/unit/view-all" element={<MainIndex token={token} />} />
-        <Route path="update-unit/:id" element={<UnitUpdate token={token} />} />
+        <Route path="/update-unit/:id" element={<UnitUpdate token={token} />} />
+
       </Routes>
     </div>
   );
