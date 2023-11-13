@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import MainHeader from "./components/header-section/MainHeader";
@@ -10,9 +9,12 @@ import ProfileView from "./components/profile-section/ProfileView";
 //imre import useeffect
 import React, { useState, useEffect } from "react"; 
 import Auth from "./components/authorization-section/Auth";
+import TenantsIndex from "./components/tenants-section/TenantsIndex";
+import PaymentsIndex from "./components/payments-section/PaymentsIndex";
 
 function App() {
   const [token, setToken] = useState("");
+
   function updateToken(newToken) {
     setToken(newToken);
     localStorage.setItem("token", newToken);
@@ -25,16 +27,18 @@ function App() {
     }
   }, []);
 
-
   return (
     <div className="App"> 
-    <MainHeader />
+      <MainHeader />
       {token && <NavBar />}
 
+      {/* Main Content Area */}
       <Routes>
         <Route path="/" element={<MainIndex />} /> 
         <Route path="/auth" element={<Auth updateToken={updateToken} />} />
-        <Route path="/profile" element={<ProfileView />} />
+        <Route path="/user/:id" element={<ProfileView token={token} />} />
+        <Route path="/tenants" element={<TenantsIndex token={token} />} />
+        <Route path="/payments" element={<PaymentsIndex token={token} />} />
       </Routes>
     </div>
   );
