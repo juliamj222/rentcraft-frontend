@@ -2,13 +2,12 @@ import { Col, Container, NavLink, Row } from "reactstrap";
 import React, { useState, useEffect } from "react";
 import UnitFeed from "./../unit/UnitFeed";
 import UnitCreate from "./../unit/UnitCreate";
-import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
+import { API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 import { useParams } from "react-router-dom";
 
 function MainIndex(props) {
   const params = useParams();
-  console.log(params);
 
   const [unitFeedItems, setUnitFeedItems] = useState([]);
   const [userId, setUserId] = useState("");
@@ -24,8 +23,7 @@ function MainIndex(props) {
       };
       // Send Request
       const response = await fetch(
-        API_UNIT_VIEW_ALL,
-
+        API_UNIT_VIEW_BY_USER + "/" + params.id,
         requestOptions
       );
       //  Get A Response
@@ -33,7 +31,7 @@ function MainIndex(props) {
       console.log(data);
 
       // Set State
-      setUnitFeedItems(data.units.reverse());
+      setUnitFeedItems(data.user_units.reverse());
       setUserId(data.userId);
     } catch (error) {
       console.error(error);
@@ -60,7 +58,6 @@ function MainIndex(props) {
               fetchUnitFeed={fetchUnitFeed}
               userId={userId}
               currentId={props.currentId}
-              //   user={props.user}
             />
           </Col>
         </Row>

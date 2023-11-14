@@ -34,10 +34,11 @@ function App() {
     }
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const currentId = localStorage.getItem("CurrentId");
     if (currentId) {
       setCurrentId(currentId);
+      console.log(currentId);
     }
   }, []);
 
@@ -51,7 +52,10 @@ function App() {
       <NavBar />
       {/* MAIN CONTENT AREA */}
       <Routes>
-        <Route path="/:id" element={<MainIndex token={token} />} />
+        <Route
+          path="/feed/:id"
+          element={<MainIndex token={token} currentId={currentId} />}
+        />
         <Route path="/auth" element={<Auth updateToken={updateToken} />} />
 
         <Route path="/user/:id" element={<ProfileView token={token} />} />
@@ -61,7 +65,6 @@ function App() {
         <Route path="/unit/create" element={<UnitCreate token={token} />} />
         <Route path="/unit/view-all" element={<MainIndex token={token} />} />
         <Route path="/update-unit/:id" element={<UnitUpdate token={token} />} />
-
       </Routes>
     </div>
   );
