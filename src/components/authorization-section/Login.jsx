@@ -82,7 +82,8 @@ function Login(props) {
                   />
                 </FormGroup>
                 {/* Form Group Password Ending */}
-                { <LoginButton title="Login" onClick={handleSubmit} />  }
+                {/* { <LoginButton title="Login" onClick={handleSubmit} />  } */} 
+                <button onClick={handleSubmit} className="LoginButton"></button>
               </Form>
             </div>
           </div>

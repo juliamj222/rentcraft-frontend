@@ -111,7 +111,8 @@ const Register = (props) => {
                         />
                         </FormGroup>
                         {/* Form Group Password Ending */}
-                        <LoginButton title="Register" onClick={handleSubmit} />
+                        {/* <LoginButton title="Register" onClick={handleSubmit} /> */} 
+                        <button onClick={handleSubmit} className='LoginButton'>Register</button>
                     </Form>
                 </div>
             </div>
