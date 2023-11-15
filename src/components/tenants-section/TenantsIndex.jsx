@@ -6,6 +6,8 @@ import { API_TENANTS_VIEW_ALL } from "../constants/endpoints";
 
 function TenantsIndex(props) {
 
+    const params = useParams()
+
     const [tenantsList, setTenantsList] = useState([]);
 
     async function fetchTenants() {
@@ -23,13 +25,14 @@ function TenantsIndex(props) {
             }
 
             // Send Request
-            const response = await fetch(API_TENANTS_VIEW_ALL, requestOptions)
+            const response = await fetch(API_TENANTS_VIEW_ALL + "/" + params.id, requestOptions)
 
             // Get a Response
             const data = await response.json()
+            // console.log(data)
 
             // Set State
-            setTenantsList(data.tenants)
+            setTenantsList(data.user_tenants)
             
         } catch (error) {
             
@@ -45,9 +48,8 @@ function TenantsIndex(props) {
 
   return (
     <>
-        <h1>Hello from TenantsIndex</h1>
-        <TenantsCreate />
-        <TenantsFeed tenantsList={tenantsList} token={props.token} />
+        <TenantsFeed fetchTenants={fetchTenants} tenantsList={tenantsList} token={props.token} />
+        <TenantsCreate fetchTenants={fetchTenants} token={props.token} />
     </>
   );
 }
