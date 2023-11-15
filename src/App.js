@@ -59,7 +59,7 @@ function App() {
         <Route path="/auth" element={<Auth updateToken={updateToken} />} />
 
         <Route path="/user/:id" element={<ProfileView token={token} />} />
-        <Route path="/tenants" element={<TenantsIndex token={token} />} />
+        <Route path="/tenants/:id" element={<TenantsIndex token={token} />} />
         <Route path="/payments" element={<PaymentsIndex token={token} />} />
 
         <Route path="/unit/create" element={<UnitCreate token={token} />} />
