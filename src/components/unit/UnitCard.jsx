@@ -108,8 +108,7 @@ function UnitCardF(props) {
   }
 
   async function handleDelete() {
-    //if (props.user._id === props.unit.user_id)
-    console.log(props.user._id);
+    if (props.userId === props.unit.user_id) console.log(props.user._id);
     try {
       // Headers
       const myHeaders = new Headers();
