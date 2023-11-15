@@ -5,17 +5,21 @@ import UnitCreate from "./../unit/UnitCreate";
 import { API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MainIndex(props) {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [unitFeedItems, setUnitFeedItems] = useState([]);
   const [userId, setUserId] = useState("");
+
   async function fetchUnitFeed() {
     try {
       // Headers
       const myHeaders = new Headers();
       myHeaders.append("Authorization", props.token);
+
       // Request Options
       let requestOptions = {
         method: "GET",
@@ -26,9 +30,13 @@ function MainIndex(props) {
         API_UNIT_VIEW_BY_USER + "/" + params.id,
         requestOptions
       );
+
       //  Get A Response
       const data = await response.json();
       console.log(data);
+      if (data.user_units.length === 0) {
+        navigate("/");
+      }
 
       // Set State
       setUnitFeedItems(data.user_units.reverse());

@@ -12,6 +12,7 @@ import TenantsIndex from "./components/tenants-section/TenantsIndex";
 import PaymentsIndex from "./components/payments-section/PaymentsIndex";
 import UnitCreate from "./components/unit/UnitCreate";
 import UnitUpdate from "./components/unit/UnitUpdate";
+import WelcomeIndex from "./components/main-section/WelcomeIndex";
 
 function App() {
   const [token, setToken] = useState("");
@@ -47,24 +48,87 @@ function App() {
   }, []);
 
   return (
-    <div className="App" /* style={{ background: "var(--primary)" }} */>
-      <MainHeader />
-      <NavBar />
+    <div className="App">
+      <MainHeader token={token} currentId={currentId} />
+      <NavBar token={token} currentId={currentId} />
       {/* MAIN CONTENT AREA */}
       <Routes>
         <Route
           path="/feed/:id"
           element={<MainIndex token={token} currentId={currentId} />}
         />
-        <Route path="/auth" element={<Auth updateToken={updateToken} />} />
+        <Route
+          path="/"
+          element={<WelcomeIndex token={token} currentId={currentId} />}
+        />
+        <Route
+          path="/auth"
+          element={
+            <Auth updateToken={updateToken} updateCurrentId={updateCurrentId} />
+          }
+        />
 
-        <Route path="/user/:id" element={<ProfileView token={token} />} />
-        <Route path="/tenants" element={<TenantsIndex token={token} />} />
-        <Route path="/payments" element={<PaymentsIndex token={token} />} />
+        <Route
+          path="/user/:id"
+          element={
+            <ProfileView
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
+        <Route
+          path="/tenants"
+          element={
+            <TenantsIndex
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
+        <Route
+          path="/payments"
+          element={
+            <PaymentsIndex
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
 
-        <Route path="/unit/create" element={<UnitCreate token={token} />} />
-        <Route path="/unit/view-all" element={<MainIndex token={token} />} />
-        <Route path="/update-unit/:id" element={<UnitUpdate token={token} />} />
+        <Route
+          path="/unit/create"
+          element={
+            <UnitCreate
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
+        <Route
+          path="/unit/view-all"
+          element={
+            <MainIndex
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
+        <Route
+          path="/update-unit/:id"
+          element={
+            <UnitUpdate
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
       </Routes>
     </div>
   );

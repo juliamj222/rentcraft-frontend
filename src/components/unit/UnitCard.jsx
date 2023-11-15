@@ -232,7 +232,12 @@ function UnitCardF(props) {
             onChange={(e) => setTenant_idInput(e.target.value)}
           />
         </FormGroup>
-        <Button color="success" onClick={handleEdit}>
+        <Button
+          style={{
+            background: "var(--quarternary)",
+          }}
+          onClick={handleEdit}
+        >
           Save
         </Button>
 
@@ -242,9 +247,7 @@ function UnitCardF(props) {
   }
 
   function RegularView() {
-    //console.log(props.updateCurrentId);
-    // props.user._Id === user_id &&
-    console.log(props.unit.user_id);
+    // console.log(props.unit.user_id);
     return (
       <>
         <CardTitle name="address">{address}</CardTitle>
@@ -288,13 +291,38 @@ function UnitCardF(props) {
             justifyContent: "space-evenly",
           }}
         >
-          <Button onClick={handleShare}>Share Post</Button>
-          <Button onClick={handleView}>Share View</Button>
+          <Button
+            onClick={handleShare}
+            style={{
+              background: "var(--quarternary)",
+            }}
+          >
+            Share Post
+          </Button>
+          <Button
+            onClick={handleView}
+            style={{
+              background: "var(--quarternary)",
+            }}
+          >
+            Share View
+          </Button>
 
-          <Button color="warning" onClick={handleToggleEdit}>
+          <Button
+            style={{
+              background: "var(--quarternary)",
+            }}
+            onClick={handleToggleEdit}
+          >
             Edit
           </Button>
-          <Button color="danger" onClick={toggle}>
+          <Button
+            style={{
+              background: "#860A35",
+              color: "white",
+            }}
+            onClick={toggle}
+          >
             Delete
           </Button>
         </div>
@@ -321,8 +349,9 @@ function UnitCardF(props) {
       <DeleteConfirmation
         modal={modal}
         toggle={toggle}
-        name={address}
-        function={handleDelete}
+        address={address}
+        id={_id}
+        handleDelete={handleDelete}
       />
     </>
   );

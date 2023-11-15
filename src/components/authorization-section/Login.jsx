@@ -37,6 +37,7 @@ function Login(props) {
 
       //   Update the token
       props.updateToken(data.token);
+      props.updateCurrentId(data.user._id);
 
       //navigate to main page
       navigate("/feed/" + data.user._id);
