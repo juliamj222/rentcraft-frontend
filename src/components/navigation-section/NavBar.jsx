@@ -59,9 +59,11 @@ function Navigation(props) {
               <NavLink href="/unit/create">Register a Unit</NavLink>
             </NavItem>
             <NavItem>
+
               <NavLink href={"/tenants/" + props.currentId}>
                 View Your Tenants
               </NavLink>
+
             </NavItem>
             <NavItem>
               <NavLink href={"/payments/" + props.currentId}>
