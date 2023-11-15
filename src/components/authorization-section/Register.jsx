@@ -42,8 +42,10 @@ const Register = (props) => {
 
       // Update the token
       props.updateToken(data.token);
+      props.updateCurrentId(data.user._id);
+
       // Navigate to the main page
-      navigate("/unit/view-by-user/:id");
+      navigate("/");
 
       console.log(data);
     } catch (error) {

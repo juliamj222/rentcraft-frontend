@@ -12,7 +12,7 @@ function UnitFeed(props) {
           <UnitCardF
             key={index}
             unit={unit}
-            address={unit}
+            address={props.address}
             currentId={props.currentId}
             city={props.city}
             fetchUnitFeed={props.fetchUnitFeed}
@@ -21,14 +21,6 @@ function UnitFeed(props) {
             userId={props.userId}
           />
         ))}
-
-        {/* Buttons */}
-        {/*         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <button className="button rounded" onClick={props.handleSwitchUnits}>
-            Create a unit
-          </button>
-        </div> */}
-        {/* Buttons End */}
       </div>
     </>
   );

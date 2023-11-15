@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"; /* imrs */
+import { useParams } from "react-router-dom";
 
 import {
   Collapse,
@@ -9,11 +10,13 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 
 function Navigation(props) {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
+  const params = useParams();
 
   return (
     <div>
@@ -22,8 +25,11 @@ function Navigation(props) {
           background: "var(--tertiary)",
         }}
       >
-        <NavbarBrand href="/" className="me-auto font-primary">
-          RentCraft
+        <NavbarBrand
+          href={"/feed/" + props.currentId}
+          className="me-auto font-primary"
+        >
+          Home
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="me-2" />
         <Collapse isOpen={!collapsed} navbar>
@@ -31,7 +37,7 @@ function Navigation(props) {
             navbar
             style={{
               display: "flex",
-              flexDirection: "row",
+              //  flexDirection: "row",
               justifyContent: "space-evenly",
               alignItems: "center",
             }}
@@ -40,16 +46,29 @@ function Navigation(props) {
               <NavLink href="/auth"> Login / Signup </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">View Your Profile</NavLink>
+              <NavLink href={"/feed/" + props.currentId}>
+                View Your Units
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href={"/user/" + props.currentId}>
+                View Your Profile
+              </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/unit/create">Register a Unit</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/tenants">View Your Tenants</NavLink>
+
+              <NavLink href={"/tenants/" + props.currentId}>
+                View Your Tenants
+              </NavLink>
+
             </NavItem>
             <NavItem>
-              <NavLink href="">View Rent Payments</NavLink>
+              <NavLink href={"/payments/" + props.currentId}>
+                View Rent Payments
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
