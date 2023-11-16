@@ -119,7 +119,6 @@ function App() {
               updateToken={updateToken}
               currentId={currentId}
               updateCurrentId={updateCurrentId}
-              currentId={currentId}
             />
           }
         />

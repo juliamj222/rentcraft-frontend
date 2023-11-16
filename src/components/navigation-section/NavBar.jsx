@@ -58,7 +58,7 @@ function Navigation(props) {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href={"/payments/" + props.currentId}>
+              <NavLink href={"/payments/user/" + props.currentId}>
                 Rent Payments
               </NavLink>
             </NavItem>
