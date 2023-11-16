@@ -1,68 +1,68 @@
 import { Col, Container, Row } from "reactstrap";
 import ProfileCard from "./ProfileCard";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { API_USER_VIEW_BY_ID } from "../constants/endpoints";
 // ! ReturnToAuth
 
 function ProfileView(props) {
+  const params = useParams();
 
-    const params = useParams()
+  console.log(params);
 
-    console.log(params)
+  // useState
+  const [profileView, setProfileView] = useState({});
 
-    // useState
-    const [profileView, setProfileView] = useState({});
+  async function fetchProfile() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
 
-    async function fetchProfile() {
-        
-        try {
+      // Request Options
+      let requestOptions = { method: "GET", headers: myHeaders };
 
-            // Headers
-            const myHeaders = new Headers()
-            myHeaders.append("Authorization", props.token)
+      // Send Request
+      const response = await fetch(
+        API_USER_VIEW_BY_ID + "/" + params.id,
+        requestOptions
+      );
 
-            // Request Options
-            let requestOptions = { method: "GET", headers: myHeaders }
+      // Get a Response
+      const data = await response.json();
+      console.log(data);
 
-            // Send Request
-            const response = await fetch (API_USER_VIEW_BY_ID + "/" + params.id, requestOptions)
-
-            // Get a Response
-            const data = await response.json()
-            console.log(data)
-
-            // Set State
-            // ! what needs to be set here?
-            setProfileView(data.user)
-            console.log(data.user)
-            
-        } catch (error) {
-
-            console.error(error)
-
-        }
+      // Set State
+      // ! what needs to be set here?
+      setProfileView(data.user);
+      console.log(data.user);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    useEffect(() => {
-        if (!props.token) return;
-        fetchProfile()
-    }, [props.token]);
+  useEffect(() => {
+    if (!props.token) return;
+    fetchProfile();
+  }, [props.token]);
 
-    // ! ReturnToAuth
+  // ! ReturnToAuth
 
   return (
     <>
-        <Container className="mt-5">
-            <Row>
-                <Col>
-                    <ProfileCard user={profileView} />
-                </Col>
-            </Row>
-        </Container>
+      <Container
+        style={{
+          marginTop: "1%",
+        }}
+      >
+        <Row>
+          <Col>
+            <ProfileCard user={profileView} />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
-
 
 export default ProfileView;

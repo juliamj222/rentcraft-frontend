@@ -1,58 +1,64 @@
 import { useParams } from "react-router-dom";
 import TenantsCreate from "./TenantsCreate";
 import TenantsFeed from "./TenantsFeed";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { API_TENANTS_VIEW_ALL } from "../constants/endpoints";
+import { Button } from "reactstrap";
 
 function TenantsIndex(props) {
+  const params = useParams();
 
-    const params = useParams()
+  const [tenantsList, setTenantsList] = useState([]);
 
-    const [tenantsList, setTenantsList] = useState([]);
+  async function fetchTenants() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
 
-    async function fetchTenants() {
-        
-        try {
+      // Request Options
+      let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
 
-            // Headers
-            const myHeaders = new Headers()
-            myHeaders.append("Authorization", props.token)
+      // Send Request
+      const response = await fetch(
+        API_TENANTS_VIEW_ALL + "/" + props.currentId,
+        requestOptions
+      );
 
-            // Request Options
-            let requestOptions = {
-                method: "GET",
-                headers: myHeaders,
-            }
+      // Get a Response
+      const data = await response.json();
+      // console.log(data)
 
-            // Send Request
-            const response = await fetch(API_TENANTS_VIEW_ALL + "/" + params.id, requestOptions)
-
-            // Get a Response
-            const data = await response.json()
-            // console.log(data)
-
-            // Set State
-            setTenantsList(data.user_tenants)
-            
-        } catch (error) {
-            
-            console.error(error)
-
-        }
+      // Set State
+      setTenantsList(data.user_tenants);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    useEffect(() => {
-        if(!props.token) return;
-        fetchTenants()
-    }, [props.token]);
+  useEffect(() => {
+    if (!props.token) return;
+    fetchTenants();
+  }, [props.token]);
+
+  const hasTenants = tenantsList && tenantsList.length > 0;
 
   return (
     <>
-        <TenantsFeed fetchTenants={fetchTenants} tenantsList={tenantsList} token={props.token} />
+      {hasTenants ? (
+        <TenantsFeed
+          fetchTenants={fetchTenants}
+          tenantsList={tenantsList}
+          token={props.token}
+        />
+      ) : (
         <TenantsCreate fetchTenants={fetchTenants} token={props.token} />
+      )}
     </>
   );
 }
-
 
 export default TenantsIndex;

@@ -1,4 +1,5 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 
 function UnitUpdate(props) {

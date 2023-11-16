@@ -57,12 +57,13 @@ function UnitCardF(props) {
   function handleView() {
     // Copy to clipboard
     navigate("/view-by-id/" + _id);
-  }
-
-  function handleShare() {
-    // Copy to clipboard
     navigator.clipboard.writeText("http://localhost:3000/feed/" + _id);
   }
+
+  /*  function handleShare() {
+    // Copy to clipboard
+  
+  } */
 
   // this function just toggles to the opposite, sets true to false etc
   function handleToggleEdit() {
@@ -192,35 +193,44 @@ function UnitCardF(props) {
             />
           </FormGroup>
         </div>
-        {/* Form Group monthlyRent */}
-        <FormGroup>
-          <Label for="monthlyRent">Monthly Rent</Label>
-          <Input
-            type="text"
-            name="monthlyRent"
-            id="monthlyRent"
-            placeholder="Expected monthly rent"
-            value={monthlyRentInput}
-            onChange={(e) => {
-              setMonthlyRentInput(e.target.value);
-            }}
-          />
-        </FormGroup>
-        {/* Form Group monthlyRent ends */}
-        {/* Form Group unitState */}
-        <FormGroup>
-          <Label for="unitState">State of the unit:</Label>
-          <Input
-            type="text"
-            name="unitState"
-            id="unitState"
-            placeholder="Is the unit rented, vacant, or unavailable?"
-            value={unitStateInput}
-            onChange={(e) => setUnitStateInput(e.target.value)}
-          />
-        </FormGroup>
-        {/* Form Group unitState ends */}
-        {/* Form Group information */}
+        <div
+          className="form-row"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
+        >
+          <FormGroup className="col col-3.2">
+            <Label for="monthlyRent">Monthly Rent</Label>
+            <Input
+              type="text"
+              name="monthlyRent"
+              id="monthlyRent"
+              placeholder="Expected monthly rent"
+              value={monthlyRentInput}
+              onChange={(e) => {
+                setMonthlyRentInput(e.target.value);
+              }}
+            />
+          </FormGroup>
+          {/* Form Group monthlyRent ends */}
+          {/* Form Group unitState */}
+          <FormGroup className="col col-3.2">
+            <Label for="unitState">State of the unit:</Label>
+            <Input
+              type="text"
+              name="unitState"
+              id="unitState"
+              placeholder="Is the unit rented, vacant, or unavailable?"
+              value={unitStateInput}
+              onChange={(e) => setUnitStateInput(e.target.value)}
+            />
+          </FormGroup>
+          {/* Form Group unitState ends */}
+        </div>
+        {/* Form Group tenant_id */}
         <FormGroup>
           <Label for="tenant_id">Tenant ID</Label>
           <Input
@@ -232,99 +242,132 @@ function UnitCardF(props) {
             onChange={(e) => setTenant_idInput(e.target.value)}
           />
         </FormGroup>
-        <Button
-          style={{
-            background: "var(--quarternary)",
-          }}
-          onClick={handleEdit}
-        >
-          Save
-        </Button>
-
         {/* Form Group tenant id ends */}
+        <div
+          className="form-row"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Button
+            style={{
+              background: "var(--quarternary)",
+            }}
+            onClick={handleEdit}
+          >
+            Save
+          </Button>
+
+          <Button
+            style={{
+              background: "var(--quarternary)",
+            }}
+          >
+            Take me back
+          </Button>
+        </div>
       </>
     );
   }
 
   function RegularView() {
-    // console.log(props.unit.user_id);
+    console.log(props.unit);
     return (
       <>
-        <CardTitle name="address">{address}</CardTitle>
-        <div
-          className="form-row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <Label for="city">City:</Label>
-          <CardText className="city text-muted">{city}</CardText>
-          <Label for="state">State:</Label>
-          <CardText className="state text-muted">{state}</CardText>
-          <Label for="zip">Zipcode:</Label>
-          <CardText className="zip text-muted">{zip}</CardText>
-        </div>
-        <div
-          className="form-row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <Label for="monthlyRent">Monthly rent:</Label>
-          <CardText className="monthlyRent text-muted">{monthlyRent}</CardText>
-          <Label for="unitState">Unit state:</Label>
-          <CardText className="unitState text-muted">{unitState}</CardText>
-          <Label for="tenant_id">Tenant:</Label>
-          <CardText className="tenant_id text-muted">{tenant_id}</CardText>
-        </div>
-        <Label for="user_id">User ID:</Label>
-        <CardText className="user_id text-muted">{user_id}</CardText>
-        <div
-          className="form-row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <Button
-            onClick={handleShare}
+        <div>
+          <CardTitle name="address">{address}</CardTitle>
+          <div
+            className="form-row"
             style={{
-              background: "var(--quarternary)",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            Share Post
-          </Button>
-          <Button
-            onClick={handleView}
+            <Label for="city">City:</Label>
+            <CardText className="city text-muted">{city}</CardText>
+            <Label for="state">State:</Label>
+            <CardText className="state text-muted">{state}</CardText>
+            <Label for="zip">Zipcode:</Label>
+            <CardText className="zip text-muted">{zip}</CardText>
+          </div>
+          <div
+            className="form-row"
             style={{
-              background: "var(--quarternary)",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            Share View
-          </Button>
+            <Label for="monthlyRent">Monthly rent:</Label>
+            <CardText className="monthlyRent text-muted">
+              {monthlyRent}
+            </CardText>
+            <Label for="unitState">Unit state:</Label>
+            <CardText className="unitState text-muted">{unitState}</CardText>
+          </div>
+          <div
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Label for="tenant_id">Tenant: </Label>
+            <CardText className="tenant_id text-muted">{tenant_id}</CardText>
+          </div>
+          <div
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Label for="user_id">User:</Label>
+            <CardText className="user_id text-muted">{user_id}</CardText>
+          </div>
+          <div
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Button
+              href={"/unit/view-by-id/" + props.unit._id}
+              style={{
+                background: "var(--quarternary)",
+                width: "20%",
+              }}
+            >
+              Unit Display
+            </Button>
 
-          <Button
-            style={{
-              background: "var(--quarternary)",
-            }}
-            onClick={handleToggleEdit}
-          >
-            Edit
-          </Button>
-          <Button
-            style={{
-              background: "#860A35",
-              color: "white",
-            }}
-            onClick={toggle}
-          >
-            Delete
-          </Button>
+            <Button
+              style={{
+                background: "var(--quarternary)",
+                width: "20%",
+              }}
+              onClick={handleToggleEdit}
+            >
+              Edit
+            </Button>
+            <Button
+              style={{
+                background: "#860A35",
+                width: "20%",
+                color: "white",
+              }}
+              onClick={toggle}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
       </>
     );

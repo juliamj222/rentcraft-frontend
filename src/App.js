@@ -13,6 +13,9 @@ import PaymentsIndex from "./components/payments-section/PaymentsIndex";
 import UnitCreate from "./components/unit/UnitCreate";
 import UnitUpdate from "./components/unit/UnitUpdate";
 import WelcomeIndex from "./components/main-section/WelcomeIndex";
+import UnitDisplay from "./components/unit/UnitDisplay";
+import UnitFeedById from "./components/unit/UnitFeedById";
+import TenantsCreate from "./components/tenants-section/TenantsCreate";
 
 function App() {
   const [token, setToken] = useState("");
@@ -58,13 +61,31 @@ function App() {
           element={<MainIndex token={token} currentId={currentId} />}
         />
         <Route
+          path="/unit/view-by-id/:id"
+          element={<UnitFeedById token={token} currentId={currentId} />}
+        />
+        <Route
           path="/"
           element={<WelcomeIndex token={token} currentId={currentId} />}
         />
         <Route
           path="/auth"
           element={
-            <Auth updateToken={updateToken} updateCurrentId={updateCurrentId} />
+            <Auth
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+              currentId={currentId}
+            />
+          }
+        />
+        <Route
+          path="/tenant/create"
+          element={
+            <TenantsCreate
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+              currentId={currentId}
+            />
           }
         />
 
@@ -75,16 +96,18 @@ function App() {
               token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
+              currentId={currentId}
             />
           }
         />
         <Route
-          path="/tenants"
+          path="/tenants/view-all/:id"
           element={
             <TenantsIndex
               token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
+              currentId={currentId}
             />
           }
         />
@@ -95,6 +118,7 @@ function App() {
               token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
+              currentId={currentId}
             />
           }
         />
@@ -106,6 +130,7 @@ function App() {
               token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
+              currentId={currentId}
             />
           }
         />
@@ -116,6 +141,7 @@ function App() {
               token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
+              currentId={currentId}
             />
           }
         />
@@ -126,6 +152,7 @@ function App() {
               token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
+              currentId={currentId}
             />
           }
         />

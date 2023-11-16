@@ -31,6 +31,10 @@ function Navigation(props) {
         >
           Home
         </NavbarBrand>
+        <NavbarBrand href="/auth"> Login / Signup </NavbarBrand>
+        {/*         <NavItem>
+          <NavLink href="/auth"> Login / Signup </NavLink>
+        </NavItem> */}
         <NavbarToggler onClick={toggleNavbar} className="me-2" />
         <Collapse isOpen={!collapsed} navbar>
           <Nav
@@ -43,31 +47,19 @@ function Navigation(props) {
             }}
           >
             <NavItem>
-              <NavLink href="/auth"> Login / Signup </NavLink>
+              <NavLink href={"/user/" + props.currentId}>Profile</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href={"/feed/" + props.currentId}>
-                View Your Units
+              <NavLink href={"/feed/" + props.currentId}>Units</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href={"/tenants/view-all/" + props.currentId}>
+                Tenants
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href={"/user/" + props.currentId}>
-                View Your Profile
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/unit/create">Register a Unit</NavLink>
-            </NavItem>
-            <NavItem>
-
-              <NavLink href={"/tenants/" + props.currentId}>
-                View Your Tenants
-              </NavLink>
-
             </NavItem>
             <NavItem>
               <NavLink href={"/payments/" + props.currentId}>
-                View Rent Payments
+                Rent Payments
               </NavLink>
             </NavItem>
           </Nav>
