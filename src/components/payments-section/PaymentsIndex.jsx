@@ -1,4 +1,4 @@
-import { API_PAYMENTS } from "../constants/endpoints";
+import { API_PAYMENTS_VIEW_USER_ID } from "../constants/endpoints";
 import PaymentsCreate from "./PaymentsCreate";
 import PaymentsFeed from "./PaymentsFeed";
 import React, { useState, useEffect } from 'react';
@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 function PaymentsIndex(props) {
 
     const [paymentsFeedItem, setPaymentsFeedItem] = useState([]);
-    const [userId, setUserId] = useState("");
 
     async function fetchPaymentsFeed() {
 
@@ -24,7 +23,7 @@ function PaymentsIndex(props) {
             }
 
             // Send Request
-            const response = await fetch(API_PAYMENTS, requestOptions)
+            const response = await fetch(API_PAYMENTS_VIEW_USER_ID + "/" + props.currentId, requestOptions)
 
             // Get a Response
             const data = await response.json()
@@ -32,14 +31,16 @@ function PaymentsIndex(props) {
 
             // Set State
             setPaymentsFeedItem(data.payment)
-            setUserId(data.userId)
             
         } catch (error) {
 
             console.error(error)
 
         }
+
     }
+
+    
 
     useEffect(() => {
         if (!props.token) return;
@@ -50,9 +51,8 @@ function PaymentsIndex(props) {
     
   return (
     <>
-        <h1>Hello from PaymentsIndex</h1>
-        <PaymentsCreate token={props.token} fetchPaymentsFeed={fetchPaymentsFeed} />
-        <PaymentsFeed token={props.token} fetchPaymentsFeed={fetchPaymentsFeed} userId={userId} />
+        <PaymentsCreate paymentsFeedItem={paymentsFeedItem} token={props.token} fetchPaymentsFeed={fetchPaymentsFeed} currentId={props.currentId} />
+        <PaymentsFeed paymentsFeedItem={paymentsFeedItem} token={props.token} fetchPaymentsFeed={fetchPaymentsFeed} currentId={props.currentId} />
     </>
   );
 }
