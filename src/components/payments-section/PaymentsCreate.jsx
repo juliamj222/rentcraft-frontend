@@ -135,15 +135,15 @@ function PaymentsCreate(props) {
           {/* Select Unit */}
           <FormGroup>
             <Label for="selectUnit">Select Unit</Label>
+
             <Input
               id="selectUnit"
               name="selectUnit"
               type="select"
-              // type="text"
               value={unit_id}
               onChange={(e) => setUnit_id(e.target.value)}
+              placeholder="Select unit"
             >
-              <option>Select unit</option>
               {unitData.map((unit, index) => (
                 <option key={index} value={unit._id}>
                   {unit.address}
@@ -198,18 +198,18 @@ function PaymentsCreate(props) {
           {/* Select Payment State (Full, Partial etc.) */}
           <FormGroup>
             <Label for="selectPaymentState">Select Type of Payment</Label>
+
             <Input
-              id="selectPaymentState"
               name="selectPaymentState"
               type="select"
               value={paymentState}
               onChange={(e) => setPaymentState(e.target.value)}
             >
-              <option>Full Payment</option>
-              <option>Partial Payment</option>
-              <option>Late Payment</option>
+              <option>Full payment</option>
+              <option>Partial payment</option>
+              <option>Late payment</option>
               <option>Deposit</option>
-              <option>Refund</option>
+              <option>Other</option>
             </Input>
           </FormGroup>
 

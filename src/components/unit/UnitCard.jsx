@@ -220,14 +220,18 @@ function UnitCardF(props) {
           <FormGroup className="col col-3.2">
             <Label for="unitState">State of the unit:</Label>
             <Input
-              type="text"
               name="unitState"
-              id="unitState"
-              placeholder="Is the unit rented, vacant, or unavailable?"
+              type="select"
               value={unitStateInput}
               onChange={(e) => setUnitStateInput(e.target.value)}
-            />
+            >
+              <option>Vacant</option>
+              <option>Rented</option>
+              <option>Unavailable</option>
+              <option>Under repairs</option>
+            </Input>
           </FormGroup>
+
           {/* Form Group unitState ends */}
         </div>
         {/* Form Group tenant_id */}

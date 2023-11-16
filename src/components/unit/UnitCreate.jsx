@@ -163,14 +163,18 @@ function UnitCreate(props) {
           {/* Form Group unitState */}
           <FormGroup>
             <Label for="unitState">State of the unit:</Label>
+
             <Input
-              type="text"
               name="unitState"
-              id="unitState"
-              placeholder="Is the unit rented, vacant, or unavailable?"
+              type="select"
               value={unitState}
               onChange={(e) => setUnitState(e.target.value)}
-            />
+            >
+              <option>Vacant</option>
+              <option>Rented</option>
+              <option>Unavailable</option>
+              <option>Under repairs</option>
+            </Input>
           </FormGroup>
           {/* Form Group unitState ends */}
           {/* Form Group tenant id */}
