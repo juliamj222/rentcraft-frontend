@@ -16,8 +16,12 @@ import WelcomeIndex from "./components/main-section/WelcomeIndex";
 import UnitDisplay from "./components/unit/UnitDisplay";
 import UnitFeedById from "./components/unit/UnitFeedById";
 import TenantsCreate from "./components/tenants-section/TenantsCreate";
+
+import PaymentsCreate from "./components/payments-section/PaymentsCreate";
+
 import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHistory";
 import PaymentsTenantHistory from "./components/payments-section/PaymentsTenantHistory";
+
 
 function App() {
   const [token, setToken] = useState("");
@@ -84,6 +88,17 @@ function App() {
           path="/tenant/create"
           element={
             <TenantsCreate
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+              currentId={currentId}
+            />
+          }
+        />
+
+        <Route
+          path="/payments/create/:id"
+          element={
+            <PaymentsCreate
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               currentId={currentId}
