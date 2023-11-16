@@ -5,7 +5,8 @@ function DeleteConfirmation(props) {
     <>
       <Modal isOpen={props.modal} toggle={props.toggle}>
         <ModalBody style={{ fontSize: "26px", textAlign: "center" }}>
-          Are you sure you want to DELETE {props.address}? This is PERMANENT.
+          Are you sure that you want to DELETE {props.address}? This is
+          PERMANENT.
         </ModalBody>
         <ModalFooter>
           <Button

@@ -59,7 +59,7 @@ function MainIndex(props) {
     <>
       <Container className="mt-5">
         <Row>
-          <Col md="8">
+          <Col>
             <UnitFeed
               unitFeedItems={unitFeedItems}
               token={props.token}

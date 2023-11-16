@@ -1,7 +1,8 @@
-import { Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import React, { useState } from "react";
 import { API_UNIT_CREATE } from "../constants/endpoints";
 import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
+import { useNavigate } from "react-router-dom";
 
 function UnitCreate(props) {
   const [user_id, setUser_id] = useState("");
@@ -12,6 +13,7 @@ function UnitCreate(props) {
   const [zip, setZip] = useState("");
   const [monthlyRent, setMonthlyRent] = useState("");
   const [unitState, setUnitState] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -47,6 +49,8 @@ function UnitCreate(props) {
       const data = await response.json();
       // refresh the unit feed
       console.log(data);
+
+      navigate("/feed/" + props.currentId);
     } catch (error) {
       console.error(error);
     }
@@ -55,12 +59,28 @@ function UnitCreate(props) {
   return (
     <>
       <div
-        className="d-flex neutral-background rounded p-3 m-5 flex-column"
         style={{
-          background: "var(--secondary)",
+          background: "var(--primary)",
+          paddingLeft: "5%",
+          paddingRight: "5%",
+          paddingBottom: "2%",
+          marginLeft: "20%",
+          marginRight: "20%",
+          marginTop: "2%",
+
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "10px",
         }}
       >
-        <h2 className="font-primary text-center">Register Your Unit</h2>
+        <h2
+          className="text-center font-primary bold"
+          style={{ paddingTop: "5%" }}
+        >
+          Register Your Unit
+        </h2>
         <Form>
           {/* user_id tenant_id address city state zip monthlyRent unitState */}
           {/* Form Group address */}
@@ -171,10 +191,25 @@ function UnitCreate(props) {
             <button
               className="button rounded"
               title="Create unit"
+              style={{
+                background: "var(--secondary)",
+                color: "black",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={handleSubmit}
             >
               Register this unit
             </button>
+            <Button
+              href={"/feed/" + props.currentId}
+              style={{
+                background: "var(--quarternary)",
+              }}
+            >
+              All units
+            </Button>
           </div>
           {/* Buttons End */}
         </Form>

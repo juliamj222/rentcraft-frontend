@@ -51,44 +51,76 @@ function Login(props) {
 
   return (
     <>
-      <div className="d-flex justify-content-center mt-5">
-        <div
-          className="secondary-background p-5 rounded"
-          style={{ width: "450px", height: "370px" }}
-        >
-          <h2 className="text-center font-primary bold">LOGIN FORM</h2>
-          <Form>
-            {/* Form Group Email */}
-            <FormGroup>
-              <Label for="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                placeholder="Enter Email Address"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormGroup>
-            {/* Form Group Email Ending */}
-            {/* Form Group Password */}
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                placeholder="Enter Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormGroup>
-            {/* Form Group Password Ending */}
-            {/* { <LoginButton title="Login" onClick={handleSubmit} />  } */}
-            <button onClick={handleSubmit} className="LoginButton">
-              Log in
-            </button>
-          </Form>
+      <div
+        style={{
+          background: "var(--primary)",
+          paddingLeft: "5%",
+          paddingRight: "5%",
+          paddingBottom: "2%",
+          marginLeft: "20%",
+          marginRight: "20%",
+          marginTop: "2%",
+
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "10px",
+        }}
+      >
+        <div className="d-flex justify-content-center mt-5">
+          <div
+            className="secondary-background  rounded"
+            style={{ width: "100%" /* , height: "80%" */ }}
+          >
+            <h2
+              className="text-center font-primary bold"
+              style={{ paddingBottom: "5%" }}
+            >
+              LOGIN FORM
+            </h2>
+            <Form>
+              {/* Form Group Email */}
+              <FormGroup>
+                <Label for="email">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  placeholder="Enter Email Address"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </FormGroup>
+              {/* Form Group Email Ending */}
+              {/* Form Group Password */}
+              <FormGroup>
+                <Label for="password">Password</Label>
+                <Input
+                  id="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormGroup>
+              {/* Form Group Password Ending */}
+              {/* { <LoginButton title="Login" onClick={handleSubmit} />  } */}
+              <button
+                onClick={handleSubmit}
+                className="LoginButton"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                Log in
+              </button>
+            </Form>
+          </div>
         </div>
       </div>
     </>

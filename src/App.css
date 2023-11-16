@@ -13,3 +13,13 @@
   font-family: "Arial", monospace;
   color: black;
 }
+
+.container {
+  padding: 5%;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10%;
+  }
+}
