@@ -89,11 +89,12 @@ function App() {
           }
         />
         <Route
-          path="/payments"
+          path="/payments/user/:id"
           element={
             <PaymentsIndex
               token={token}
               updateToken={updateToken}
+              currentId={currentId}
               updateCurrentId={updateCurrentId}
             />
           }
