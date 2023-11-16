@@ -128,8 +128,29 @@ function PaymentsCreate(props) {
 
   return (
     <>
-      <div>
-        <h4>Create a payment</h4>
+      <div
+        style={{
+          background: "var(--primary)",
+          paddingLeft: "5%",
+          paddingRight: "5%",
+          paddingBottom: "2%",
+          marginLeft: "20%",
+          marginRight: "20%",
+          marginTop: "2%",
+
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "10px",
+        }}
+      >
+        <h2
+          className="text-center font-primary bold"
+          style={{ paddingTop: "5%" }}
+        >
+          Create a payment
+        </h2>
 
         <Form>
           {/* Select Unit */}
