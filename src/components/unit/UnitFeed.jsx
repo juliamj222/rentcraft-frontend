@@ -6,7 +6,8 @@ function UnitFeed(props) {
   const params = useParams();
   return (
     <>
-      <div style={{ background: "var(--primary)" }} className="rounded p-2 m-2">
+      <div /* style={{ background: "var(--primary)" }} className="rounded p-2 m-2" */
+      >
         {/*mapping*/}
         {props.unitFeedItems.map((unit, index) => (
           <UnitCardF

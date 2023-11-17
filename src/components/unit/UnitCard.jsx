@@ -282,7 +282,9 @@ function UnitCardF(props) {
     return (
       <>
         <div>
-          <CardTitle name="address">{address}</CardTitle>
+          <CardTitle name="address" style={{ fontSize: "1.5em" }}>
+            {address}
+          </CardTitle>
           <div
             className="form-row"
             style={{
@@ -380,20 +382,46 @@ function UnitCardF(props) {
   return (
     //    {props.unit.user_id.includes(props.currentId)}
     <>
-      <Form>
-        <Card
-          className="mb-3 mt-3"
+      <div
+        style={{
+          background: "var(--primary)",
+          paddingLeft: "2%",
+          paddingRight: "2%",
+          paddingBottom: "2%",
+
+          marginLeft: "20%",
+          marginRight: "20%",
+
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "10px",
+        }}
+      >
+        <Form
           style={{
             width: "100%",
-            backgroundColor: "var(--backgroundColor)",
-            color: "var(--tritary)",
           }}
         >
-          <CardBody>
-            {editModeEnabled ? EditModeForm() : RegularView()}
-          </CardBody>
-        </Card>
-      </Form>
+          <Card
+            className="mt-3"
+            style={{
+              width: "100%",
+
+              //  color: "var(--tritary)",
+            }}
+          >
+            <CardBody
+              style={{
+                background: "var(--primary)",
+              }}
+            >
+              {editModeEnabled ? EditModeForm() : RegularView()}
+            </CardBody>
+          </Card>
+        </Form>
+      </div>
       <DeleteConfirmation
         modal={modal}
         toggle={toggle}
