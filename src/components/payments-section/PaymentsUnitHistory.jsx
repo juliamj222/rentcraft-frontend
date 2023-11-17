@@ -52,7 +52,7 @@ function PaymentsUnitHistory(props) {
 
   return (
     <>
-        <h1>Hello from PaymentsUnitHistory</h1>
+        <h1>Unit Payment History</h1>
         {unitHistory.map((payment, index) => (
             <PaymentsCard
             key={index}

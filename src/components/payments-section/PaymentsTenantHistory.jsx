@@ -53,7 +53,7 @@ function PaymentsTenantHistory(props) {
 
   return (
     <>
-        <h1>Hello from PaymentsTenantHistory</h1>
+        <h1>Tenant Payment History</h1>
         {tenantHistory.map((payment, index) => (
             <PaymentsCard
             key={index}
