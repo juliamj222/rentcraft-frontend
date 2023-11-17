@@ -180,7 +180,6 @@ function PaymentsCreate(props) {
               id="selectTenant"
               name="selectTenant"
               type="select"
-              // type="text"
               value={tenant_id}
               onChange={(e) => setTenant_id(e.target.value)}
             >
