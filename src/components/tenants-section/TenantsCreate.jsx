@@ -4,7 +4,7 @@ import { API_TENANTS_CREATE } from "../constants/endpoints";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 function TenantsCreate(props) {
-  const params = useParams();
+  /*   const params = useParams(); */
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

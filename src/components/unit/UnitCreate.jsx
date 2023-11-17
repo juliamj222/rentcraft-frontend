@@ -1,12 +1,12 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import React, { useState } from "react";
 import { API_UNIT_CREATE } from "../constants/endpoints";
-import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
+/* import { API_UNIT_VIEW_ALL } from "../constants/endpoints"; */
 import { useNavigate } from "react-router-dom";
 
 function UnitCreate(props) {
-  const [user_id, setUser_id] = useState("");
-  const [tenant_id, setTenant_id] = useState("");
+  /*   const [user_id, setUser_id] = useState("");
+  const [tenant_id, setTenant_id] = useState(""); */
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -67,7 +67,7 @@ function UnitCreate(props) {
           marginLeft: "20%",
           marginRight: "20%",
           marginTop: "2%",
-
+          marginBottom: "2%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -177,19 +177,7 @@ function UnitCreate(props) {
             </Input>
           </FormGroup>
           {/* Form Group unitState ends */}
-          {/* Form Group tenant id */}
-          <FormGroup>
-            <Label for="tenant_id">Tenant ID</Label>
-            <Input
-              type="tenant_id"
-              name="tenant_id"
-              id="tenant_id"
-              placeholder="Tenant ID"
-              value={tenant_id}
-              onChange={(e) => setTenant_id(e.target.value)}
-            />
-          </FormGroup>
-          {/* Form Group tenant id ends */}
+
           {/* Buttons */}
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <button

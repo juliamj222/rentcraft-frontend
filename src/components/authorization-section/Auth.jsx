@@ -9,7 +9,7 @@ const Auth = (props) => {
   const [showLogin, setShowLogin] = useState(false);
 
   function authToggle() {
-    return showLogin ? "Click to register" : "Click to log in";
+    return showLogin ? "Click to log in" : "Click to register";
   }
 
   function handleToggle() {
@@ -49,13 +49,13 @@ const Auth = (props) => {
       </div>
 
       {showLogin ? (
-        <Login
+        <Register
           updateToken={props.updateToken}
           handleSwitch={handleToggle}
           updateCurrentId={props.updateCurrentId}
         />
       ) : (
-        <Register
+        <Login
           updateToken={props.updateToken}
           handleSwitch={handleToggle}
           updateCurrentId={props.updateCurrentId}

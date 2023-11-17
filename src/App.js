@@ -22,7 +22,6 @@ import PaymentsCreate from "./components/payments-section/PaymentsCreate";
 import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHistory";
 import PaymentsTenantHistory from "./components/payments-section/PaymentsTenantHistory";
 
-
 function App() {
   const [token, setToken] = useState("");
   const [currentId, setCurrentId] = useState("");
@@ -78,9 +77,10 @@ function App() {
           path="/auth"
           element={
             <Auth
+              token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
-              currentId={currentId}
+              // currentId={currentId}
             />
           }
         />
@@ -88,6 +88,7 @@ function App() {
           path="/tenant/create"
           element={
             <TenantsCreate
+              token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               currentId={currentId}
@@ -99,6 +100,7 @@ function App() {
           path="/payments/create/:id"
           element={
             <PaymentsCreate
+              token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               currentId={currentId}

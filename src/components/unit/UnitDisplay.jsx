@@ -34,7 +34,9 @@ function UnitDisplay(props) {
         }}
       >
         <CardBody>
-          <CardTitle name="address">{address}</CardTitle>
+          <CardTitle name="address" style={{ fontSize: "1.5em" }}>
+            {address}
+          </CardTitle>
           <div
             className="form-row"
             style={{
