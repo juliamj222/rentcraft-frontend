@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 import {
   Button,
@@ -9,8 +9,13 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { API_PAYMENTS_UPDATE, API_TENANTS_VIEW_ALL, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
+import {
+  API_PAYMENTS_UPDATE,
+  API_TENANTS_VIEW_ALL,
+  API_UNIT_VIEW_BY_USER,
+} from "../constants/endpoints";
 import { useNavigate } from "react-router-dom";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function PaymentsCard(props) {
   const { unit_id, tenant_id, amount, _id, date, paymentState } = props.payment;
@@ -22,18 +27,18 @@ function PaymentsCard(props) {
   const [editDate, setEditDate] = useState(date);
   const [editAmount, setEditAmount] = useState(amount);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleToggleEdit() {
     setEditModeEnabled(!editModeEnabled);
   }
 
   function navigateToUnitHistory() {
-    navigate("/payments/unit/" + unit_id)
+    navigate("/payments/unit/" + unit_id);
   }
 
   function navigateToTenantHistory() {
-    navigate("/payments/tenant/" + tenant_id)
+    navigate("/payments/tenant/" + tenant_id);
   }
 
   // functions to populate dropdowns
@@ -42,8 +47,8 @@ function PaymentsCard(props) {
   const [unitId, setUnitId] = useState(unit_id);
   const [tenantId, setTenantId] = useState(tenant_id);
 
-  const unitAddress = unitData.map(unit => unit.address)
-  const tenantFirstName = tenantData.map(tenant => tenant.firstName)
+  const unitAddress = unitData.map((unit) => unit.address);
+  const tenantFirstName = tenantData.map((tenant) => tenant.firstName);
 
   async function fetchUnits() {
     try {
@@ -128,45 +133,46 @@ function PaymentsCard(props) {
         date: editDate,
         paymentState: editPaymentState,
       };
-  
+
       // Request Options
       const requestOptions = {
         method: "PATCH",
         headers: myHeaders,
         body: JSON.stringify(body),
       };
-  
+
       // Send Request
       const response = await fetch(
         API_PAYMENTS_UPDATE + "/" + _id,
         requestOptions
       );
-  
+
       // Get a Response
       const data = await response.json();
       console.log(data);
 
       // Refresh the feed
-      props.fetchPaymentsFeed()
-  
+      props.fetchPaymentsFeed();
+
       // Change the edit mode to false
       setEditModeEnabled(false);
-
     } catch (error) {
       console.error(error);
     }
   }
 
+  if (!props.token) return <ReturnToAuth />;
+
   return (
     <>
       <Card
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "10px",
-      }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "10px",
+        }}
       >
         <CardBody
           style={{
@@ -174,20 +180,19 @@ function PaymentsCard(props) {
             flexDirection: "column",
           }}
         >
-          
           {/* Payment ID */}
           <CardTitle style={{ fontSize: "1.5em" }}>Payment ID: {_id}</CardTitle>
 
           {/* Unit ID */}
           {editModeEnabled ? (
             <>
-              <Label for='selectUnit'>Select Unit</Label>
+              <Label for="selectUnit">Select Unit</Label>
               <Input
-              id='selectUnit'
-              name='selectUnit'
-              type='select'
-              value={unitId}
-              onChange={(e) => setUnitId(e.target.value)}
+                id="selectUnit"
+                name="selectUnit"
+                type="select"
+                value={unitId}
+                onChange={(e) => setUnitId(e.target.value)}
               >
                 {unitData.map((unit, index) => (
                   <option key={index} value={unit._id}>
@@ -196,19 +201,20 @@ function PaymentsCard(props) {
                 ))}
               </Input>
             </>
-          ) : <CardText>ADDRESS</CardText> }
-          
+          ) : (
+            <CardText>ADDRESS</CardText>
+          )}
 
           {/* Tenant ID */}
           {editModeEnabled ? (
             <>
-              <Label for='selectTenant'>Select Tenant</Label>
+              <Label for="selectTenant">Select Tenant</Label>
               <Input
-              id='selectTenant'
-              name='selectTenant'
-              type='select'
-              value={tenantId}
-              onChange={(e) => setTenantId(e.target.value)}
+                id="selectTenant"
+                name="selectTenant"
+                type="select"
+                value={tenantId}
+                onChange={(e) => setTenantId(e.target.value)}
               >
                 {tenantData.map((tenant, index) => (
                   <option key={index} value={tenant._id}>
@@ -217,16 +223,18 @@ function PaymentsCard(props) {
                 ))}
               </Input>
             </>
-          ) : <CardText>TENANT NAME</CardText> }
+          ) : (
+            <CardText>TENANT NAME</CardText>
+          )}
           {/* <CardText>Tenant ID: {tenant_id}</CardText> */}
 
           {/* Amount */}
           {editModeEnabled ? (
             <>
               <Label for="amount">Amount</Label>
-              <Input 
+              <Input
                 id="amount"
-                type='number'
+                type="number"
                 value={editAmount}
                 onChange={(e) => setEditAmount(e.target.value)}
               />
@@ -239,9 +247,9 @@ function PaymentsCard(props) {
           {editModeEnabled ? (
             <>
               <Label for="date">Date</Label>
-              <Input 
+              <Input
                 id="date"
-                type='date'
+                type="date"
                 value={editDate}
                 onChange={(e) => setEditDate(e.target.value)}
               />
@@ -254,9 +262,9 @@ function PaymentsCard(props) {
           {editModeEnabled ? (
             <>
               <Label for="paymentState">Payment Status</Label>
-              <Input 
+              <Input
                 id="paymentState"
-                type='select'
+                type="select"
                 value={editPaymentState}
                 onChange={(e) => setEditPaymentState(e.target.value)}
               >
@@ -273,9 +281,7 @@ function PaymentsCard(props) {
 
           {/*Toggle Edit Button */}
           {props.user_id === props.user?.user_id?._id && (
-            <Button onClick={handleToggleEdit}>
-              Edit Payment
-            </Button>
+            <Button onClick={handleToggleEdit}>Edit Payment</Button>
           )}
 
           {/* Save Button in Edit Mode */}
@@ -298,7 +304,6 @@ function PaymentsCard(props) {
               Tenant Payment History
             </Button>
           )}
-
         </CardBody>
       </Card>
     </>
