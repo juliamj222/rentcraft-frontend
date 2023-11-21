@@ -18,6 +18,8 @@ import UnitFeedById from "./components/unit/UnitFeedById";
 import TenantsCreate from "./components/tenants-section/TenantsCreate"; 
 import Paymentparams from "./components/payments-section/PaymentNavbar";
 
+
+
 import PaymentsCreate from "./components/payments-section/PaymentsCreate";
 
 import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHistory";
@@ -45,10 +47,12 @@ function App() {
     localStorage.setItem("CurrentId", newCurrentId);
   }
 
-  function updateToken(newToken) {
+  function updateToken(newToken) { 
     setToken(newToken);
     localStorage.setItem("token", newToken); 
-  } 
+  
+  }
+
 
   
   useEffect(() => {
@@ -78,23 +82,29 @@ function App() {
       <Routes>
         <Route
           path="/feed/:id"
-          element={<MainIndex token={token} currentId={currentId} />}
+          element={<MainIndex 
+            token={token} 
+            currentId={currentId} />}
         />
         <Route
           path="/unit/view-by-id/:id"
-          element={<UnitFeedById token={token} currentId={currentId} />}
+          element={<UnitFeedById 
+            token={token} 
+            currentId={currentId} />}
         />
         <Route
           path="/"
-          element={<WelcomeIndex token={token} currentId={currentId} />}
+          element={<WelcomeIndex 
+            token={token} 
+            currentId={currentId} />}
         />
         <Route
           path="/auth"
           element={
-            <Auth
+            <Auth 
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
-              currentId={currentId}
+              //currentId={currentId}
             />
           }
         />
