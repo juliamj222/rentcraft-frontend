@@ -3,6 +3,7 @@ import ProfileCard from "./ProfileCard";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { API_USER_VIEW_BY_ID } from "../constants/endpoints";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 // ! ReturnToAuth
 
 function ProfileView(props) {
@@ -46,7 +47,7 @@ function ProfileView(props) {
     fetchProfile();
   }, [props.token]);
 
-  // ! ReturnToAuth
+  if (!props.token) return <ReturnToAuth />;
 
   return (
     <>

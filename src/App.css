@@ -14,12 +14,25 @@
   color: black;
 }
 
-.container {
-  padding: 5%;
+.editingCard {
 }
 
 @media screen and (max-width: 768px) {
   .container {
     padding: 10%;
   }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Navbar {
+  display: flex;
+  justify-content: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }

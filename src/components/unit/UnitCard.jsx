@@ -35,6 +35,7 @@ function UnitCardF(props) {
     unitState,
     _id,
     userId,
+    active,
   } = props.unit;
   const navigate = useNavigate();
   //usf usestate
@@ -47,6 +48,7 @@ function UnitCardF(props) {
   const [zipInput, setZipInput] = useState(zip);
   const [monthlyRentInput, setMonthlyRentInput] = useState(monthlyRent);
   const [unitStateInput, setUnitStateInput] = useState(unitState);
+  const [activeInput, setActiveInput] = useState(active);
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -59,11 +61,6 @@ function UnitCardF(props) {
     navigate("/view-by-id/" + _id);
     navigator.clipboard.writeText("http://localhost:3000/feed/" + _id);
   }
-
-  /*  function handleShare() {
-    // Copy to clipboard
-  
-  } */
 
   // this function just toggles to the opposite, sets true to false etc
   function handleToggleEdit() {
@@ -87,6 +84,7 @@ function UnitCardF(props) {
       monthlyRent: monthlyRentInput,
       unitState: unitStateInput,
       _id: _id,
+      active: activeInput === "true" ? true : false,
     };
     // Request Options
     const requestOptions = {
@@ -137,141 +135,158 @@ function UnitCardF(props) {
   function EditModeForm() {
     return (
       <>
-        <Label for="address">Address</Label>
-        <Input
-          id="address"
-          value={addressInput}
-          onChange={(e) => setAddressInput(e.target.value)}
-          className="mb-2"
-          type="text"
-        />
-
-        <div
-          className="form-row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <FormGroup className="col  col-3.2">
-            <Label for="city">City</Label>
-            <Input
-              type="text"
-              name="city"
-              id="city"
-              placeholder="City"
-              value={cityInput}
-              onChange={(e) => setCityInput(e.target.value)}
-            />
-          </FormGroup>
-
-          <FormGroup className="col col-3.2">
-            <Label for="state">State</Label>
-            <Input
-              type="text"
-              name="state"
-              id="state"
-              placeholder="State"
-              value={stateInput}
-              onChange={(e) => setStateInput(e.target.value)}
-            />
-          </FormGroup>
-
-          <FormGroup className="col col-3.2">
-            <Label for="zip">Zip</Label>
-            <Input
-              type="text"
-              name="zip"
-              id="zip"
-              placeholder="Zipcode"
-              value={zipInput}
-              onChange={(e) => {
-                setZipInput(e.target.value);
-              }}
-            />
-          </FormGroup>
-        </div>
-        <div
-          className="form-row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <FormGroup className="col col-3.2">
-            <Label for="monthlyRent">Monthly Rent</Label>
-            <Input
-              type="text"
-              name="monthlyRent"
-              id="monthlyRent"
-              placeholder="Expected monthly rent"
-              value={monthlyRentInput}
-              onChange={(e) => {
-                setMonthlyRentInput(e.target.value);
-              }}
-            />
-          </FormGroup>
-          {/* Form Group monthlyRent ends */}
-          {/* Form Group unitState */}
-          <FormGroup className="col col-3.2">
-            <Label for="unitState">State of the unit:</Label>
-            <Input
-              name="unitState"
-              type="select"
-              value={unitStateInput}
-              onChange={(e) => setUnitStateInput(e.target.value)}
-            >
-              <option>Vacant</option>
-              <option>Rented</option>
-              <option>Unavailable</option>
-              <option>Under repairs</option>
-            </Input>
-          </FormGroup>
-
-          {/* Form Group unitState ends */}
-        </div>
-        {/* Form Group tenant_id */}
-        <FormGroup>
-          <Label for="tenant_id">Tenant ID</Label>
+        <div style={{ width: "100%" }}>
+          <Label for="address">Address</Label>
           <Input
-            type="tenant_id"
-            name="tenant_id"
-            id="tenant_id"
-            placeholder="Tenant ID"
-            value={tenant_idInput}
-            onChange={(e) => setTenant_idInput(e.target.value)}
+            id="address"
+            value={addressInput}
+            onChange={(e) => setAddressInput(e.target.value)}
+            className="mb-2"
+            type="text"
           />
-        </FormGroup>
 
-        {/* Form Group tenant id ends */}
-        <div
-          className="form-row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <Button
+          <div
+            className="form-row"
             style={{
-              background: "var(--quarternary)",
-            }}
-            onClick={handleEdit}
-          >
-            Save
-          </Button>
-
-          <Button
-            style={{
-              background: "var(--quarternary)",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
             }}
           >
-            Take me back
-          </Button>
+            <FormGroup className="col  col-3.2">
+              <Label for="city">City</Label>
+              <Input
+                type="text"
+                name="city"
+                id="city"
+                placeholder="City"
+                value={cityInput}
+                onChange={(e) => setCityInput(e.target.value)}
+              />
+            </FormGroup>
+
+            <FormGroup className="col col-3.2">
+              <Label for="state">State</Label>
+              <Input
+                type="text"
+                name="state"
+                id="state"
+                placeholder="State"
+                value={stateInput}
+                onChange={(e) => setStateInput(e.target.value)}
+              />
+            </FormGroup>
+
+            <FormGroup className="col col-3.2">
+              <Label for="zip">Zip</Label>
+              <Input
+                type="text"
+                name="zip"
+                id="zip"
+                placeholder="Zipcode"
+                value={zipInput}
+                onChange={(e) => {
+                  setZipInput(e.target.value);
+                }}
+              />
+            </FormGroup>
+          </div>
+          <div
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <FormGroup className="col col-3.2">
+              <Label for="monthlyRent">Monthly Rent</Label>
+              <Input
+                type="text"
+                name="monthlyRent"
+                id="monthlyRent"
+                placeholder="Expected monthly rent"
+                value={monthlyRentInput}
+                onChange={(e) => {
+                  setMonthlyRentInput(e.target.value);
+                }}
+              />
+            </FormGroup>
+            {/* Form Group monthlyRent ends */}
+            {/* Form Group unitState */}
+            <FormGroup className="col col-3.2">
+              <Label for="unitState">State of the unit:</Label>
+              <Input
+                name="unitState"
+                type="select"
+                value={unitStateInput}
+                onChange={(e) => setUnitStateInput(e.target.value)}
+              >
+                <option>Vacant</option>
+                <option>Rented</option>
+                <option>Unavailable</option>
+                <option>Under repairs</option>
+              </Input>
+            </FormGroup>
+
+            {/* Form Group unitState ends */}
+          </div>
+          {/* Form Group tenant_id */}
+          <FormGroup>
+            <Label for="tenant_id">Tenant ID</Label>
+            <Input
+              type="tenant_id"
+              name="tenant_id"
+              id="tenant_id"
+              placeholder="Tenant ID"
+              value={tenant_idInput}
+              onChange={(e) => setTenant_idInput(e.target.value)}
+            />
+          </FormGroup>
+
+          {/* Form Group tenant id ends */}
+          <div
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            {/* Form Group active starts */}
+            <FormGroup className="col col-3.2">
+              <Label for="active">In my portfolio?</Label>
+              <Input
+                name="active"
+                type="select"
+                value={activeInput}
+                onChange={(e) => setActiveInput(e.target.value)}
+              >
+                <option>True</option>
+                <option>False</option>
+              </Input>
+            </FormGroup>
+
+            {/* Form Group active ends */}
+            <Button
+              style={{
+                background: "var(--quarternary)",
+              }}
+              onClick={handleEdit}
+            >
+              Save
+            </Button>
+
+            <Button
+              style={{
+                background: "var(--quarternary)",
+              }}
+            >
+              Take me back
+            </Button>
+          </div>
         </div>
       </>
     );
@@ -281,126 +296,152 @@ function UnitCardF(props) {
     console.log(props.unit);
     return (
       <>
-        <div>
-          <CardTitle name="address">{address}</CardTitle>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            // justifyContent: "space-between",
+          }}
+        >
           <div
-            className="form-row"
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              width: "100%",
+              // display: "flex",
+              // flexDirection: "row",
+              // justifyContent: "space-between",
             }}
           >
-            <Label for="city">City:</Label>
-            <CardText className="city text-muted">{city}</CardText>
-            <Label for="state">State:</Label>
-            <CardText className="state text-muted">{state}</CardText>
-            <Label for="zip">Zipcode:</Label>
-            <CardText className="zip text-muted">{zip}</CardText>
-          </div>
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Label for="monthlyRent">Monthly rent:</Label>
-            <CardText className="monthlyRent text-muted">
-              {monthlyRent}
-            </CardText>
-            <Label for="unitState">Unit state:</Label>
-            <CardText className="unitState text-muted">{unitState}</CardText>
-          </div>
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Label for="tenant_id">Tenant: </Label>
-            <CardText className="tenant_id text-muted">{tenant_id}</CardText>
-          </div>
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Label for="user_id">User:</Label>
-            <CardText className="user_id text-muted">{user_id}</CardText>
-          </div>
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Button
-              href={"/unit/view-by-id/" + props.unit._id}
+            <CardTitle name="address" style={{ fontSize: "1.5em" }}>
+              {address}
+            </CardTitle>
+            <div
+              className="form-row"
               style={{
-                background: "var(--quarternary)",
-                width: "20%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
             >
-              Unit Display
-            </Button>
+              <CardText className="city text-muted">{city} ||</CardText>
 
-            <Button
+              <CardText className="state text-muted">{state} ||</CardText>
+
+              <CardText className="zip text-muted">{zip}</CardText>
+            </div>
+            <div
+              className="form-row"
               style={{
-                background: "var(--quarternary)",
-                width: "20%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
-              onClick={handleToggleEdit}
             >
-              Edit
-            </Button>
-            <Button
+              <CardText className="unitState text-muted">
+                {unitState} ||
+              </CardText>
+              <CardText className="monthlyRent text-muted">
+                {monthlyRent} ||
+              </CardText>
+              <CardText className="monthlyRent text-muted">
+                Placeholder Paid?
+              </CardText>
+            </div>
+            <div
+              className="form-row"
               style={{
-                background: "#860A35",
-                width: "20%",
-                color: "white",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
-              onClick={toggle}
             >
-              Delete
-            </Button>
+              <CardText className="tenant_id text-muted">{tenant_id}</CardText>
+            </div>
+
+            <div
+              className="form-row"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <Button
+                href={"/unit/view-by-id/" + props.unit._id}
+                style={{
+                  background: "var(--quarternary)",
+                  //     width: "20%",
+                }}
+              >
+                Unit Display
+              </Button>
+
+              <Button
+                style={{
+                  background: "var(--quarternary)",
+                  //    width: "20%",
+                }}
+                onClick={handleToggleEdit}
+              >
+                Edit
+              </Button>
+              {/* If wanting to have DELETE UNIT functionality, just uncomment the code below */}
+              {/*               <Button
+                style={{
+                  background: "#860A35",
+                  //        width: "20%",
+                  color: "white",
+                }}
+                onClick={toggle}
+              >
+                Delete
+              </Button> */}
+            </div>
           </div>
         </div>
       </>
     );
   }
   return (
-    //    {props.unit.user_id.includes(props.currentId)}
     <>
-      <Form>
-        <Card
-          className="mb-3 mt-3"
+      <div
+        style={{
+          display: "flex",
+          direction: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          marginBottom: "1.5%",
+        }}
+      >
+        <div
           style={{
-            width: "100%",
-            backgroundColor: "var(--backgroundColor)",
-            color: "var(--tritary)",
+            background: "var(--primary)",
+            paddingLeft: "2%",
+            paddingRight: "2%",
+            paddingBottom: "5%",
+            borderRadius: "10px",
           }}
         >
-          <CardBody>
-            {editModeEnabled ? EditModeForm() : RegularView()}
-          </CardBody>
-        </Card>
-      </Form>
-      <DeleteConfirmation
-        modal={modal}
-        toggle={toggle}
-        address={address}
-        id={_id}
-        handleDelete={handleDelete}
-      />
+          <Form>
+            <Card className="mt-3">
+              <CardBody
+                style={{
+                  background: "white",
+                }}
+              >
+                {editModeEnabled ? EditModeForm() : RegularView()}
+              </CardBody>
+            </Card>
+          </Form>
+        </div>
+        <DeleteConfirmation
+          modal={modal}
+          toggle={toggle}
+          address={address}
+          id={_id}
+          handleDelete={handleDelete}
+        />
+      </div>
     </>
   );
 }

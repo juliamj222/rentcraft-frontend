@@ -1,15 +1,72 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { API_TENANTS_CREATE } from "../constants/endpoints";
+import { Alert } from "reactstrap";
+import {
+  API_TENANTS_CREATE,
+  API_UNIT_VIEW_BY_USER,
+} from "../constants/endpoints";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 function TenantsCreate(props) {
-  const params = useParams();
-
+  /*   const params = useParams(); */
+  const [unit_id, setUnit_id] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [tenantRegistered, setTenantRegistered] = useState(false);
+
+  // functions to populate dropdown
+  const [unitData, setUnitData] = useState([]);
+
+  function TenantRegistered(props) {
+    const [visible, setVisible] = useState(true);
+
+    const onDismiss = () => setVisible(false);
+
+    return (
+      <Alert color="info" isOpen={visible} toggle={onDismiss}>
+        Tenant Registered!
+      </Alert>
+    );
+  }
+
+  async function fetchUnits() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
+
+      // Request Options
+      let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      // Send Request
+      const response = await fetch(
+        API_UNIT_VIEW_BY_USER + "/" + props.currentId,
+        requestOptions
+      );
+
+      // Get a Response
+      const data = await response.json();
+      console.log(data);
+
+      // Set State
+      setUnitData(data.user_units);
+      if (data.user_units.length > 0) {
+        setUnit_id(data.user_units[0]._id);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (!props.token) return;
+    fetchUnits();
+  }, [props.token]);
 
   async function handleSubmit() {
     try {
@@ -39,9 +96,10 @@ function TenantsCreate(props) {
       // Get a Response
       const data = await response.json();
       console.log(data);
-
-      // Refresh the Tenants Feed
-      props.fetchTenants();
+      [setEmail, setFirstName, setLastName, setPhone, setUnit_id].map((func) =>
+        func("")
+      );
+      setTenantRegistered(true);
     } catch (error) {
       console.error(error);
     }
@@ -70,8 +128,9 @@ function TenantsCreate(props) {
           className="font-primary text-center"
           style={{ paddingBottom: "5%", marginTop: "5%" }}
         >
-          Create a tenant
+          Register a tenant
         </h2>
+        {tenantRegistered && <TenantRegistered />}
         <Form>
           {/* first name, last name, phone, email */}
 
@@ -125,6 +184,26 @@ function TenantsCreate(props) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+          </FormGroup>
+
+          {/* Select Unit */}
+          <FormGroup>
+            <Label for="selectUnit">Select Unit</Label>
+
+            <Input
+              id="selectUnit"
+              name="selectUnit"
+              type="select"
+              value={unit_id}
+              onChange={(e) => setUnit_id(e.target.value)}
+              placeholder="Select unit"
+            >
+              {unitData?.map((unit, index) => (
+                <option key={index} value={unit._id}>
+                  {unit.address}
+                </option>
+              ))}
+            </Input>
           </FormGroup>
 
           {/* Submit Button */}

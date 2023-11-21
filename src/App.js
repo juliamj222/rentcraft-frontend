@@ -24,8 +24,10 @@ import PaymentsCreate from "./components/payments-section/PaymentsCreate";
 
 import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHistory";
 import PaymentsTenantHistory from "./components/payments-section/PaymentsTenantHistory";
+
 import Navigation from "./components/navigation-section/NavBar"
 import ReturnToAuth from "./components/navigation-section/ReturnToAuth";
+
 
 function App() {
   const [token, setToken] = useState("");
@@ -75,9 +77,35 @@ function App() {
   }, []);
 
   return (
+
     <div className="App">
       <MainHeader token={token} currentId={currentId} />
       <NavBar token={token} currentId={currentId} clickLogout={clearToken}/>
+
+    <div className="app-container">
+      <div
+        className="navbar-header-container"
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <NavBar
+          token={token}
+          currentId={currentId}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "right",
+          }}
+        />
+        <MainHeader
+          token={token}
+          currentId={currentId}
+          style={
+            {
+              //  display: "flex",
+            }
+          }
+        />
+      </div>
       {/* MAIN CONTENT AREA */}
       <Routes>
         <Route
@@ -101,10 +129,13 @@ function App() {
         <Route
           path="/auth"
           element={
+
+
             <Auth 
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               //currentId={currentId}
+
             />
           }
         />
@@ -112,6 +143,7 @@ function App() {
           path="/tenant/create"
           element={
             <TenantsCreate
+              token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               currentId={currentId}
@@ -123,6 +155,7 @@ function App() {
           path="/payments/create/:id"
           element={
             <PaymentsCreate
+              token={token}
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               currentId={currentId}

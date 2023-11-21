@@ -1,12 +1,11 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import React, { useState } from "react";
 import { API_UNIT_CREATE } from "../constants/endpoints";
-import { API_UNIT_VIEW_ALL } from "../constants/endpoints";
+/* import { API_UNIT_VIEW_ALL } from "../constants/endpoints"; */
 import { useNavigate } from "react-router-dom";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function UnitCreate(props) {
-  const [user_id, setUser_id] = useState("");
-  const [tenant_id, setTenant_id] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -27,8 +26,6 @@ function UnitCreate(props) {
       myHeaders.append("Authorization", props.token);
       //body
       const body = {
-        /* user_id: user_id, */
-        /*     tenant_id: tenant_id, */
         address: address,
         city: city,
         state: state,
@@ -55,6 +52,7 @@ function UnitCreate(props) {
       console.error(error);
     }
   }
+  if (!props.token) return <ReturnToAuth />;
 
   return (
     <>
@@ -66,8 +64,7 @@ function UnitCreate(props) {
           paddingBottom: "2%",
           marginLeft: "20%",
           marginRight: "20%",
-          marginTop: "2%",
-
+          marginBottom: "2%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -82,7 +79,6 @@ function UnitCreate(props) {
           Register Your Unit
         </h2>
         <Form>
-          {/* user_id tenant_id address city state zip monthlyRent unitState */}
           {/* Form Group address */}
           <FormGroup>
             <Label for="address">Address</Label>
@@ -177,19 +173,7 @@ function UnitCreate(props) {
             </Input>
           </FormGroup>
           {/* Form Group unitState ends */}
-          {/* Form Group tenant id */}
-          <FormGroup>
-            <Label for="tenant_id">Tenant ID</Label>
-            <Input
-              type="tenant_id"
-              name="tenant_id"
-              id="tenant_id"
-              placeholder="Tenant ID"
-              value={tenant_id}
-              onChange={(e) => setTenant_id(e.target.value)}
-            />
-          </FormGroup>
-          {/* Form Group tenant id ends */}
+
           {/* Buttons */}
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <button

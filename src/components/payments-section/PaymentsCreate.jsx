@@ -5,6 +5,7 @@ import {
   API_TENANTS_VIEW_ALL,
   API_UNIT_VIEW_BY_USER,
 } from "../constants/endpoints";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function PaymentsCreate(props) {
   const [unit_id, setUnit_id] = useState("");
@@ -123,6 +124,7 @@ function PaymentsCreate(props) {
       console.error(error);
     }
   }
+  if (!props.token) return <ReturnToAuth />;
   if (!unit_id) return <h1>We don't have a unit registered</h1>;
   if (!tenant_id) return <h1>We don't have a tenant registered</h1>;
 
@@ -180,7 +182,6 @@ function PaymentsCreate(props) {
               id="selectTenant"
               name="selectTenant"
               type="select"
-              // type="text"
               value={tenant_id}
               onChange={(e) => setTenant_id(e.target.value)}
             >

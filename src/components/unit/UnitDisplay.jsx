@@ -20,7 +20,7 @@ function UnitDisplay(props) {
         padding: "2%",
         marginLeft: "20%",
         marginRight: "20%",
-        marginTop: "2%",
+        //    marginTop: "2%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -34,7 +34,9 @@ function UnitDisplay(props) {
         }}
       >
         <CardBody>
-          <CardTitle name="address">{address}</CardTitle>
+          <CardTitle name="address" style={{ fontSize: "1.5em" }}>
+            {address}
+          </CardTitle>
           <div
             className="form-row"
             style={{

@@ -16,13 +16,14 @@ function TenantsCard(props) {
   const params = useParams();
   // console.log(params)
 
-  const { firstName, lastName, phone, email, _id } = props.tenant;
+  const { firstName, lastName, phone, email, _id, active } = props.tenant;
 
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [firstNameInput, setFirstNameInput] = useState(firstName);
   const [lastNameInput, setLastNameInput] = useState(lastName);
   const [phoneInput, setPhoneInput] = useState(phone);
   const [emailInput, setEmailInput] = useState(email);
+  const [activeInput, setActiveInput] = useState("");
 
   function handleToggleEdit() {
     setEditModeEnabled(!editModeEnabled);
@@ -41,6 +42,7 @@ function TenantsCard(props) {
         lastName: lastNameInput,
         phone: phoneInput,
         email: emailInput,
+        active: activeInput === "true" ? true : false,
       };
 
       // Request Options
@@ -142,6 +144,23 @@ function TenantsCard(props) {
             </>
           ) : (
             <CardText>Email: {email}</CardText>
+          )}
+          {/* edit active */}
+          {editModeEnabled ? (
+            <>
+              <Label for="active">KEEP tenant history?</Label>
+              <Input
+                name="active"
+                type="select"
+                value={activeInput}
+                onChange={(e) => setActiveInput(e.target.value)}
+              >
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </Input>
+            </>
+          ) : (
+            <CardText></CardText>
           )}
 
           <CardText>Tenant ID: {_id}</CardText>
