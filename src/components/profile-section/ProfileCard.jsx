@@ -38,7 +38,7 @@ function ProfileCard(props) {
   }
 
   async function handleEdit(evt) {
-    evt.preventDefault();
+    evt.preventDefault(); 
     // Headers
     let myHeaders = new Headers();
     myHeaders.append("Authorization", props.token);
@@ -67,7 +67,10 @@ function ProfileCard(props) {
 
     // Get a Response
     const data = await response.json();
-    console.log(data);
+    console.log(data); 
+
+    // refresh feed
+    props.fetchProfile()
 
     // Change the edit mode to false
     setEditModeEnabled(false);

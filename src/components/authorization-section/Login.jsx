@@ -34,7 +34,7 @@ function Login(props) {
 
       //  Get A Response
       const data = await response.json();
-
+        console.log(data) 
       //   Update the token
       props.updateToken(data.token);
       props.updateCurrentId(data.user._id);
