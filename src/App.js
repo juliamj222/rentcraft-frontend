@@ -20,6 +20,7 @@ import PaymentsCreate from "./components/payments-section/PaymentsCreate";
 
 import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHistory";
 import PaymentsTenantHistory from "./components/payments-section/PaymentsTenantHistory";
+import PaymentsEdit from "./components/payments-section/PaymentsEdit";
 
 function App() {
   const [token, setToken] = useState("");
@@ -148,7 +149,17 @@ function App() {
             />
           }
         />
-
+        <Route
+          path="/payments/update/:id"
+          element={
+            <PaymentsEdit
+              token={token}
+              updateToken={updateToken}
+              currentId={currentId}
+              updateCurrentId={updateCurrentId}
+            />
+          }
+        />
         <Route
           path="/payments/unit/:id"
           element={

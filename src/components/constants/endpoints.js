@@ -15,9 +15,11 @@ export const API_USER_DELETE_BY_ID = "http://localhost:4000/user/delete";
 export const API_TENANTS_VIEW_ALL ="http://localhost:4000/tenants/view-all"
 export const API_TENANTS_CREATE = "http://localhost:4000/tenants/register"
 export const API_TENANTS_UPDATE_BY_ID = "http://localhost:4000/tenants/update"
+export const API_TENANTS_VIEW_BY_ID = "http://localhost:4000/tenants/find-tenant"
 
 export const API_PAYMENTS_VIEW_USER_ID = "http://localhost:4000/payments/user"
 export const API_PAYMENTS_CREATE = "http://localhost:4000/payments/create"
 export const API_PAYMENTS_UNIT_HISTORY = "http://localhost:4000/payments/unit"
 export const API_PAYMENTS_TENANT_HISTORY = "http://localhost:4000/payments/tenant"
 export const API_PAYMENTS_UPDATE = "http://localhost:4000/payments/update"
+export const API_PAYMENTS_VIEW_BY_ID = "http://localhost:4000/payments"
