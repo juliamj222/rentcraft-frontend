@@ -17,6 +17,7 @@ import {
   API_USER_DELETE_BY_ID,
   API_USER_PATCH_BY_ID,
 } from "../constants/endpoints";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function ProfileCard(props) {
   // Variables go here
@@ -112,7 +113,6 @@ function ProfileCard(props) {
           paddingBottom: "2%",
           marginLeft: "20%",
           marginRight: "20%",
-
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -126,7 +126,7 @@ function ProfileCard(props) {
               className="text-center font-primary bold"
               style={{ paddingBottom: "5%", paddingTop: "5%" }}
             >
-              {firstName}'s Profile
+              {firstName}'s Account
             </h2>
           </CardTitle>
 

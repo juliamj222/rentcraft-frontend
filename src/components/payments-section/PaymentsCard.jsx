@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 import {
   Button,
@@ -18,6 +18,7 @@ import {
 } from "reactstrap";
 import { API_PAYMENTS_UPDATE, API_TENANTS_VIEW_ALL, API_TENANTS_VIEW_BY_ID, API_UNIT_VIEW_BY_ID, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 import { useNavigate } from "react-router-dom";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function PaymentsCard(props) {
   const { unit_id, tenant_id, amount, _id, date, paymentState } = props.payment;
@@ -29,7 +30,7 @@ function PaymentsCard(props) {
   const [editDate, setEditDate] = useState(date);
   const [editAmount, setEditAmount] = useState(amount);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [collapsed, setCollapsed] = useState(true);
   const toggleNavbar = () => setCollapsed(!collapsed)
@@ -39,11 +40,11 @@ function PaymentsCard(props) {
   }
 
   function navigateToUnitHistory() {
-    navigate("/payments/unit/" + unit_id)
+    navigate("/payments/unit/" + unit_id);
   }
 
   function navigateToTenantHistory() {
-    navigate("/payments/tenant/" + tenant_id)
+    navigate("/payments/tenant/" + tenant_id);
   }
 
   function navigateToPaymentEdit() {
@@ -55,7 +56,6 @@ function PaymentsCard(props) {
   const [tenantData, setTenantData] = useState([]);
   const [unitId, setUnitId] = useState(unit_id);
   const [tenantId, setTenantId] = useState(tenant_id);
-
 
   async function fetchUnits() {
     try {
@@ -187,8 +187,7 @@ function PaymentsCard(props) {
     fetchTenant()
   }, [props.token]);
 
-  // const unitAddress = unitData.map(unit => unit.address)
-  // const tenantFirstName = tenantData.map(tenant => tenant.firstName)
+  if (!props.token) return <ReturnToAuth />;
 
   return (
     <>
