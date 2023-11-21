@@ -15,15 +15,34 @@ import UnitUpdate from "./components/unit/UnitUpdate";
 import WelcomeIndex from "./components/main-section/WelcomeIndex";
 import UnitDisplay from "./components/unit/UnitDisplay";
 import UnitFeedById from "./components/unit/UnitFeedById";
-import TenantsCreate from "./components/tenants-section/TenantsCreate";
+import TenantsCreate from "./components/tenants-section/TenantsCreate"; 
+import Paymentparams from "./components/payments-section/PaymentNavbar";
+
+
+
 import PaymentsCreate from "./components/payments-section/PaymentsCreate";
 
 import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHistory";
 import PaymentsTenantHistory from "./components/payments-section/PaymentsTenantHistory";
 
+import Navigation from "./components/navigation-section/NavBar"
+import ReturnToAuth from "./components/navigation-section/ReturnToAuth";
+
+
 function App() {
   const [token, setToken] = useState("");
-  const [currentId, setCurrentId] = useState("");
+  const [currentId, setCurrentId] = useState(""); 
+  
+  
+  //new 
+  const clearToken = () =>{
+    localStorage.clear()
+    setToken('')
+    console.log('logging out...') 
+    
+    
+  }
+
 
   function updateCurrentId(newCurrentId) {
     setCurrentId(newCurrentId);
@@ -33,8 +52,11 @@ function App() {
   function updateToken(newToken) { 
     setToken(newToken);
     localStorage.setItem("token", newToken); 
+  
   }
 
+
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -55,6 +77,11 @@ function App() {
   }, []);
 
   return (
+
+    <div className="App">
+      <MainHeader token={token} currentId={currentId} />
+      <NavBar token={token} currentId={currentId} clickLogout={clearToken}/>
+
     <div className="app-container">
       <div
         className="navbar-header-container"
@@ -166,7 +193,7 @@ function App() {
               updateToken={updateToken}
               currentId={currentId}
               updateCurrentId={updateCurrentId}
-            />
+            /> 
           }
         />
 

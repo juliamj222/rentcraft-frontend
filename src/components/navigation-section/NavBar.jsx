@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react"; /* imrs */
+import { useParams } from "react-router-dom"; 
+import App from "../../App"; 
+import ReturnToAuth from "./ReturnToAuth";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 
 import { Home, Folder, Message } from "@mui/icons-material";
 import {
@@ -10,7 +13,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
+  NavLink, 
+  Button,
 } from "reactstrap";
 import { API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 
@@ -48,6 +52,48 @@ function Navigation(props) {
             paddingLeft: "3%",
           }}
         >
+          Home
+        </NavbarBrand>
+        <NavbarBrand href="/auth"> Login / Signup </NavbarBrand>
+        {/*         <NavItem>
+          <NavLink href="/auth"> Login / Signup </NavLink>
+        </NavItem> */}
+        <NavbarToggler onClick={toggleNavbar} className="me-2" />
+        <Collapse isOpen={!collapsed} navbar>
+          <Nav
+            navbar
+            style={{
+              display: "flex",
+              //  flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <NavItem>
+              <NavLink href={"/user/" + props.currentId}>Profile
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href={"/feed/" + props.currentId}>Units
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href={"/tenants/view-all/" + props.currentId}>
+                Tenants
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href={"/payments/user/" + props.currentId}>
+                Rent Payments
+              </NavLink>
+            </NavItem> 
+            <NavItem>
+            <Button onClick={props.clickLogout}>Logout</Button>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
           <NavItem>
             <NavLink
               href="/auth"

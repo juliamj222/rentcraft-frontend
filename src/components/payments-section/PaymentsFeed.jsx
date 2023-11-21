@@ -1,5 +1,5 @@
 import { Button } from "reactstrap";
-import PaymentsCard from "./PaymentsCard";
+import PaymentsCard from "./PaymentsCard"; 
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function PaymentsFeed(props) {
