@@ -1,22 +1,39 @@
+:root {
+  --primary: #ece5c7;
+  --secondary: #cdc2ae;
+  --tertiary: #c2dedc;
+  --quarternary: #116a7b;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.quarternary-background {
+  background-color: var(--quarternary);
+}
+
+/* Center the logo */
 .App-logo {
-    height: 150px;
-} 
+  height: 10vh;
+  margin-right: 7.82%;
+}
 
-header {
-    height: 175px; 
-    background-color: var(--quarternary);
-
-} 
-
-.header-stripe {
-    height: 75px;
-    border-top: 5px solid white;
-    border-bottom: 5px solid white;
-  } 
-
-  :root {
-    --primary: #ece5c7;
-    --secondary: #cdc2ae;
-    --tertiary: #c2dedc;
-    --quarternary: #116a7b;
+@media (max-width: 768px) {
+  .App-logo {
+    min-height: 8vh;
+    margin-left: 11.22%;
   }
+}
+header {
+  background-color: var(--quarternary);
+  width: 1000vw;
+}

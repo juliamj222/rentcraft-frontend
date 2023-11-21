@@ -8,6 +8,7 @@ import {
   CardTitle,
   Label,
 } from "reactstrap";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function PaymentsCard(props) {
   const { unit_id, tenant_id, amount } = props.payment;
@@ -32,6 +33,8 @@ function PaymentsCard(props) {
       console.error(error);
     }
   }
+
+  if (!props.token) return <ReturnToAuth />;
 
   return (
     <div

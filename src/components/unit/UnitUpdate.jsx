@@ -12,6 +12,7 @@ function UnitUpdate(props) {
   const [zip, setZip] = useState("");
   const [monthlyRent, setMonthlyRent] = useState("");
   const [unitState, setUnitState] = useState("");
+  const [active, setActive] = useState("");
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -115,6 +116,22 @@ function UnitUpdate(props) {
             onChange={(e) => setTenant_id(e.target.value)}
           />
         </FormGroup>
+
+        {/* Form Group active starts */}
+        <FormGroup className="col col-3.2">
+          <Label for="active">In my portfolio?</Label>
+          <Input
+            name="active"
+            type="select"
+            value={active}
+            onChange={(e) => setActive(e.target.value)}
+          >
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </Input>
+        </FormGroup>
+
+        {/* Form Group active ends */}
         <Button color="success">Save</Button>
       </Form>
     </>

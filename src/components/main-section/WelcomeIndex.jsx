@@ -42,13 +42,13 @@ function WelcomeIndex(props) {
           borderRadius: "10px",
         }}
       >
-        <CardTitle name="address">
+        <CardTitle>
           {" "}
           <h2
             className="text-center font-primary bold"
             style={{ paddingBottom: "5%" }}
           >
-            Welcome
+            Welcome to RentCraft
           </h2>
         </CardTitle>
         <CardText
@@ -59,7 +59,7 @@ function WelcomeIndex(props) {
             justifyContent: "center",
           }}
         >
-          Welcome to RentCraft. Let's get you started!
+          Let's get you started!
         </CardText>
         {!props.currentId ? (
           <Button

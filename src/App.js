@@ -56,9 +56,30 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <MainHeader token={token} currentId={currentId} />
-      <NavBar token={token} currentId={currentId} />
+    <div className="app-container">
+      <div
+        className="navbar-header-container"
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <NavBar
+          token={token}
+          currentId={currentId}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "right",
+          }}
+        />
+        <MainHeader
+          token={token}
+          currentId={currentId}
+          style={
+            {
+              //  display: "flex",
+            }
+          }
+        />
+      </div>
       {/* MAIN CONTENT AREA */}
       <Routes>
         <Route

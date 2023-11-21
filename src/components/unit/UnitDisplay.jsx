@@ -20,7 +20,7 @@ function UnitDisplay(props) {
         padding: "2%",
         marginLeft: "20%",
         marginRight: "20%",
-        marginTop: "2%",
+        //    marginTop: "2%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

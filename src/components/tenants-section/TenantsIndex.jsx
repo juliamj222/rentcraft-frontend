@@ -4,6 +4,7 @@ import TenantsFeed from "./TenantsFeed";
 import React, { useState, useEffect } from "react";
 import { API_TENANTS_VIEW_ALL } from "../constants/endpoints";
 import { Button } from "reactstrap";
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function TenantsIndex(props) {
   const params = useParams();
@@ -43,7 +44,7 @@ function TenantsIndex(props) {
     if (!props.token) return;
     fetchTenants();
   }, [props.token]);
-
+  if (!props.token) return <ReturnToAuth />;
   const hasTenants = tenantsList && tenantsList.length > 0;
 
   return (
@@ -55,7 +56,11 @@ function TenantsIndex(props) {
           token={props.token}
         />
       ) : (
-        <TenantsCreate fetchTenants={fetchTenants} token={props.token} />
+        <TenantsCreate
+          fetchTenants={fetchTenants}
+          token={props.token}
+          currentId={props.currentId}
+        />
       )}
     </>
   );
