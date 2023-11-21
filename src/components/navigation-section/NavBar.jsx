@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"; /* imrs */
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"; 
+import App from "../../App"; 
+import ReturnToAuth from "./ReturnToAuth";
 
 import {
   Collapse,
@@ -8,7 +10,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
+  NavLink, 
+  Button,
 } from "reactstrap";
 import { API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 
@@ -47,10 +50,12 @@ function Navigation(props) {
             }}
           >
             <NavItem>
-              <NavLink href={"/user/" + props.currentId}>Profile</NavLink>
+              <NavLink href={"/user/" + props.currentId}>Profile
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href={"/feed/" + props.currentId}>Units</NavLink>
+              <NavLink href={"/feed/" + props.currentId}>Units
+              </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href={"/tenants/view-all/" + props.currentId}>
@@ -61,6 +66,9 @@ function Navigation(props) {
               <NavLink href={"/payments/user/" + props.currentId}>
                 Rent Payments
               </NavLink>
+            </NavItem> 
+            <NavItem>
+            <Button onClick={props.clickLogout}>Logout</Button>
             </NavItem>
           </Nav>
         </Collapse>

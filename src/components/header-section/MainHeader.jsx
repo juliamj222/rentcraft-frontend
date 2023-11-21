@@ -6,7 +6,7 @@ const MainHeader = (props) => {
     <>
     <header className="d-flex justify-content-center align-items-center quarternary-background">
         <div className="d-flex justify-content-center align-items-center tertiary-background">
-          <img src={logo} alt="logo" className="App-logo" />
+          <img src={logo} alt="logo" className="App-logo" /> 
         </div>
         </header>
     </> 

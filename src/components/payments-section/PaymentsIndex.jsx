@@ -1,10 +1,13 @@
 import { API_PAYMENTS_VIEW_USER_ID } from "../constants/endpoints";
 import PaymentsCreate from "./PaymentsCreate";
-import PaymentsFeed from "./PaymentsFeed";
-import React, { useState, useEffect } from "react";
+import PaymentsFeed from "./PaymentsFeed"; 
+import Paymentparams from "./PaymentNavbar";
+import React, { useState, useEffect } from "react"; 
+
 
 function PaymentsIndex(props) {
-  const [paymentsFeedItem, setPaymentsFeedItem] = useState([]);
+  const [paymentsFeedItem, setPaymentsFeedItem] = useState([]); 
+  const [collapsed, setCollapsed] = useState(true); 
 
   async function fetchPaymentsFeed() {
     try {
@@ -44,6 +47,7 @@ function PaymentsIndex(props) {
 
   return (
     <>
+    <Paymentparams />
       {fetchPaymentsFeed.map}
       {console.log(fetchPaymentsFeed)}
       <PaymentsFeed

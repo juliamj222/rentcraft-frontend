@@ -1,5 +1,6 @@
 import { Button } from "reactstrap";
-import PaymentsCard from "./PaymentsCard";
+import PaymentsCard from "./PaymentsCard"; 
+
 
 function PaymentsFeed(props) {
   return (
