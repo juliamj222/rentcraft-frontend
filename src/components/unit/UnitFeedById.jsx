@@ -42,6 +42,7 @@ function UnitFeedById(props) {
   return (
     <>
       <UnitDisplay
+        fetchUnitFeed={fetchUnitFeed}
         token={props.token}
         currentId={props.currentId}
         unit={unitPost}
