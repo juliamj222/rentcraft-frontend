@@ -1,16 +1,14 @@
 import { Button, Card, CardBody, CardHeader, CardText, Input, Label } from "reactstrap";
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { API_PAYMENTS_UPDATE, API_PAYMENTS_VIEW_BY_ID, API_PAYMENTS_VIEW_USER_ID, API_TENANTS_VIEW_ALL, API_TENANTS_VIEW_BY_ID, API_UNIT_VIEW_BY_ID, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
+import { API_PAYMENTS_UPDATE, API_PAYMENTS_VIEW_BY_ID, API_TENANTS_VIEW_ALL, API_TENANTS_VIEW_BY_ID, API_UNIT_VIEW_BY_ID, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 
 
 function PaymentsEdit(props) {
 
     const [paymentsCardItem, setPaymentsCardItem] = useState({});
-    const [paymentsUnitId, setPaymentsUnitId] = useState({});
 
     const params = useParams()
-    // console.log(params)
 
     async function fetchPaymentsCard() {
         
@@ -31,13 +29,12 @@ function PaymentsEdit(props) {
 
             // Get a Response
             const data = await response.json();
-            console.log(data);
-            console.log(data.payment.unit_id);
+            // console.log(data);
 
             // Set State
             setPaymentsCardItem(data.payment)
-            setPaymentsUnitId(data.payment.unit_id)
-            console.log(paymentsUnitId)
+            fetchAddress(data.payment.unit_id)
+            fetchTenant(data.payment.tenant_id)
 
         } catch (error) {
 
@@ -92,7 +89,7 @@ function PaymentsEdit(props) {
   
         // Get a Response
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
   
         // Set State
         setUnitData(data.user_units);
@@ -125,7 +122,7 @@ function PaymentsEdit(props) {
   
         // Get a Response
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
   
         // Set State
         setTenantData(data.user_tenants);
@@ -139,7 +136,7 @@ function PaymentsEdit(props) {
 
     // Fetch Address
   const [thisAddress, setThisAddress] = useState([]);
-  async function fetchAddress() {
+  async function fetchAddress(unit_id) {
     try {
       // Headers
       let myHeaders = new Headers()
@@ -152,14 +149,14 @@ function PaymentsEdit(props) {
       }
 
       // Send Request
-      const response = await fetch(API_UNIT_VIEW_BY_ID + "/" + params.unit_id, requestOptions)
+      const response = await fetch(API_UNIT_VIEW_BY_ID + "/" + unit_id, requestOptions)
 
       // Get a Response
       const data = await response.json()
-      console.log(data)
+      // console.log(data)
 
       // Set State
-      setThisAddress(data.unit)
+      setThisAddress(data.unit.address)
 
     } catch (error) {
       console.error(error);
@@ -168,7 +165,7 @@ function PaymentsEdit(props) {
 
   // Fetch Tennant
   const [thisTennant, setThisTennant] = useState({});
-  async function fetchTenant() {
+  async function fetchTenant(tenant_id) {
     try {
       // Headers
       let myHeaders = new Headers()
@@ -181,11 +178,11 @@ function PaymentsEdit(props) {
       }
 
       // Send Request
-      const response = await fetch(API_TENANTS_VIEW_BY_ID + "/" + params.tenant_id, requestOptions)
+      const response = await fetch(API_TENANTS_VIEW_BY_ID + "/" + tenant_id, requestOptions)
 
       // Get a Response
       const data = await response.json()
-      console.log(data)
+      // console.log(data)
 
       // Set State
       setThisTennant(data.tenants)
@@ -200,8 +197,6 @@ function PaymentsEdit(props) {
       fetchPaymentsCard();
       fetchUnits();
       fetchTenants();
-      fetchAddress();
-      fetchTenant();
     }, [props.token]);
 
     async function handleEdit() {
@@ -248,7 +243,7 @@ function PaymentsEdit(props) {
 
   return (
     <>
-        <h1>Hello from PaymentsEdit</h1>
+        {/* <h1>Hello from PaymentsEdit</h1> */}
         <Card>
             <CardHeader>PAYMENT ID: {_id}</CardHeader>
             <CardBody>
@@ -271,7 +266,7 @@ function PaymentsEdit(props) {
                         ))}
                      </Input>
                     </>
-                ) : <CardText>ADDRESS: </CardText> }
+                ) : <CardText>ADDRESS: {thisAddress} </CardText> }
 
                 {/* Tenant ID */}
                 {editModeEnabled ? (
@@ -291,7 +286,7 @@ function PaymentsEdit(props) {
                         ))}
                     </Input>
                     </>
-                ) : <CardText>TENANT:</CardText> }
+                ) : <CardText>TENANT: {thisTennant.firstName} {thisTennant.lastName} </CardText> }
 
                 {/* Amount */}
                 {editModeEnabled ? (
@@ -361,14 +356,14 @@ function PaymentsEdit(props) {
             {/* Unit Payment History */}
             {props.user_id === props.user?.user_id?._id && (
                 <Button color="primary" onClick={navigateToUnitHistory}>
-                Unit Payment History
+                Payment History for {thisAddress}
                 </Button>
             )}
 
             {/* Tenant Payment History */}
             {props.user_id === props.user?.user_id?._id && (
                 <Button color="primary" onClick={navigateToTenantHistory}>
-                Tenant Payment History
+                {thisTennant.firstName} {thisTennant.lastName}'s Payment History
                 </Button>
             )}
 

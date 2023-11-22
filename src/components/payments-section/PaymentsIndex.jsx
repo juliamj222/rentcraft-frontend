@@ -3,6 +3,7 @@ import PaymentsCreate from "./PaymentsCreate";
 import PaymentsFeed from "./PaymentsFeed"; 
 import Paymentparams from "./PaymentNavbar";
 import React, { useState, useEffect } from "react"; 
+import PaymentsDropdown from "./PaymentsDropdown";
 
 
 function PaymentsIndex(props) {
@@ -47,7 +48,8 @@ function PaymentsIndex(props) {
 
   return (
     <>
-    <Paymentparams />
+    {/* <Paymentparams /> */}
+    <PaymentsDropdown token={props.token} currentId={props.currentId} paymentsFeedItem={paymentsFeedItem} />
       {fetchPaymentsFeed.map}
       {console.log(fetchPaymentsFeed)}
       <PaymentsFeed
