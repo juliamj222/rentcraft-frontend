@@ -32,7 +32,7 @@ function PaymentsEdit(props) {
             // Get a Response
             const data = await response.json();
             console.log(data);
-            // console.log(data.payment.unit_id);
+            console.log(data.payment.unit_id);
 
             // Set State
             setPaymentsCardItem(data.payment)

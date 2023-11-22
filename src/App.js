@@ -79,10 +79,6 @@ function App() {
 
   return (
 
-    <div className="App">
-      <MainHeader token={token} currentId={currentId} />
-      <NavBar token={token} currentId={currentId} clickLogout={clearToken}/>
-
     <div className="app-container">
       <div
         className="navbar-header-container"
@@ -91,6 +87,7 @@ function App() {
         <NavBar
           token={token}
           currentId={currentId}
+          clickLogout={clearToken}
           style={{
             display: "flex",
             flexDirection: "row",
