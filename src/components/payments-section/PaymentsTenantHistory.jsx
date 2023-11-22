@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API_PAYMENTS_TENANT_HISTORY } from '../constants/endpoints';
+import { API_PAYMENTS_TENANT_HISTORY, API_TENANTS_VIEW_BY_ID } from '../constants/endpoints';
 import { useParams } from 'react-router-dom';
 import ReturnToAuth from '../navigation-section/ReturnToAuth';
 import PaymentsCard from './PaymentsCard';
@@ -8,7 +8,7 @@ import PaymentsCard from './PaymentsCard';
 function PaymentsTenantHistory(props) {
 
     const params = useParams()
-    console.log(params)
+    // console.log(params)
 
     const [tenantHistory, setTenantHistory] = useState([]);
 
@@ -35,6 +35,7 @@ function PaymentsTenantHistory(props) {
 
             // Set State
             setTenantHistory(data.tenant_history)
+            fetchTenant(params.id)
             
         } catch (error) {
 
@@ -42,6 +43,35 @@ function PaymentsTenantHistory(props) {
             
         }
 
+    }
+
+    // Fetch Tennant
+    const [thisTennant, setThisTennant] = useState({});
+    async function fetchTenant(tenant_id) {
+        try {
+            // Headers
+            let myHeaders = new Headers()
+            myHeaders.append("Authorization", props.token)
+
+            // Request Options
+            let requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            }
+
+            // Send Request
+            const response = await fetch(API_TENANTS_VIEW_BY_ID + "/" + tenant_id, requestOptions)
+
+            // Get a Response
+            const data = await response.json()
+            // console.log(data)
+
+            // Set State
+            setThisTennant(data.tenants)
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
@@ -53,7 +83,7 @@ function PaymentsTenantHistory(props) {
 
   return (
     <>
-        <h1>Tenant Payment History</h1>
+        <h1> Payment History for {thisTennant.firstName} {thisTennant.lastName}</h1>
         {tenantHistory.map((payment, index) => (
             <PaymentsCard
             key={index}
