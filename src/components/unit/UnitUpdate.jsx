@@ -1,20 +1,110 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
+import {
+  API_UNIT_DELETE_BY_ID,
+  API_UNIT_UPDATE_BY_ID,
+} from "../constants/endpoints";
 
 function UnitUpdate(props) {
+  console.log(props);
   const [editModeEnabled, setEditModeEnabled] = useState(false);
-  const [user_id, setUser_id] = useState("");
-  const [tenant_id, setTenant_id] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [monthlyRent, setMonthlyRent] = useState("");
-  const [unitState, setUnitState] = useState("");
-  const [active, setActive] = useState("");
+
+  const [userId, setUserId] = useState(props.unit.userId);
+  const [user_id, setUser_id] = useState(props.unit.user_id);
+  const [tenant_id, setTenant_id] = useState(props.unit.tenant_id);
+  const [address, setAddress] = useState(props.unit.address);
+  const [city, setCity] = useState(props.unit.city);
+  const [state, setState] = useState(props.unit.state);
+  const [zip, setZip] = useState(props.unit.zip);
+  const [monthlyRent, setMonthlyRent] = useState(props.unit.monthlyRent);
+  const [unitState, setUnitState] = useState(props.unit.unitState);
+  const [active, setActive] = useState(props.unit.active);
   const [modal, setModal] = useState(false);
+  /* 
+  const [user_idInput, setUser_idInput] = useState(user_id);
+  const [tenant_idInput, setTenant_idInput] = useState(tenant_id);
+  const [addressInput, setAddressInput] = useState(address);
+  const [cityInput, setCityInput] = useState(city);
+  const [stateInput, setStateInput] = useState(state);
+  const [zipInput, setZipInput] = useState(zip);
+  const [monthlyRentInput, setMonthlyRentInput] = useState(monthlyRent);
+  const [unitStateInput, setUnitStateInput] = useState(unitState);
+  const [activeInput, setActiveInput] = useState(active); */
+
   const toggle = () => setModal(!modal);
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    console.log(typeof active);
+    console.log("handleEdit called");
+    // Headers
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", props.token);
+    myHeaders.append("Content-Type", "application/json");
+
+    // Body
+    let body = {
+      user_id: props.currentId,
+      address: address,
+      city: city,
+      state: state,
+      zip: zip,
+      monthlyRent: monthlyRent,
+      unitState: unitState,
+      _id: props.unitId,
+      active: active === "true" ? true : false,
+    };
+
+    if (tenant_id) {
+      body.tenant_id = tenant_id;
+    }
+    // Request Options
+    const requestOptions = {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(body),
+    };
+    // Send Request
+    const response = await fetch(
+      API_UNIT_UPDATE_BY_ID + "/" + props.unitId,
+      requestOptions
+    );
+    //  Get A Response
+    const data = await response.json();
+    console.log(data);
+    // refresh the feed
+    //  props.fetchUnitFeed();
+    // change the edit mode to false
+    props.handleToggleEdit();
+  };
+
+  async function handleDelete() {
+    console.log("handleDelete called");
+    if (props.userId === props.unit.user_id) console.log(props.user._id);
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
+      // Request Options
+      let requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+      };
+      // Send Request
+      const response = await fetch(
+        API_UNIT_DELETE_BY_ID + "/" + props._id,
+        requestOptions
+      );
+      //  Get A Response
+      const data = await response.json();
+      console.log(data);
+      // Refresh the feed
+      //  props.fetchUnitFeed();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
@@ -132,7 +222,9 @@ function UnitUpdate(props) {
         </FormGroup>
 
         {/* Form Group active ends */}
-        <Button color="success">Save</Button>
+        <Button color="success" onClick={handleEdit}>
+          Save
+        </Button>
       </Form>
     </>
   );

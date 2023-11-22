@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import UnitCardF from "./UnitCard";
 import { Button } from "reactstrap";
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
+import UnitDisplayOrUnitEdit from "./UnitDisplay";
 
 function UnitFeed(props) {
   const params = useParams();
@@ -26,17 +27,19 @@ function UnitFeed(props) {
             {/*mapping*/}
 
             {props.unitFeedItems.map((unit, index) => (
-              <UnitCardF
-                key={index}
-                unit={unit}
-                address={props.address}
-                currentId={props.currentId}
-                city={props.city}
-                fetchUnitFeed={props.fetchUnitFeed}
-                token={props.token}
-                user={props.user}
-                userId={props.userId}
-              />
+              <>
+                <UnitCardF
+                  key={index}
+                  unit={unit}
+                  address={props.address}
+                  currentId={props.currentId}
+                  city={props.city}
+                  fetchUnitFeed={props.fetchUnitFeed}
+                  token={props.token}
+                  user={props.user}
+                  userId={props.userId}
+                />
+              </>
             ))}
           </div>
           <div>
