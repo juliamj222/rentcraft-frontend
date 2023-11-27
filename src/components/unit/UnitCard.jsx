@@ -3,13 +3,11 @@ import {
   Button,
   Card,
   CardBody,
-  CardSubtitle,
   CardTitle,
   CardText,
   Label,
   Input,
   Form,
-  ButtonGroup,
   FormGroup,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
@@ -301,15 +299,11 @@ function UnitCardF(props) {
             width: "100%",
             display: "flex",
             flexDirection: "row",
-            // justifyContent: "space-between",
           }}
         >
           <div
             style={{
               width: "100%",
-              // display: "flex",
-              // flexDirection: "row",
-              // justifyContent: "space-between",
             }}
           >
             <CardTitle name="address" style={{ fontSize: "1.5em" }}>
@@ -370,7 +364,6 @@ function UnitCardF(props) {
                 href={"/unit/view-by-id/" + props.unit._id}
                 style={{
                   background: "var(--quarternary)",
-                  //     width: "20%",
                 }}
               >
                 Unit Display
@@ -379,7 +372,6 @@ function UnitCardF(props) {
               <Button
                 style={{
                   background: "var(--quarternary)",
-                  //    width: "20%",
                 }}
                 onClick={handleToggleEdit}
               >

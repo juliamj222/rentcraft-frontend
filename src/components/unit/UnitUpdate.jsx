@@ -4,7 +4,14 @@ import React, { useEffect, useState } from "react";
 import { API_TENANTS_VIEW_ALL } from "../constants/endpoints";
 import { API_UNIT_UPDATE_BY_ID } from "../constants/endpoints"; 
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
+import React, { useState } from "react";
+import {
+  API_UNIT_DELETE_BY_ID,
+  API_UNIT_UPDATE_BY_ID,
+} from "../constants/endpoints";
+
 function UnitUpdate(props) {
+  console.log(props);
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [user_id, setUser_id] = useState("");
   const [tenant_id, setTenant_id] = useState(""); 
@@ -95,6 +102,80 @@ function UnitUpdate(props) {
     }
   } 
   if (!props.token) return <ReturnToAuth />;
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    console.log(typeof active);
+    console.log("handleEdit called");
+    // Headers
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", props.token);
+    myHeaders.append("Content-Type", "application/json");
+
+    // Body
+    let body = {
+      user_id: props.currentId,
+      address: address,
+      city: city,
+      state: state,
+      zip: zip,
+      monthlyRent: monthlyRent,
+      unitState: unitState,
+      _id: props.unitId,
+      active: active === "true" ? true : false,
+    };
+
+    if (tenant_id) {
+      body.tenant_id = tenant_id;
+    }
+    // Request Options
+    const requestOptions = {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(body),
+    };
+    // Send Request
+    const response = await fetch(
+      API_UNIT_UPDATE_BY_ID + "/" + props.unitId,
+      requestOptions
+    );
+    //  Get A Response
+    const data = await response.json();
+    console.log(data);
+    // refresh the feed
+    //  props.fetchUnitFeed();
+    // change the edit mode to false
+    props.handleToggleEdit();
+  };
+
+  async function handleDelete() {
+    console.log("handleDelete called");
+    if (props.userId === props.unit.user_id) console.log(props.user._id);
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
+      // Request Options
+      let requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+      };
+      // Send Request
+      const response = await fetch(
+        API_UNIT_DELETE_BY_ID + "/" + props._id,
+        requestOptions
+      );
+      //  Get A Response
+      const data = await response.json();
+      console.log(data);
+      // Refresh the feed
+      //  props.fetchUnitFeed();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <>
       <Form>
@@ -217,7 +298,9 @@ function UnitUpdate(props) {
         </FormGroup>
 
         {/* Form Group active ends */}
-        <Button color="success">Save</Button>
+        <Button color="success" onClick={handleEdit}>
+          Save
+        </Button>
       </Form>
     </>
   );

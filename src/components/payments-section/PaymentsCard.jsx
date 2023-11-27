@@ -198,16 +198,20 @@ function PaymentsCard(props) {
         // alignItems: "center",
         // justifyContent: "center",
         borderRadius: "5px",
+        marginBottom: "5px"
       }}
       >
         <CardHeader style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
+          alignItems: "center",
+          background: "var(--secondary)"
         }}>
-          Payment ID: {_id}<br></br>Date: {date}
-          <Navbar color='gray' light>
-            <NavbarToggler onClick={toggleNavbar} />
+          <h5>{date}</h5>
+          <h5>Payment ID: {_id}</h5>
+          <Navbar light>
+            <NavbarToggler onClick={toggleNavbar} style={{background: "var(--primary)"}} />
             <Collapse isOpen={!collapsed} navbar>
               <Nav navbar style={{
                 display: "flex",
@@ -226,7 +230,11 @@ function PaymentsCard(props) {
             </Collapse>
           </Navbar>
         </CardHeader>
-        <CardBody>
+        <CardBody style={{
+          display: "flex",
+          justifyContent: "space-between",
+          // height: "50px",
+        }}>
 
           {/* Unit */}
           <CardText>ADDRESS: {thisAddress.address}</CardText>
