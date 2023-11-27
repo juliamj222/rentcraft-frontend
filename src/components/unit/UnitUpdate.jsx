@@ -1,14 +1,12 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
-import { API_TENANTS_VIEW_ALL } from "../constants/endpoints";
-import { API_UNIT_UPDATE_BY_ID } from "../constants/endpoints"; 
+import { 
+  API_TENANTS_VIEW_ALL, 
+  API_UNIT_UPDATE_BY_ID, 
+  API_UNIT_DELETE_BY_ID, } from "../constants/endpoints";
+import {  } from "../constants/endpoints"; 
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
-import React, { useState } from "react";
-import {
-  API_UNIT_DELETE_BY_ID,
-  API_UNIT_UPDATE_BY_ID,
-} from "../constants/endpoints";
 
 function UnitUpdate(props) {
   console.log(props);
