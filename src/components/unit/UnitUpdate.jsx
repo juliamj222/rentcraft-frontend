@@ -1,5 +1,9 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import { API_TENANTS_VIEW_ALL } from "../constants/endpoints";
+import { API_UNIT_UPDATE_BY_ID } from "../constants/endpoints"; 
+import ReturnToAuth from "../navigation-section/ReturnToAuth";
 import React, { useState } from "react";
 import {
   API_UNIT_DELETE_BY_ID,
@@ -9,30 +13,95 @@ import {
 function UnitUpdate(props) {
   console.log(props);
   const [editModeEnabled, setEditModeEnabled] = useState(false);
-
-  const [userId, setUserId] = useState(props.unit.userId);
-  const [user_id, setUser_id] = useState(props.unit.user_id);
-  const [tenant_id, setTenant_id] = useState(props.unit.tenant_id);
-  const [address, setAddress] = useState(props.unit.address);
-  const [city, setCity] = useState(props.unit.city);
-  const [state, setState] = useState(props.unit.state);
-  const [zip, setZip] = useState(props.unit.zip);
-  const [monthlyRent, setMonthlyRent] = useState(props.unit.monthlyRent);
-  const [unitState, setUnitState] = useState(props.unit.unitState);
-  const [active, setActive] = useState(props.unit.active);
+  const [user_id, setUser_id] = useState("");
+  const [tenant_id, setTenant_id] = useState(""); 
+  const [tenantData, setTenantData] = useState([]);
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [monthlyRent, setMonthlyRent] = useState("");
+  const [unitState, setUnitState] = useState("");
+  const [active, setActive] = useState("");
   const [modal, setModal] = useState(false);
-  /* 
-  const [user_idInput, setUser_idInput] = useState(user_id);
-  const [tenant_idInput, setTenant_idInput] = useState(tenant_id);
-  const [addressInput, setAddressInput] = useState(address);
-  const [cityInput, setCityInput] = useState(city);
-  const [stateInput, setStateInput] = useState(state);
-  const [zipInput, setZipInput] = useState(zip);
-  const [monthlyRentInput, setMonthlyRentInput] = useState(monthlyRent);
-  const [unitStateInput, setUnitStateInput] = useState(unitState);
-  const [activeInput, setActiveInput] = useState(active); */
+  const toggle = () => setModal(!modal); 
 
-  const toggle = () => setModal(!modal);
+  // fetchAddress(data.unit.tenant_id) 
+
+
+  async function fetchTenants() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
+
+      // Request Options
+      let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      // Send Request
+      const response = await fetch(
+        API_TENANTS_VIEW_ALL + "/" + props.currentId,
+        requestOptions
+      );
+      // Get a Response
+      const data = await response.json();
+      console.log(data);
+
+      // Set State
+      setTenantData(data.user_tenants);
+      if (data.user_tenants.length > 0) {
+        setTenant_id(data.user_tenants[0]._id);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  } 
+
+  useEffect(() => {
+    if (!props.token) return; 
+    fetchTenants();
+  }, [props.token])
+
+  async function handleSubmit() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", props.token);
+
+      let body = {
+        address: address, 
+        city: city,
+        state: state, 
+        zip: zip,
+        monthlyRent: monthlyRent,
+        unitState: unitState, 
+        tenant_id: tenant_id,
+      };
+
+      // Request Options
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(body),
+      }; 
+
+      // Send Request 
+      const response = await fetch(API_UNIT_UPDATE_BY_ID, requestOptions) 
+
+      // Get a response
+      const data = await response.json();
+
+      props.fetchTenants() 
+      console.log(data) 
+    } catch (error) {
+      console.error(error)
+    }
+  } 
+  if (!props.token) return <ReturnToAuth />;
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -106,6 +175,7 @@ function UnitUpdate(props) {
     }
   }
 
+
   return (
     <>
       <Form>
@@ -165,7 +235,7 @@ function UnitUpdate(props) {
               }}
             />
           </FormGroup>
-        </div>
+            </div> 
         {/* Form Group monthlyRent */}
         <FormGroup>
           <Label for="monthlyRent">Monthly Rent</Label>
@@ -192,19 +262,25 @@ function UnitUpdate(props) {
             value={unitState}
             onChange={(e) => setUnitState(e.target.value)}
           />
-        </FormGroup>
-        {/* Form Group unitState ends */}
-        {/* Form Group information */}
+        </FormGroup> 
+        {/* Form Group unitState ends */} 
+        Form Group information
         <FormGroup>
-          <Label for="tenant_id">Tenant ID</Label>
+         <Label for="tenant_id">Tenant by the ID</Label>
           <Input
-            type="tenant_id"
-            name="tenant_id"
-            id="tenant_id"
-            placeholder="Tenant ID"
-            value={tenant_id}
+            type="select"
+            name="tenant"
+            value={active}
             onChange={(e) => setTenant_id(e.target.value)}
-          />
+          >
+           {/*  {tenantData.map((tenant, index) => (
+                <option key={index} value={tenant._id}>
+                  {tenant.firstName} {tenant.lastName}
+                </option> 
+                 ))}  */} 
+                 <option value="true">True</option>
+            <option value="false">False</option>
+  </Input>
         </FormGroup>
 
         {/* Form Group active starts */}

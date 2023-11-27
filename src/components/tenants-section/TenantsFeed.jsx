@@ -3,7 +3,8 @@ import TenantsCard from "./TenantsCard";
 import { Button } from "reactstrap";
 
 function TenantsFeed(props) {
-  if (!props.token) return <ReturnToAuth />;
+  if (!props.token) return <ReturnToAuth />; 
+  console.log(props)
 
   console.log(props.tenantsList);
   return props.tenantsList
@@ -19,7 +20,8 @@ function TenantsFeed(props) {
               key={index}
               tenant={tenant}
               token={props.token}
-              fetchTenants={props.fetchTenants}
+              fetchTenants={props.fetchTenants} 
+              currentId={props.currentId}
             />
           ))}
 

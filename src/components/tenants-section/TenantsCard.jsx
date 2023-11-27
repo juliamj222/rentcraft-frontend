@@ -6,24 +6,27 @@ import {
   CardSubtitle,
   CardText,
   CardTitle,
+  FormGroup,
   Input,
   Label,
 } from "reactstrap";
-import React, { useState } from "react";
-import { API_TENANTS_UPDATE_BY_ID } from "../constants/endpoints";
+import React, { useState, useEffect } from "react";
+import { API_TENANTS_UPDATE_BY_ID, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
 
 function TenantsCard(props) {
-  const params = useParams();
-  // console.log(params)
+  // console.log(params) 
+  const params = useParams()
 
-  const { firstName, lastName, phone, email, _id, active } = props.tenant;
+  const { firstName, lastName, phone, email, _id, active, } = props.tenant;
 
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [firstNameInput, setFirstNameInput] = useState(firstName);
   const [lastNameInput, setLastNameInput] = useState(lastName);
   const [phoneInput, setPhoneInput] = useState(phone);
   const [emailInput, setEmailInput] = useState(email);
-  const [activeInput, setActiveInput] = useState("");
+  const [activeInput, setActiveInput] = useState(""); 
+  const [unitStateInput, setUnitStateInput] = useState("")
+
 
   function handleToggleEdit() {
     setEditModeEnabled(!editModeEnabled);
@@ -41,36 +44,70 @@ function TenantsCard(props) {
         firstName: firstNameInput,
         lastName: lastNameInput,
         phone: phoneInput,
-        email: emailInput,
-        active: activeInput === "true" ? true : false,
+        email: emailInput, 
+        unit_id: props.unit_id,
+        active: activeInput === "true" ? true : false, 
       };
-
-      // Request Options
-      const requestOptions = {
-        method: "PATCH",
+    
+      // Make API request to update tenant information
+      const response = await fetch(API_TENANTS_UPDATE_BY_ID + "/" + _id, {
+        method: "PUT",
         headers: myHeaders,
         body: JSON.stringify(body),
-      };
+      });
 
-      // Send Request
-      const response = await fetch(
-        API_TENANTS_UPDATE_BY_ID + "/" + _id,
-        requestOptions
-      );
-
-      // Get a Response
-      const data = await response.json();
-      console.log(data);
-
-      // Refresh the feed
-      props.fetchTenants();
-
-      // Change the edit mode to false
-      setEditModeEnabled(false);
+      if (response.ok) {
+        // Handle successful update, if needed
+        console.log("Tenant information updated successfully");
+      } else {
+        // Handle errors
+        console.error("Failed to update tenant information");
+      }
     } catch (error) {
       console.error(error);
     }
-  }
+  } 
+
+  const [unit_Data, setUnit_Data] = useState([]); 
+  const [unit_id, setUnit_id] = useState("");
+      async function fetchUnits() {
+        try {
+          // Headers
+          const myHeaders = new Headers();
+          myHeaders.append("Authorization", props.token);
+    
+          // Request Options
+          let requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+          };
+    
+          // Send Request
+          const response = await fetch(
+            API_UNIT_VIEW_BY_USER + "/" + props.currentId,
+            requestOptions
+          );
+    
+          // Get a Response
+          const data = await response.json();
+          console.log(data);
+    
+          // Set State
+          setUnit_Data(data.user_units); 
+          //console.log(unit_Data)
+          if (data.user_units.length > 0) {
+            setUnit_id(data.user_units[0]._id); 
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+  useEffect(() => { 
+    if (props.token) {
+    fetchUnits(); 
+    }
+  }, [props.token]);
 
   return (
     <>
@@ -148,20 +185,39 @@ function TenantsCard(props) {
           {/* edit active */}
           {editModeEnabled ? (
             <>
-              <Label for="active">KEEP tenant history?</Label>
+              <FormGroup>
+              <Label for="unit-id">unit Id</Label>
               <Input
                 name="active"
-                type="select"
-                value={activeInput}
-                onChange={(e) => setActiveInput(e.target.value)}
+                type="select" 
+                value={unit_id}
+                onChange={(e) => setUnit_id(e.target.value)}
               >
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </Input>
+                {unit_Data.map((unit, index) => (
+                <option key={index} value={unit._id}>
+                 {/*  {tenant.firstName}  */}{unit.address} 
+                  </option>
+              ))}
+              </Input> 
+              </FormGroup>
             </>
           ) : (
             <CardText></CardText>
           )}
+          {/* <FormGroup className="col col-3.2">
+              <Label for="unitState">State of the unit:</Label>
+              <Input
+                name="unitState"
+                type="select"
+                value={unitStateInput}
+                onChange={(e) => setUnitStateInput(e.target.value)}
+              >
+                <option>Vacant</option>
+                <option>Rented</option>
+                <option>Unavailable</option>
+                <option>Under repairs</option>
+              </Input>
+            </FormGroup> */}
 
           <CardText>Tenant ID: {_id}</CardText>
           <div
