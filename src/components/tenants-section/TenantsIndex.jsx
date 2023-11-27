@@ -53,7 +53,8 @@ function TenantsIndex(props) {
         <TenantsFeed
           fetchTenants={fetchTenants}
           tenantsList={tenantsList}
-          token={props.token}
+          token={props.token} 
+          currentId={props.currentId}
         />
       ) : (
         <TenantsCreate
