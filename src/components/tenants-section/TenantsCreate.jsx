@@ -229,7 +229,7 @@ function TenantsCreate(props) {
               Create Tenant
             </Button>
             <Button
-              href={"/tenants/view-all/" + props.tenant_id}
+              href={"/tenants/view-all/" + props.currentId}
               style={{
                 background: "var(--quarternary)",
               }}
