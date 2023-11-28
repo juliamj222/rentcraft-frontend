@@ -5,7 +5,7 @@ import { API_USER_LOGIN } from "../constants/endpoints";
 import LoginButton from "../../ui/LoginButton";
 
 function Login(props) {
-  const [email, setEmail] = useState("email@gmail.com");
+  const [email, setEmail] = useState("b.hickok@gmail.com");
   const [password, setPassword] = useState("password");
   const navigate = useNavigate();
 

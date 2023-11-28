@@ -1,4 +1,4 @@
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Card, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import { 
@@ -176,7 +176,22 @@ function UnitUpdate(props) {
 
   return (
     <>
-      <Form>
+    {/* <Card> */}
+
+
+      <Form style={{
+        display: "flex",
+        flexDirection: "column",
+        background: "var(--primary)",
+        // width: "70%",
+        marginLeft: "15%",
+        marginRight: "15%",
+        marginTop: "20px",
+        borderRadius: "10px",
+        padding: "10px"
+        // justifyContent: "center",
+        // alignItems: "center"
+      }}>
         <FormGroup>
           <Label for="address">Address</Label>
           <Input
@@ -294,10 +309,11 @@ function UnitUpdate(props) {
         </FormGroup>
 
         {/* Form Group active ends */}
-        <Button color="success" onClick={handleEdit}>
+        <Button style={{ background: "var(--quarternary)", width: "200px"}} onClick={handleEdit}>
           Save
         </Button>
       </Form>
+      {/* </Card> */}
     </>
   );
 }

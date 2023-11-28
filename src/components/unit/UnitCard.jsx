@@ -58,7 +58,7 @@ function UnitCardF(props) {
 
   // Dropdown
   const headerStatus = ["Paid", "Partial", "Late", "Default"]
-  let headerColor = "var(--tertiary)"
+  let headerColor = "var(--secondary)"
 
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -331,6 +331,8 @@ function UnitCardF(props) {
             width: "100%",
             display: "flex",
             width: "30%",
+            marginTop: "10px",
+            marginBottom: "10px"
             // flexDirection: "row",
           }}
         >
@@ -349,12 +351,14 @@ function UnitCardF(props) {
               <CardText className="monthlyRent text-muted">
                Rent: {monthlyRent}
               </CardText>
-              <CardText className="monthlyRent text-muted">
+              {/* <CardText className="monthlyRent text-muted">
                 Placeholder Paid?
-              </CardText>
+              </CardText> */}
           </CardBody>
           <CardFooter style={{
-            background: "var(--primary)"
+            background: "var(--primary)",
+            display: "flex",
+            justifyContent: "space-between"
           }}>
             <Button
             href={"/unit/view-by-id/" + props.unit._id}
