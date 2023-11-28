@@ -11,22 +11,24 @@ import {
   Label,
 } from "reactstrap";
 import React, { useState, useEffect } from "react";
-import { API_TENANTS_UPDATE_BY_ID, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
+import {
+  API_TENANTS_UPDATE_BY_ID,
+  API_UNIT_VIEW_BY_USER,
+} from "../constants/endpoints";
 
 function TenantsCard(props) {
-  // console.log(params) 
-  const params = useParams()
+  // console.log(params)
+  const params = useParams();
 
-  const { firstName, lastName, phone, email, _id, active, } = props.tenant;
+  const { firstName, lastName, phone, email, _id, active } = props.tenant;
 
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [firstNameInput, setFirstNameInput] = useState(firstName);
   const [lastNameInput, setLastNameInput] = useState(lastName);
   const [phoneInput, setPhoneInput] = useState(phone);
   const [emailInput, setEmailInput] = useState(email);
-  const [activeInput, setActiveInput] = useState(""); 
-  const [unitStateInput, setUnitStateInput] = useState("")
-
+  const [activeInput, setActiveInput] = useState("");
+  const [unitStateInput, setUnitStateInput] = useState("");
 
   function handleToggleEdit() {
     setEditModeEnabled(!editModeEnabled);
@@ -44,17 +46,19 @@ function TenantsCard(props) {
         firstName: firstNameInput,
         lastName: lastNameInput,
         phone: phoneInput,
-        email: emailInput, 
+        email: emailInput,
         unit_id: props.unit_id,
-        active: activeInput === "true" ? true : false, 
+        active: activeInput === "true" ? true : false,
       };
-    
+
       // Make API request to update tenant information
       const response = await fetch(API_TENANTS_UPDATE_BY_ID + "/" + _id, {
-        method: "PUT",
+        method: "PATCH",
         headers: myHeaders,
         body: JSON.stringify(body),
       });
+
+      console.log("Update Response Status:", response.status);
 
       if (response.ok) {
         // Handle successful update, if needed
@@ -62,50 +66,52 @@ function TenantsCard(props) {
       } else {
         // Handle errors
         console.error("Failed to update tenant information");
+        const errorData = await response.json().catch(() => {}); // Handle non-JSON error response
+        console.error("Error Details:", errorData); // Log detailed error information
       }
     } catch (error) {
       console.error(error);
     }
-  } 
+  }
 
-  const [unit_Data, setUnit_Data] = useState([]); 
+  const [unit_Data, setUnit_Data] = useState([]);
   const [unit_id, setUnit_id] = useState("");
-      async function fetchUnits() {
-        try {
-          // Headers
-          const myHeaders = new Headers();
-          myHeaders.append("Authorization", props.token);
-    
-          // Request Options
-          let requestOptions = {
-            method: "GET",
-            headers: myHeaders,
-          };
-    
-          // Send Request
-          const response = await fetch(
-            API_UNIT_VIEW_BY_USER + "/" + props.currentId,
-            requestOptions
-          );
-    
-          // Get a Response
-          const data = await response.json();
-          console.log(data);
-    
-          // Set State
-          setUnit_Data(data.user_units); 
-          //console.log(unit_Data)
-          if (data.user_units.length > 0) {
-            setUnit_id(data.user_units[0]._id); 
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
+  async function fetchUnits() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
 
-  useEffect(() => { 
+      // Request Options
+      let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      // Send Request
+      const response = await fetch(
+        API_UNIT_VIEW_BY_USER + "/" + props.currentId,
+        requestOptions
+      );
+
+      // Get a Response
+      const data = await response.json();
+      console.log(data);
+
+      // Set State
+      setUnit_Data(data.user_units);
+      //console.log(unit_Data)
+      if (data.user_units.length > 0) {
+        setUnit_id(data.user_units[0]._id);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
     if (props.token) {
-    fetchUnits(); 
+      fetchUnits();
     }
   }, [props.token]);
 
@@ -186,23 +192,23 @@ function TenantsCard(props) {
           {editModeEnabled ? (
             <>
               <FormGroup>
-              <Label for="unit-id">unit Id</Label>
-              <Input
-                name="active"
-                type="select" 
-                value={unit_id}
-                onChange={(e) => setUnit_id(e.target.value)}
-              >
-                {unit_Data.map((unit, index) => (
-                <option key={index} value={unit._id}>
-                {unit.address} 
-                  </option>
-              ))}
-              </Input> 
+                <Label for="unit-id">Unit Address</Label>
+                <Input
+                  name="unit-id"
+                  type="select"
+                  value={unit_id}
+                  onChange={(e) => setUnit_id(e.target.value)}
+                >
+                  {unit_Data.map((unit, index) => (
+                    <option key={index} value={unit._id}>
+                      {unit.address}
+                    </option>
+                  ))}
+                </Input>
               </FormGroup>
             </>
           ) : (
-            <CardText></CardText>
+            <CardText>Unit Address</CardText>
           )}
           {/* <FormGroup className="col col-3.2">
               <Label for="unitState">State of the unit:</Label>
@@ -249,7 +255,10 @@ function TenantsCard(props) {
                   background: "var(--quarternary)",
                   margin: "auto",
                 }}
-                onClick={handleEdit}
+                onClick={() => {
+                  handleEdit();
+                  console.log(lastNameInput, firstNameInput /* .user_id */);
+                }}
               >
                 SAVE
               </Button>

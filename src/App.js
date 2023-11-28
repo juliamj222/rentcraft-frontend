@@ -15,10 +15,8 @@ import UnitUpdate from "./components/unit/UnitUpdate";
 import WelcomeIndex from "./components/main-section/WelcomeIndex";
 import UnitDisplay from "./components/unit/UnitDisplay";
 import UnitFeedById from "./components/unit/UnitFeedById";
-import TenantsCreate from "./components/tenants-section/TenantsCreate"; 
+import TenantsCreate from "./components/tenants-section/TenantsCreate";
 import Paymentparams from "./components/payments-section/PaymentNavbar";
-
-
 
 import PaymentsCreate from "./components/payments-section/PaymentsCreate";
 
@@ -26,38 +24,30 @@ import PaymentsUnitHistory from "./components/payments-section/PaymentsUnitHisto
 import PaymentsTenantHistory from "./components/payments-section/PaymentsTenantHistory";
 import PaymentsEdit from "./components/payments-section/PaymentsEdit";
 
-import Navigation from "./components/navigation-section/NavBar"
+import Navigation from "./components/navigation-section/NavBar";
 import ReturnToAuth from "./components/navigation-section/ReturnToAuth";
-
 
 function App() {
   const [token, setToken] = useState("");
-  const [currentId, setCurrentId] = useState(""); 
-  
-  
-  //new 
-  const clearToken = () =>{
-    localStorage.clear()
-    setToken('')
-    console.log('logging out...') 
-    
-    
-  }
+  const [currentId, setCurrentId] = useState("");
 
+  //new
+  const clearToken = () => {
+    localStorage.clear();
+    setToken("");
+    console.log("logging out...");
+  };
 
   function updateCurrentId(newCurrentId) {
     setCurrentId(newCurrentId);
     localStorage.setItem("CurrentId", newCurrentId);
   }
 
-  function updateToken(newToken) { 
+  function updateToken(newToken) {
     setToken(newToken);
-    localStorage.setItem("token", newToken); 
-  
+    localStorage.setItem("token", newToken);
   }
 
-
-  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -78,7 +68,6 @@ function App() {
   }, []);
 
   return (
-
     <div className="app-container">
       <div
         className="navbar-header-container"
@@ -108,32 +97,23 @@ function App() {
       <Routes>
         <Route
           path="/feed/:id"
-          element={<MainIndex 
-            token={token} 
-            currentId={currentId} />}
+          element={<MainIndex token={token} currentId={currentId} />}
         />
         <Route
           path="/unit/view-by-id/:id"
-          element={<UnitFeedById 
-            token={token} 
-            currentId={currentId} />}
+          element={<UnitFeedById token={token} currentId={currentId} />}
         />
         <Route
           path="/"
-          element={<WelcomeIndex 
-            token={token} 
-            currentId={currentId} />}
+          element={<WelcomeIndex token={token} currentId={currentId} />}
         />
         <Route
           path="/auth"
           element={
-
-
-            <Auth 
+            <Auth
               updateToken={updateToken}
               updateCurrentId={updateCurrentId}
               //currentId={currentId}
-
             />
           }
         />
@@ -191,7 +171,7 @@ function App() {
               updateToken={updateToken}
               currentId={currentId}
               updateCurrentId={updateCurrentId}
-            /> 
+            />
           }
         />
         <Route
