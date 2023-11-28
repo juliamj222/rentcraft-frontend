@@ -195,7 +195,7 @@ function TenantsCard(props) {
               >
                 {unit_Data.map((unit, index) => (
                 <option key={index} value={unit._id}>
-                 {/*  {tenant.firstName}  */}{unit.address} 
+                {unit.address} 
                   </option>
               ))}
               </Input> 
