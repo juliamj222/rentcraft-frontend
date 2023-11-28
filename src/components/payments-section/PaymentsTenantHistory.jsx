@@ -83,6 +83,12 @@ function PaymentsTenantHistory(props) {
 
   return (
     <>
+    <div style={{
+        marginLeft: "20%",
+        marginRight: "20%",
+        marginTop: "1%",
+        marginBottom: "1%",
+    }}>
         <h1> Payment History for {thisTennant.firstName} {thisTennant.lastName}</h1>
         {tenantHistory.map((payment, index) => (
             <PaymentsCard
@@ -92,6 +98,7 @@ function PaymentsTenantHistory(props) {
             currentId={props.currentId}
             />
         ))}
+    </div>
     </>
   );
 }

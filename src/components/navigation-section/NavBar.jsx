@@ -103,7 +103,8 @@ function Navigation(props) {
             </NavLink>
           </NavItem>
           <NavItem>
-            <Button onClick={props.clickLogout}>Logout</Button>
+            <NavLink onClick={props.clickLogout} href="/" style={{color: "var(--tertiary)"}}>Logout</NavLink>
+            {/* <Button onClick={props.clickLogout}>Logout</Button> */}
           </NavItem>
         </Nav>
       </Collapse>

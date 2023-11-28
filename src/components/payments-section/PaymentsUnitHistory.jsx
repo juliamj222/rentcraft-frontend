@@ -82,6 +82,12 @@ function PaymentsUnitHistory(props) {
 
   return (
     <>
+    <div style={{
+        marginLeft: "20%",
+        marginRight: "20%",
+        marginTop: "1%",
+        marginBottom: "1%",
+    }}>
         <h1>Payment History for {thisAddress}</h1>
         {unitHistory.map((payment, index) => (
             <PaymentsCard
@@ -91,6 +97,7 @@ function PaymentsUnitHistory(props) {
             currentId={props.currentId}
             />
         ))}
+    </div>
     </>
   );
 }

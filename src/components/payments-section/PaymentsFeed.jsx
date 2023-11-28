@@ -25,23 +25,6 @@ function PaymentsFeed(props) {
             currentId={props.currentId}
           />
         ))}
-        <Button
-          href="/payments/create"
-          style={{
-            background: "var(--secondary)",
-            padding: "1%",
-            color: "black",
-            marginTop: "1%",
-            marginBottom: "1%",
-            marginLeft: "30%",
-            marginRight: "30%",
-
-            justifyContent: "center",
-            borderRadius: "10px",
-          }}
-        >
-          Register a new payment
-        </Button>
       </div>
     </>
   );
