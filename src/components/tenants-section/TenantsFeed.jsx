@@ -51,6 +51,7 @@ function TenantsFeed(props) {
       </div>
     </>
   );
+
 }
 
 export default TenantsFeed;

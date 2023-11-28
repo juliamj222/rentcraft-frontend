@@ -3,6 +3,8 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
+  CardHeader,
   CardSubtitle,
   CardText,
   CardTitle,
@@ -117,24 +119,39 @@ function TenantsCard(props) {
 
   return (
     <>
+    <div className="cardContainer" style={{
+      display: "flex",
+      direction: "row",
+      flexWrap: "wrap",
+      // flexFlow: "row wrap",
+      // width: "100%",
+      justifyContent: "space-between"
+    }}>
+
       <Card
         style={{
-          background: "var(--primary)",
-          paddingLeft: "5%",
-          paddingRight: "5%",
-          paddingBottom: "2%",
-          marginLeft: "20%",
-          marginRight: "20%",
-          marginTop: "2%",
-
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: "10px",
+          // display: "flex",
+          // flexDirection: "row",
+          width: "400px",
+          marginBottom: "20px",
+          // flexWrap: "wrap"
+          // marginLeft: "auto",
+          // alignItems: "center",
+          // justifyContent: "center",
         }}
       >
-        <CardBody>
+        <CardHeader style={{
+          fontSize: "1.5em",
+          background: "var(--secondary)",
+          display: "flex",
+          justifyContent: "center"
+        }}>
+          {firstName} {lastName}
+        </CardHeader>
+        <CardBody style={{
+          display: "flex",
+          flexDirection: "column"
+        }}>
           {/* Edit first and last name */}
           {editModeEnabled ? (
             <>
@@ -155,7 +172,7 @@ function TenantsCard(props) {
             </>
           ) : (
             <CardTitle tag="h5">
-              {firstName} {lastName}
+              {/* {firstName} {lastName} */}
             </CardTitle>
           )}
 
@@ -226,14 +243,19 @@ function TenantsCard(props) {
             </FormGroup> */}
 
           <CardText>Tenant ID: {_id}</CardText>
-          <div
+          {/* <div
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
               width: "100%",
             }}
-          >
+          > */}
+            </CardBody>
+            <CardFooter style={{
+              background: "var(--primary)",
+              display: "flex"
+            }}>
             {/* Toggle Edit Mode Button */}
             {props.userId === props.tenant?.user_id?._id && (
               <Button
@@ -263,9 +285,11 @@ function TenantsCard(props) {
                 SAVE
               </Button>
             )}
-          </div>
-        </CardBody>
+
+          {/* </div> */}
+        </CardFooter>
       </Card>
+      </div>
     </>
   );
 }
