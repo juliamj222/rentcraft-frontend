@@ -169,7 +169,7 @@ function UnitDisplayOrUnitEdit(props) {
       handleToggleEdit={handleToggleEdit}
     />
   ) : (
-    UnitDisplay()
+    <UnitDisplay />
   );
 }
 

@@ -8,11 +8,11 @@ function UnitFeed(props) {
   const params = useParams();
   if (!props.token) return <ReturnToAuth />;
   console.log(props.unitFeedItems);
-  return props.unitFeedItems
-    .filter((unit) => unit.active === true)
-    .map((unit) => {
-      console.log("CITY", unit.city);
-      console.log(unit.active);
+  // return props.unitFeedItems
+  //   .filter((unit) => unit.active === true)
+  //   .map((unit) => {
+  //     console.log("CITY", unit.city);
+  //     console.log(unit.active);
 
       return (
         <>
@@ -26,8 +26,9 @@ function UnitFeed(props) {
           >
             {/*mapping*/}
 
-            {props.unitFeedItems.map((unit, index) => (
-              <>
+            {props.unitFeedItems
+            .filter((unit) => unit.active === true)
+            .map((unit, index) => (
                 <UnitCardF
                   key={index}
                   unit={unit}
@@ -39,7 +40,6 @@ function UnitFeed(props) {
                   user={props.user}
                   userId={props.userId}
                 />
-              </>
             ))}
           </div>
           <div>
@@ -69,7 +69,7 @@ function UnitFeed(props) {
           </div>
         </>
       );
-    });
-}
+    };
+
 
 export default UnitFeed;
