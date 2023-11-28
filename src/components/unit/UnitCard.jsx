@@ -9,6 +9,12 @@ import {
   Input,
   Form,
   FormGroup,
+  CardHeader,
+  CardFooter,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import {
@@ -49,6 +55,24 @@ function UnitCardF(props) {
   const [activeInput, setActiveInput] = useState(active);
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+
+  // Dropdown
+  const headerStatus = ["Paid", "Partial", "Late", "Default"]
+  let headerColor = "var(--tertiary)"
+
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen)
+  const [headerState, setHeaderState] = useState("Default");
+
+  function changeHeaderState() {
+    if (headerState = "Paid") {
+      headerColor = "green"
+    } else {
+      headerColor = "var(--secondary)"
+    }
+  }
+
 
   if (!props.unit) {
     return <div>Unit information not available</div>;
@@ -130,185 +154,248 @@ function UnitCardF(props) {
     }
   }
 
-  function EditModeForm() {
+
+
+  // function changeHeaderState() {
+  //   if (headerState = "Paid") {
+  //     headerColor = "green"
+  //   }
+  // }
+
+  // function EditModeForm() {
+  //   return (
+  //     <>
+  //       <div style={{ width: "100%" }}>
+  //         <Label for="address">Address</Label>
+  //         <Input
+  //           id="address"
+  //           value={addressInput}
+  //           onChange={(e) => setAddressInput(e.target.value)}
+  //           className="mb-2"
+  //           type="text"
+  //         />
+
+  //         <div
+  //           className="form-row"
+  //           style={{
+  //             display: "flex",
+  //             flexDirection: "row",
+  //             justifyContent: "space-evenly",
+  //             alignItems: "center",
+  //           }}
+  //         >
+  //           <FormGroup className="col  col-3.2">
+  //             <Label for="city">City</Label>
+  //             <Input
+  //               type="text"
+  //               name="city"
+  //               id="city"
+  //               placeholder="City"
+  //               value={cityInput}
+  //               onChange={(e) => setCityInput(e.target.value)}
+  //             />
+  //           </FormGroup>
+
+  //           <FormGroup className="col col-3.2">
+  //             <Label for="state">State</Label>
+  //             <Input
+  //               type="text"
+  //               name="state"
+  //               id="state"
+  //               placeholder="State"
+  //               value={stateInput}
+  //               onChange={(e) => setStateInput(e.target.value)}
+  //             />
+  //           </FormGroup>
+
+  //           <FormGroup className="col col-3.2">
+  //             <Label for="zip">Zip</Label>
+  //             <Input
+  //               type="text"
+  //               name="zip"
+  //               id="zip"
+  //               placeholder="Zipcode"
+  //               value={zipInput}
+  //               onChange={(e) => {
+  //                 setZipInput(e.target.value);
+  //               }}
+  //             />
+  //           </FormGroup>
+  //         </div>
+  //         <div
+  //           className="form-row"
+  //           style={{
+  //             display: "flex",
+  //             flexDirection: "row",
+  //             justifyContent: "space-evenly",
+  //             alignItems: "center",
+  //           }}
+  //         >
+  //           <FormGroup className="col col-3.2">
+  //             <Label for="monthlyRent">Monthly Rent</Label>
+  //             <Input
+  //               type="text"
+  //               name="monthlyRent"
+  //               id="monthlyRent"
+  //               placeholder="Expected monthly rent"
+  //               value={monthlyRentInput}
+  //               onChange={(e) => {
+  //                 setMonthlyRentInput(e.target.value);
+  //               }}
+  //             />
+  //           </FormGroup>
+  //           {/* Form Group monthlyRent ends */}
+  //           {/* Form Group unitState */}
+  //           <FormGroup className="col col-3.2">
+  //             <Label for="unitState">State of the unit:</Label>
+  //             <Input
+  //               name="unitState"
+  //               type="select"
+  //               value={unitStateInput}
+  //               onChange={(e) => setUnitStateInput(e.target.value)}
+  //             >
+  //               <option>Vacant</option>
+  //               <option>Rented</option>
+  //               <option>Unavailable</option>
+  //               <option>Under repairs</option>
+  //             </Input>
+  //           </FormGroup>
+
+  //           {/* Form Group unitState ends */}
+  //         </div>
+  //         {/* Form Group tenant_id */}
+  //         <FormGroup>
+  //           <Label for="tenant_id">Tenant ID</Label>
+  //           <Input
+  //             type="tenant_id"
+  //             name="tenant_id"
+  //             id="tenant_id"
+  //             placeholder="Tenant ID"
+  //             value={tenant_idInput}
+  //             onChange={(e) => setTenant_idInput(e.target.value)}
+  //           />
+  //         </FormGroup>
+
+  //         {/* Form Group tenant id ends */}
+  //         <div
+  //           className="form-row"
+  //           style={{
+  //             display: "flex",
+  //             flexDirection: "row",
+  //             justifyContent: "space-evenly",
+  //           }}
+  //         >
+  //           {/* Form Group active starts */}
+  //           <FormGroup className="col col-3.2">
+  //             <Label for="active">In my portfolio?</Label>
+  //             <Input
+  //               name="active"
+  //               type="select"
+  //               value={activeInput}
+  //               onChange={(e) => setActiveInput(e.target.value)}
+  //             >
+  //               <option>True</option>
+  //               <option>False</option>
+  //             </Input>
+  //           </FormGroup>
+
+  //           {/* Form Group active ends */}
+  //           <Button
+  //             style={{
+  //               background: "var(--quarternary)",
+  //             }}
+  //             onClick={handleEdit}
+  //           >
+  //             Save
+  //           </Button>
+
+  //           <Button
+  //             style={{
+  //               background: "var(--quarternary)",
+  //             }}
+  //           >
+  //             Take me back
+  //           </Button>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // }
+
+  // function RegularView() {
+  //   console.log(props.unit);
     return (
       <>
-        <div style={{ width: "100%" }}>
-          <Label for="address">Address</Label>
-          <Input
-            id="address"
-            value={addressInput}
-            onChange={(e) => setAddressInput(e.target.value)}
-            className="mb-2"
-            type="text"
-          />
-
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <FormGroup className="col  col-3.2">
-              <Label for="city">City</Label>
-              <Input
-                type="text"
-                name="city"
-                id="city"
-                placeholder="City"
-                value={cityInput}
-                onChange={(e) => setCityInput(e.target.value)}
-              />
-            </FormGroup>
-
-            <FormGroup className="col col-3.2">
-              <Label for="state">State</Label>
-              <Input
-                type="text"
-                name="state"
-                id="state"
-                placeholder="State"
-                value={stateInput}
-                onChange={(e) => setStateInput(e.target.value)}
-              />
-            </FormGroup>
-
-            <FormGroup className="col col-3.2">
-              <Label for="zip">Zip</Label>
-              <Input
-                type="text"
-                name="zip"
-                id="zip"
-                placeholder="Zipcode"
-                value={zipInput}
-                onChange={(e) => {
-                  setZipInput(e.target.value);
-                }}
-              />
-            </FormGroup>
-          </div>
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <FormGroup className="col col-3.2">
-              <Label for="monthlyRent">Monthly Rent</Label>
-              <Input
-                type="text"
-                name="monthlyRent"
-                id="monthlyRent"
-                placeholder="Expected monthly rent"
-                value={monthlyRentInput}
-                onChange={(e) => {
-                  setMonthlyRentInput(e.target.value);
-                }}
-              />
-            </FormGroup>
-            {/* Form Group monthlyRent ends */}
-            {/* Form Group unitState */}
-            <FormGroup className="col col-3.2">
-              <Label for="unitState">State of the unit:</Label>
-              <Input
-                name="unitState"
-                type="select"
-                value={unitStateInput}
-                onChange={(e) => setUnitStateInput(e.target.value)}
-              >
-                <option>Vacant</option>
-                <option>Rented</option>
-                <option>Unavailable</option>
-                <option>Under repairs</option>
-              </Input>
-            </FormGroup>
-
-            {/* Form Group unitState ends */}
-          </div>
-          {/* Form Group tenant_id */}
-          <FormGroup>
-            <Label for="tenant_id">Tenant ID</Label>
-            <Input
-              type="tenant_id"
-              name="tenant_id"
-              id="tenant_id"
-              placeholder="Tenant ID"
-              value={tenant_idInput}
-              onChange={(e) => setTenant_idInput(e.target.value)}
-            />
-          </FormGroup>
-
-          {/* Form Group tenant id ends */}
-          <div
-            className="form-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            {/* Form Group active starts */}
-            <FormGroup className="col col-3.2">
-              <Label for="active">In my portfolio?</Label>
-              <Input
-                name="active"
-                type="select"
-                value={activeInput}
-                onChange={(e) => setActiveInput(e.target.value)}
-              >
-                <option>True</option>
-                <option>False</option>
-              </Input>
-            </FormGroup>
-
-            {/* Form Group active ends */}
-            <Button
-              style={{
-                background: "var(--quarternary)",
-              }}
-              onClick={handleEdit}
-            >
-              Save
-            </Button>
-
-            <Button
-              style={{
-                background: "var(--quarternary)",
-              }}
-            >
-              Take me back
-            </Button>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  function RegularView() {
-    console.log(props.unit);
-    return (
-      <>
-        <div
+        <Card
           style={{
             width: "100%",
             display: "flex",
-            flexDirection: "row",
+            width: "30%",
+            // flexDirection: "row",
           }}
         >
-          <div
+          <CardHeader className="header" style={{
+            fontSize: "1.5em",
+            // background: {headerColor}
+            backgroundColor: `${headerColor}`
+          }}>
+            {address}
+          </CardHeader>
+          <CardBody>
+            <CardText className="city text-muted">{city}, {state} {zip}</CardText>
+            <CardText className="unitState text-muted">
+                Unit Status: {unitState}
+              </CardText>
+              <CardText className="monthlyRent text-muted">
+               Rent: {monthlyRent}
+              </CardText>
+              <CardText className="monthlyRent text-muted">
+                Placeholder Paid?
+              </CardText>
+          </CardBody>
+          <CardFooter style={{
+            background: "var(--primary)"
+          }}>
+            <Button
+            href={"/unit/view-by-id/" + props.unit._id}
+            style={{
+            background: "var(--quarternary)",
+            }}
+            >
+              Unit Display
+            </Button>
+            <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+              <DropdownToggle caret>Payment Status</DropdownToggle>
+              <DropdownMenu onChange={changeHeaderState}>
+                <DropdownItem value="Paid">Paid</DropdownItem>
+                <DropdownItem>Partial</DropdownItem>
+                <DropdownItem>Late</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </CardFooter>
+
+          {/* TODO: Do we need this code below? */}
+          {/* <div
             style={{
               width: "100%",
             }}
           >
             <CardTitle name="address" style={{ fontSize: "1.5em" }}>
-              {address}
             </CardTitle>
+
+            <div
+              className="form-row"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            > */}
+
+              {/* <CardText className="state text-muted">{state} ||</CardText> */}
+
+              {/* <CardText className="zip text-muted">{zip}</CardText> */}
+            {/* </div>
             <div
               className="form-row"
               style={{
@@ -317,29 +404,7 @@ function UnitCardF(props) {
                 justifyContent: "space-between",
               }}
             >
-              <CardText className="city text-muted">{city} ||</CardText>
-
-              <CardText className="state text-muted">{state} ||</CardText>
-
-              <CardText className="zip text-muted">{zip}</CardText>
-            </div>
-            <div
-              className="form-row"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <CardText className="unitState text-muted">
-                {unitState} ||
-              </CardText>
-              <CardText className="monthlyRent text-muted">
-                {monthlyRent} ||
-              </CardText>
-              <CardText className="monthlyRent text-muted">
-                Placeholder Paid?
-              </CardText>
+              
             </div>
             <div
               className="form-row"
@@ -359,24 +424,17 @@ function UnitCardF(props) {
                 flexDirection: "row",
                 justifyContent: "space-evenly",
               }}
-            >
-              <Button
-                href={"/unit/view-by-id/" + props.unit._id}
-                style={{
-                  background: "var(--quarternary)",
-                }}
-              >
-                Unit Display
-              </Button>
+            > */}
+              
 
-              <Button
+              {/* <Button
                 style={{
                   background: "var(--quarternary)",
                 }}
                 onClick={handleToggleEdit}
               >
                 Edit
-              </Button>
+              </Button> */}
               {/* If wanting to have DELETE UNIT functionality, just uncomment the code below */}
               {/*               <Button
                 style={{
@@ -388,54 +446,54 @@ function UnitCardF(props) {
               >
                 Delete
               </Button> */}
-            </div>
-          </div>
-        </div>
+            {/* </div> */}
+          {/* </div> */}
+        </Card>
       </>
     );
   }
-  return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          direction: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          marginBottom: "1.5%",
-        }}
-      >
-        <div
-          style={{
-            background: "var(--primary)",
-            paddingLeft: "2%",
-            paddingRight: "2%",
-            paddingBottom: "5%",
-            borderRadius: "10px",
-          }}
-        >
-          <Form>
-            <Card className="mt-3">
-              <CardBody
-                style={{
-                  background: "white",
-                }}
-              >
-                {editModeEnabled ? EditModeForm() : RegularView()}
-              </CardBody>
-            </Card>
-          </Form>
-        </div>
-        <DeleteConfirmation
-          modal={modal}
-          toggle={toggle}
-          address={address}
-          id={_id}
-          handleDelete={handleDelete}
-        />
-      </div>
-    </>
-  );
-}
+  // return (
+  //   <>
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         direction: "row",
+  //         flexWrap: "wrap",
+  //         justifyContent: "center",
+  //         marginBottom: "1.5%",
+  //       }}
+  //     >
+  //       <div
+  //         style={{
+  //           background: "var(--primary)",
+  //           paddingLeft: "2%",
+  //           paddingRight: "2%",
+  //           paddingBottom: "5%",
+  //           borderRadius: "10px",
+  //         }}
+  //       >
+  //         <Form>
+  //           <Card className="mt-3">
+  //             <CardBody
+  //               style={{
+  //                 background: "white",
+  //               }}
+  //             >
+  //               {editModeEnabled ? EditModeForm() : RegularView()}
+  //             </CardBody>
+  //           </Card>
+  //         </Form>
+  //       </div>
+  //       <DeleteConfirmation
+  //         modal={modal}
+  //         toggle={toggle}
+  //         address={address}
+  //         id={_id}
+  //         handleDelete={handleDelete}
+  //       />
+  //     </div>
+  //   </>
+  // );
+// }
 
 export default UnitCardF;
