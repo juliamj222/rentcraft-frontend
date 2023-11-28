@@ -262,22 +262,20 @@ function UnitUpdate(props) {
           />
         </FormGroup> 
         {/* Form Group unitState ends */} 
-        Form Group information
         <FormGroup>
-         <Label for="tenant_id">Tenant by the ID</Label>
+         <Label for="tenant_id">Tenant ID</Label>
           <Input
             type="select"
-            name="tenant"
-            value={active}
+            name="tenant_id"
+            value={tenant_id}
             onChange={(e) => setTenant_id(e.target.value)}
           >
-           {/*  {tenantData.map((tenant, index) => (
+           {tenantData.map((tenant, index) => (
                 <option key={index} value={tenant._id}>
                   {tenant.firstName} {tenant.lastName}
                 </option> 
-                 ))}  */} 
-                 <option value="true">True</option>
-            <option value="false">False</option>
+                 ))}  
+               
   </Input>
         </FormGroup>
 
