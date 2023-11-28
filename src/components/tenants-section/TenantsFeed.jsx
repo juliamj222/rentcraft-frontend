@@ -15,22 +15,15 @@ function TenantsFeed(props) {
 
       return (
         <>
-          {props.tenantsList.map((tenant, index) => (
-            <TenantsCard
-              key={index}
-              tenant={tenant}
-              token={props.token}
-              fetchTenants={props.fetchTenants} 
-              currentId={props.currentId}
-            />
-          ))}
-
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "10px",
+              direction: "row",
+              flexWrap: "wrap",
+              // alignItems: "center",
+              justifyContent: "space-between",
+              // borderRadius: "10px",
+              marginTop: "40px"
             }}
           >
             <Button
@@ -50,6 +43,17 @@ function TenantsFeed(props) {
             >
               Register a new tenant
             </Button>
+
+
+          {props.tenantsList.map((tenant, index) => (
+            <TenantsCard
+              key={index}
+              tenant={tenant}
+              token={props.token}
+              fetchTenants={props.fetchTenants} 
+              currentId={props.currentId}
+            />
+          ))}
           </div>
         </>
       );
