@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, CardText, Input, Label } from "reactstrap";
+import { Button, Card, CardBody, CardFooter, CardHeader, CardText, Input, Label } from "reactstrap";
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { API_PAYMENTS_UPDATE, API_PAYMENTS_VIEW_BY_ID, API_TENANTS_VIEW_ALL, API_TENANTS_VIEW_BY_ID, API_UNIT_VIEW_BY_ID, API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
@@ -244,8 +244,18 @@ function PaymentsEdit(props) {
   return (
     <>
         {/* <h1>Hello from PaymentsEdit</h1> */}
-        <Card>
-            <CardHeader>PAYMENT ID: {_id}</CardHeader>
+        <Card style={{
+          marginLeft: "20%",
+          marginRight: "20%",
+          marginTop: "1%",
+          marginBottom: "1%",
+        }}>
+            <CardHeader style={{
+              display: "flex",
+              background: "var(--secondary)"
+            }}>
+              PAYMENT ID: {_id}
+            </CardHeader>
             <CardBody>
 
                 {/* Unit ID */}
@@ -339,6 +349,13 @@ function PaymentsEdit(props) {
                     <CardText>Status: {paymentState}</CardText>
                 )}
 
+
+            </CardBody>
+            <CardFooter style={{
+              display: "flex",
+              background: "var(--primary)",
+              justifyContent: "space-between"
+            }}>
             {/*Toggle Edit Button */}
             {props.user_id === props.user?.user_id?._id && (
                 <Button onClick={handleToggleEdit}>
@@ -355,19 +372,19 @@ function PaymentsEdit(props) {
 
             {/* Unit Payment History */}
             {props.user_id === props.user?.user_id?._id && (
-                <Button color="primary" onClick={navigateToUnitHistory}>
+                <Button onClick={navigateToUnitHistory}>
                 Payment History for {thisAddress}
                 </Button>
             )}
 
             {/* Tenant Payment History */}
             {props.user_id === props.user?.user_id?._id && (
-                <Button color="primary" onClick={navigateToTenantHistory}>
+                <Button onClick={navigateToTenantHistory}>
                 {thisTennant.firstName} {thisTennant.lastName}'s Payment History
                 </Button>
             )}
 
-            </CardBody>
+            </CardFooter>
         </Card>
     </>
   );

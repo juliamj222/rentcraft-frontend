@@ -2,6 +2,8 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
+  CardHeader,
   CardSubtitle,
   CardText,
   CardTitle,
@@ -105,30 +107,20 @@ function ProfileCard(props) {
   return (
     <>
       <Card
-        className="mb-3"
         style={{
-          background: "var(--primary)",
-          paddingLeft: "5%",
-          paddingRight: "5%",
-          paddingBottom: "2%",
           marginLeft: "20%",
           marginRight: "20%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: "10px",
+          marginTop: "1%",
+          marginBottom: "1%",
         }}
       >
+        <CardHeader style={{
+          display: "flex",
+          background: "var(--secondary)"
+        }}>
+            {firstName}'s Account
+        </CardHeader>
         <CardBody>
-          <CardTitle>
-            <h2
-              className="text-center font-primary bold"
-              style={{ paddingBottom: "5%", paddingTop: "5%" }}
-            >
-              {firstName}'s Account
-            </h2>
-          </CardTitle>
 
           {editModeEnabled ? (
             <>
@@ -174,14 +166,14 @@ function ProfileCard(props) {
 
           {editModeEnabled ? (
             <>
-              <Label for="oldPassword">Current Password</Label>
+              {/* <Label for="oldPassword">Current Password</Label>
               <Input
                 for="oldPassword"
                 name="oldPassword"
                 placeholder="Enter current password"
                 type="password"
                 value={password}
-              />
+              /> */}
               <Label for="newPassword">New Password:</Label>
               <Input
                 id="newPassword"
@@ -196,18 +188,20 @@ function ProfileCard(props) {
             </>
           ) : (
             <CardText>
-              {/*    Click edit mode to change password, email, first name, last name,
-              or delete user */}
             </CardText>
           )}
+        </CardBody>
 
+        <CardFooter style={{
+          display: "flex",
+          background: "var(--primary)"
+        }}>
           {/* Edit Button */}
           {props.user_id === props.user?.user_id?._id && (
             <Button
               style={{
                 background: "var(--quarternary)",
-
-                width: "100%",
+                // width: "100%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -258,7 +252,7 @@ function ProfileCard(props) {
               </Button>
             </ModalFooter>
           </Modal>
-        </CardBody>
+        </CardFooter>
       </Card>
     </>
   );

@@ -48,40 +48,13 @@ function PaymentsIndex(props) {
 
   return (
     <>
-    {/* <Paymentparams /> */}
-    <PaymentsDropdown token={props.token} currentId={props.currentId} paymentsFeedItem={paymentsFeedItem} />
-      {fetchPaymentsFeed.map}
-      {console.log(fetchPaymentsFeed)}
-      <PaymentsFeed
-        paymentsFeedItem={paymentsFeedItem}
-        token={props.token}
-        fetchPaymentsFeed={fetchPaymentsFeed}
-        currentId={props.currentId}
-      />
-      {hasPayments ? (
-        (
-          <PaymentsFeed
-            paymentsFeedItem={paymentsFeedItem}
-            token={props.token}
-            fetchPaymentsFeed={fetchPaymentsFeed}
-            currentId={props.currentId}
-          />
-        ) && (
-          <PaymentsCreate
-            paymentsFeedItem={paymentsFeedItem}
-            token={props.token}
-            fetchPaymentsFeed={fetchPaymentsFeed}
-            currentId={props.currentId}
-          />
-        )
-      ) : (
-        <PaymentsCreate
-          paymentsFeedItem={paymentsFeedItem}
-          token={props.token}
-          fetchPaymentsFeed={fetchPaymentsFeed}
-          currentId={props.currentId}
-        />
-      )}
+    <PaymentsDropdown token={props.token} currentId={props.currentId} paymentsFeedItem={paymentsFeedItem} fetchPaymentsFeed={fetchPaymentsFeed} />
+    <PaymentsFeed
+      paymentsFeedItem={paymentsFeedItem}
+      token={props.token}
+      fetchPaymentsFeed={fetchPaymentsFeed}
+      currentId={props.currentId}
+    />
     </>
   );
 }
