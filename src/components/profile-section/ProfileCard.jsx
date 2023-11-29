@@ -23,7 +23,7 @@ import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function ProfileCard(props) {
   // Variables go here
-  const { firstName, lastName, email, password, _id } = props.user;
+  const { firstName, lastName, email, password, _id } = props.profileView;
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [editEmail, setEditEmail] = useState(email);
   const [editFirstName, setEditFirstName] = useState(firstName);
@@ -48,9 +48,9 @@ function ProfileCard(props) {
 
     // Body
     const body = {
-      email: editEmail,
       firstName: editFirstName,
       lastName: editLastName,
+      email: editEmail,
       password: editPassword,
     };
 
@@ -114,23 +114,26 @@ function ProfileCard(props) {
           marginBottom: "1%",
         }}
       >
-        <CardHeader
-          style={{
-            display: "flex",
-            background: "var(--secondary)",
-          }}
-        >
-          {firstName}'s Account
+
+        <CardHeader style={{
+          display: "flex",
+          justifyContent: "center",
+          background: "var(--secondary)",
+          fontSize: "1.5em"
+        }}>
+            {firstName} {lastName}'s Account
+
         </CardHeader>
         <CardBody>
           {editModeEnabled ? (
             <>
-              <Label for="firstName">New First Name:</Label>
+              <Label for="firstName">First Name:</Label>
               <Input
                 id="firstName"
+                type="text"
+                placeholder={firstName}
                 value={editFirstName}
                 onChange={(e) => setEditFirstName(e.target.value)}
-                // ! className styling
               />
             </>
           ) : (
@@ -139,12 +142,13 @@ function ProfileCard(props) {
 
           {editModeEnabled ? (
             <>
-              <Label for="lastName">New Last Name:</Label>
+              <Label for="lastName">Last Name:</Label>
               <Input
                 id="lastName"
+                type="text"
+                placeholder={lastName}
                 value={editLastName}
                 onChange={(e) => setEditLastName(e.target.value)}
-                // ! className styling
               />
             </>
           ) : (
@@ -153,12 +157,13 @@ function ProfileCard(props) {
 
           {editModeEnabled ? (
             <>
-              <Label for="email">New Email:</Label>
+              <Label for="email">Email:</Label>
               <Input
                 id="email"
+                type="email"
+                placeholder={email}
                 value={editEmail}
                 onChange={(e) => setEditEmail(e.target.value)}
-                // ! className styling
               />
             </>
           ) : (
@@ -192,14 +197,15 @@ function ProfileCard(props) {
           )}
         </CardBody>
 
-        <CardFooter
-          style={{
-            display: "flex",
-            background: "var(--primary)",
-          }}
-        >
+        <CardFooter style={{
+          display: "flex",
+          flexDirection: "row",
+          background: "var(--primary)",
+          justifyContent: "space-evenly"
+        }}>
+
           {/* Edit Button */}
-          {props.user_id === props.user?.user_id?._id && (
+          {props.profileView._id === props.profileView?._id && (
             <Button
               style={{
                 background: "var(--quarternary)",
@@ -217,7 +223,7 @@ function ProfileCard(props) {
           {/* Save Button */}
           {editModeEnabled && (
             <Button
-              style={{ background: "var(--quarternary)" }}
+              style={{ background: "" }}
               onClick={handleEdit}
             >
               Save Changes
@@ -242,7 +248,7 @@ function ProfileCard(props) {
             <ModalHeader toggle={toggleModal}>Confirm Delete</ModalHeader>
             <ModalBody>
               Are you sure that you want to DELETE{" "}
-              {props.user.firstName + " " + props.user.lastName}? This is
+              {props.profileView.firstName + " " + props.profileView.lastName}? This is
               PERMANENT.
             </ModalBody>
             <ModalFooter>

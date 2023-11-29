@@ -342,25 +342,24 @@ function UnitCardF(props) {
           style={{
             fontSize: "1.5em",
             // background: {headerColor}
-            backgroundColor: `${headerColor}`,
-          }}
-        >
-          {address}
-        </CardHeader>
-        <CardBody>
-          <CardText className="city text-muted">
-            {city}, {state} {zip}
-          </CardText>
+            backgroundColor: `${headerColor}`
+          }}>
+            {address}
+          </CardHeader>
+          <CardBody>
+            <CardText className="city text-muted">{city}, {state} {zip}</CardText>
+            <CardText className="unitState text-muted">
+                Unit Status: {unitState}
+              </CardText>
+              <CardText className="monthlyRent text-muted">
+               Monthly Rent: ${monthlyRent}
+              </CardText>
+              {/* <CardText className="monthlyRent text-muted">
+                Placeholder Paid?
+              </CardText> */}
+          </CardBody>
+          <CardFooter style={{
 
-          <CardText className="monthlyRent text-muted">
-            Monthly Rent: ${monthlyRent}
-          </CardText>
-          <CardText className="unitState text-muted">
-            Unit Status: {unitState}
-          </CardText>
-        </CardBody>
-        <CardFooter
-          style={{
             background: "var(--primary)",
             display: "flex",
             justifyContent: "space-between",
