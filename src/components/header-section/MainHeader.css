@@ -9,12 +9,24 @@
   display: flex;
 }
 
-.justify-content-center {
-  justify-content: center;
+.justify-content-flex-end {
+  justify-content: flex-end;
 }
 
 .align-items-center {
   align-items: center;
+}
+
+.align-items-flex-start {
+  align-items: flex-start
+} 
+
+.margin-right {
+  margin-right: 5px;
+} 
+
+.margin-top { 
+  margin-top: 8px;
 }
 
 .quarternary-background {

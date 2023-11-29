@@ -7,6 +7,7 @@ import {
   API_UNIT_DELETE_BY_ID,
 } from "../constants/endpoints";
 import {} from "../constants/endpoints";
+
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function UnitUpdate(props) {
@@ -24,8 +25,6 @@ function UnitUpdate(props) {
   const [active, setActive] = useState("");
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
-
-  // fetchAddress(data.unit.tenant_id)
 
   async function fetchTenants() {
     try {
@@ -141,10 +140,28 @@ function UnitUpdate(props) {
     const data = await response.json();
     console.log(data);
     // refresh the feed
-    //  props.fetchUnitFeed();
+    fetchUnitFeed();
     // change the edit mode to false
     props.handleToggleEdit();
   };
+
+  // Check if the request was successful
+  if (response.ok) {
+    //  Get A Response
+    const data = await response.json();
+    console.log(data);
+    // refresh the feed
+    fetchUnitFeed();
+    // change the edit mode to false
+    props.handleToggleEdit();
+  } else {
+    // Handle the error
+    console.error("Failed to update unit:", response.statusText);
+  }
+} catch (error) {
+  console.error("Error during unit update:", error);
+}
+  }
 
   async function handleDelete() {
     console.log("handleDelete called");
