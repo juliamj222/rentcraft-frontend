@@ -58,7 +58,7 @@ function ProfileView(props) {
       >
         <Row>
           <Col>
-            <ProfileCard user={profileView} token={props.token} currentId={props.currentId} fetchProfile={fetchProfile} />
+            <ProfileCard profileView={profileView} token={props.token} currentId={props.currentId} fetchProfile={fetchProfile} />
           </Col>
         </Row>
       </Container>
