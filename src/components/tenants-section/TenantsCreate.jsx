@@ -187,7 +187,7 @@ function TenantsCreate(props) {
           </FormGroup>
 
           {/* Select Unit */}
-          <FormGroup>
+          {/*  <FormGroup>
             <Label for="selectUnit">Select Unit</Label>
 
             <Input
@@ -204,7 +204,7 @@ function TenantsCreate(props) {
                 </option>
               ))}
             </Input>
-          </FormGroup>
+          </FormGroup> */}
 
           {/* Submit Button */}
           <div
