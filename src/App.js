@@ -242,6 +242,17 @@ function App() {
             />
           }
         />
+      <Route
+          path="/unit/view-by-id/:id"
+          element={
+            <UnitDisplay
+              token={token}
+              updateToken={updateToken}
+              updateCurrentId={updateCurrentId}
+              currentId={currentId}
+            />
+          }
+        />
       </Routes>
     </div>
   );

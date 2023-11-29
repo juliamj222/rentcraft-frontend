@@ -14,15 +14,6 @@ function TenantsFeed(props) {
 
   return (
     <>
-      {activeTenants.map((tenant, index) => (
-        <TenantsCard
-          key={index}
-          tenant={tenant}
-          token={props.token}
-          fetchTenants={props.fetchTenants}
-          currentId={props.currentId}
-        />
-      ))}
 
       <div
         style={{
@@ -31,7 +22,7 @@ function TenantsFeed(props) {
           justifyContent: "center",
           borderRadius: "10px",
         }}
-      >
+        >
         <Button
           href="/tenant/create"
           style={{
@@ -45,9 +36,24 @@ function TenantsFeed(props) {
             justifyContent: "center",
             borderRadius: "10px",
           }}
-        >
+          >
           Register a new tenant
         </Button>
+        </div>
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly"
+        }}>
+      {activeTenants.map((tenant, index) => (
+        <TenantsCard
+          key={index}
+          tenant={tenant}
+          token={props.token}
+          fetchTenants={props.fetchTenants}
+          currentId={props.currentId}
+        />
+      ))}
       </div>
     </>
   );

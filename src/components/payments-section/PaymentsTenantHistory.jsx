@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { API_PAYMENTS_TENANT_HISTORY, API_TENANTS_VIEW_BY_ID } from '../constants/endpoints';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ReturnToAuth from '../navigation-section/ReturnToAuth';
 import PaymentsCard from './PaymentsCard';
+import { Button } from 'reactstrap';
 
 
 function PaymentsTenantHistory(props) {
 
     const params = useParams()
     // console.log(params)
+    const navigate = useNavigate()
+
+    function returnToAllPayments() {
+        navigate("/payments/user/" + props.currentId)
+    }
 
     const [tenantHistory, setTenantHistory] = useState([]);
 
@@ -98,6 +104,9 @@ function PaymentsTenantHistory(props) {
             currentId={props.currentId}
             />
         ))}
+        <Button onClick={returnToAllPayments} style={{ background: "var(--tertiary)"}}>
+            Return to All Payments
+        </Button>
     </div>
     </>
   );
