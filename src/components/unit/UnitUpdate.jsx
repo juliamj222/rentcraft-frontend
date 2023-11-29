@@ -1,18 +1,19 @@
 import { Button, Card, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
-import { 
-  API_TENANTS_VIEW_ALL, 
-  API_UNIT_UPDATE_BY_ID, 
-  API_UNIT_DELETE_BY_ID, } from "../constants/endpoints";
-import {  } from "../constants/endpoints"; 
+import {
+  API_TENANTS_VIEW_ALL,
+  API_UNIT_UPDATE_BY_ID,
+  API_UNIT_DELETE_BY_ID,
+} from "../constants/endpoints";
+import {} from "../constants/endpoints";
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function UnitUpdate(props) {
   console.log(props);
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [user_id, setUser_id] = useState("");
-  const [tenant_id, setTenant_id] = useState(""); 
+  const [tenant_id, setTenant_id] = useState("");
   const [tenantData, setTenantData] = useState([]);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -22,10 +23,9 @@ function UnitUpdate(props) {
   const [unitState, setUnitState] = useState("");
   const [active, setActive] = useState("");
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal); 
+  const toggle = () => setModal(!modal);
 
-  // fetchAddress(data.unit.tenant_id) 
-
+  // fetchAddress(data.unit.tenant_id)
 
   async function fetchTenants() {
     try {
@@ -56,12 +56,12 @@ function UnitUpdate(props) {
     } catch (error) {
       console.error(error);
     }
-  } 
+  }
 
   useEffect(() => {
-    if (!props.token) return; 
+    if (!props.token) return;
     fetchTenants();
-  }, [props.token])
+  }, [props.token]);
 
   async function handleSubmit() {
     try {
@@ -71,12 +71,12 @@ function UnitUpdate(props) {
       myHeaders.append("Authorization", props.token);
 
       let body = {
-        address: address, 
+        address: address,
         city: city,
-        state: state, 
+        state: state,
         zip: zip,
         monthlyRent: monthlyRent,
-        unitState: unitState, 
+        unitState: unitState,
         tenant_id: tenant_id,
       };
 
@@ -85,20 +85,20 @@ function UnitUpdate(props) {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body),
-      }; 
+      };
 
-      // Send Request 
-      const response = await fetch(API_UNIT_UPDATE_BY_ID, requestOptions) 
+      // Send Request
+      const response = await fetch(API_UNIT_UPDATE_BY_ID, requestOptions);
 
       // Get a response
       const data = await response.json();
 
-      props.fetchTenants() 
-      console.log(data) 
+      props.fetchTenants();
+      console.log(data);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  } 
+  }
   if (!props.token) return <ReturnToAuth />;
 
   const handleEdit = async (e) => {
@@ -120,7 +120,7 @@ function UnitUpdate(props) {
       monthlyRent: monthlyRent,
       unitState: unitState,
       _id: props.unitId,
-      active: active === "true" ? true : false,
+      active: active === /* " */ true /* " */ ? true : false,
     };
 
     if (tenant_id) {
@@ -173,25 +173,25 @@ function UnitUpdate(props) {
     }
   }
 
-
   return (
     <>
-    {/* <Card> */}
+      {/* <Card> */}
 
-
-      <Form style={{
-        display: "flex",
-        flexDirection: "column",
-        background: "var(--primary)",
-        // width: "70%",
-        marginLeft: "15%",
-        marginRight: "15%",
-        marginTop: "20px",
-        borderRadius: "10px",
-        padding: "10px"
-        // justifyContent: "center",
-        // alignItems: "center"
-      }}>
+      <Form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          background: "var(--primary)",
+          // width: "70%",
+          marginLeft: "15%",
+          marginRight: "15%",
+          marginTop: "20px",
+          borderRadius: "10px",
+          padding: "10px",
+          // justifyContent: "center",
+          // alignItems: "center"
+        }}
+      >
         <FormGroup>
           <Label for="address">Address</Label>
           <Input
@@ -248,7 +248,7 @@ function UnitUpdate(props) {
               }}
             />
           </FormGroup>
-            </div> 
+        </div>
         {/* Form Group monthlyRent */}
         <FormGroup>
           <Label for="monthlyRent">Monthly Rent</Label>
@@ -275,23 +275,22 @@ function UnitUpdate(props) {
             value={unitState}
             onChange={(e) => setUnitState(e.target.value)}
           />
-        </FormGroup> 
-        {/* Form Group unitState ends */} 
+        </FormGroup>
+        {/* Form Group unitState ends */}
         <FormGroup>
-         <Label for="tenant_id">Tenant ID</Label>
+          <Label for="tenant_id">Tenant ID</Label>
           <Input
             type="select"
             name="tenant_id"
             value={tenant_id}
             onChange={(e) => setTenant_id(e.target.value)}
           >
-           {tenantData.map((tenant, index) => (
-                <option key={index} value={tenant._id}>
-                  {tenant.firstName} {tenant.lastName}
-                </option> 
-                 ))}  
-               
-  </Input>
+            {tenantData.map((tenant, index) => (
+              <option key={index} value={tenant._id}>
+                {tenant.firstName} {tenant.lastName}
+              </option>
+            ))}
+          </Input>
         </FormGroup>
 
         {/* Form Group active starts */}
@@ -309,7 +308,10 @@ function UnitUpdate(props) {
         </FormGroup>
 
         {/* Form Group active ends */}
-        <Button style={{ background: "var(--quarternary)", width: "200px"}} onClick={handleEdit}>
+        <Button
+          style={{ background: "var(--quarternary)", width: "200px" }}
+          onClick={handleEdit}
+        >
           Save
         </Button>
       </Form>
