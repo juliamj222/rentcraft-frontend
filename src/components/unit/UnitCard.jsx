@@ -57,21 +57,24 @@ function UnitCardF(props) {
   const toggle = () => setModal(!modal);
 
   // Dropdown
-  const headerStatus = ["Paid", "Partial", "Late", "Default"]
-  let headerColor = "var(--secondary)"
+  // const headerStatus = ["Paid", "Partial", "Late", "Default"]
+  // let headerColor = "var(--secondary)"
 
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen)
-  const [headerState, setHeaderState] = useState("Default");
+  // const [headerState, setHeaderState] = useState("Default");
+  const [headerColor, setHeaderColor] = useState('var(--secondary)');
 
-  function changeHeaderState() {
-    if (headerState = "Paid") {
-      headerColor = "green"
-    } else {
-      headerColor = "var(--secondary)"
-    }
-  }
+  const changeHeaderState = (selectedColor) => { setHeaderColor(selectedColor)}
+
+  // function changeHeaderState() {
+  //   if (headerState = "Paid") {
+  //     headerColor = "green"
+  //   } else {
+  //     headerColor = "var(--secondary)"
+  //   }
+  // }
 
 
   if (!props.unit) {
@@ -371,9 +374,10 @@ function UnitCardF(props) {
             <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle caret>Payment Status</DropdownToggle>
               <DropdownMenu onChange={changeHeaderState}>
-                <DropdownItem value="Paid">Paid</DropdownItem>
-                <DropdownItem>Partial</DropdownItem>
-                <DropdownItem>Late</DropdownItem>
+                <DropdownItem onClick={() => changeHeaderState('green')}>Paid</DropdownItem>
+                <DropdownItem onClick={() => changeHeaderState('yellow')}>Partial</DropdownItem>
+                <DropdownItem onClick={() => changeHeaderState('red')}>Late</DropdownItem>
+                <DropdownItem onClick={() => changeHeaderState('var(--secondary)')}>Default</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </CardFooter>
