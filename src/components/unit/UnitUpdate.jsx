@@ -2,6 +2,7 @@ import { Button, Card, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import { 
+  API_UNIT_VIEW_BY_USER,
   API_TENANTS_VIEW_ALL, 
   API_UNIT_UPDATE_BY_ID, 
   API_UNIT_DELETE_BY_ID, } from "../constants/endpoints";
@@ -25,6 +26,33 @@ function UnitUpdate(props) {
   const toggle = () => setModal(!modal); 
 
   // fetchAddress(data.unit.tenant_id) 
+
+  async function fetchUnitFeed() {
+    try {
+      // Headers
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
+  
+      // Request Options
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+  
+      // Send Request
+      const response = await fetch(API_UNIT_VIEW_BY_USER, requestOptions);
+  
+      // Get a Response
+      const data = await response.json();
+      console.log(data);
+  
+      // Process the fetched data as needed
+      // Update state or perform other actions
+    } catch (error) {
+      console.error(error);
+      // Handle errors or provide user feedback
+    }
+  }
 
 
   async function fetchTenants() {
@@ -93,7 +121,10 @@ function UnitUpdate(props) {
       // Get a response
       const data = await response.json();
 
-      props.fetchTenants() 
+      // Fetch unit feed after successful update
+    props.fetchUnitFeed();
+      
+      //props.fetchTenants() 
       console.log(data) 
     } catch (error) {
       console.error(error)
@@ -120,7 +151,45 @@ function UnitUpdate(props) {
       monthlyRent: monthlyRent,
       unitState: unitState,
       _id: props.unitId,
-      active: active === "true" ? true : false,
+      active: active === /*"*/true/*"*/ ? true : false,
+    };
+
+    if (tenant_id) {
+      body.tenant_id = tenant_id;
+    }
+    // Request Options
+    const requestOptions = {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(body),
+    };
+    try {
+    // Send Request
+    const response = await fetch(
+      API_UNIT_UPDATE_BY_ID + "/" + props.unitId,
+      requestOptions
+    );
+
+     const handleEdit = async (e) => {
+    e.preventDefault();
+    console.log(typeof active);
+    console.log("handleEdit called");
+    // Headers
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", props.token);
+    myHeaders.append("Content-Type", "application/json");
+
+    // Body
+    let body = {
+      user_id: props.currentId,
+      address: address,
+      city: city,
+      state: state,
+      zip: zip,
+      monthlyRent: monthlyRent,
+      unitState: unitState,
+      _id: props.unitId,
+      active: active === /*"*/true/*"*/ ? true : false,
     };
 
     if (tenant_id) {
@@ -141,10 +210,28 @@ function UnitUpdate(props) {
     const data = await response.json();
     console.log(data);
     // refresh the feed
-    //  props.fetchUnitFeed();
+    fetchUnitFeed();
     // change the edit mode to false
     props.handleToggleEdit();
   };
+
+  // Check if the request was successful
+  if (response.ok) {
+    //  Get A Response
+    const data = await response.json();
+    console.log(data);
+    // refresh the feed
+    fetchUnitFeed();
+    // change the edit mode to false
+    props.handleToggleEdit();
+  } else {
+    // Handle the error
+    console.error("Failed to update unit:", response.statusText);
+  }
+} catch (error) {
+  console.error("Error during unit update:", error);
+}
+  }
 
   async function handleDelete() {
     console.log("handleDelete called");

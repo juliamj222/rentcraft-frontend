@@ -8,7 +8,7 @@ function UnitFeed(props) {
   const params = useParams();
   if (!props.token) return <ReturnToAuth />;
   console.log(props.unitFeedItems);
-  // return props.unitFeedItems
+  //return props.unitFeedItems
   //   .filter((unit) => unit.active === true)
   //   .map((unit) => {
   //     console.log("CITY", unit.city);

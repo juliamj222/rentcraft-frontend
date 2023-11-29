@@ -5,8 +5,8 @@ const MainHeader = (props) => {
 
     return ( 
     <>
-    <header className="d-flex justify-content-center align-items-center quarternary-background">
-        <div className="d-flex justify-content-center align-items-center tertiary-background">
+    <header className="d-flex justify-content-flex-end align-items-flex-start quarternary-background">
+        <div className="d-flex justify-content-center margin-right margin-top">
           <img src={logo} alt="logo" className="App-logo" /> 
         </div>
         </header>
