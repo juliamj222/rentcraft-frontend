@@ -24,7 +24,8 @@
 /* Center the logo */
 .App-logo {
   height: 10vh;
-  margin-right: 7.82%;
+  margin-right: 40%;
+  margin-left: 40%;
 }
 
 @media (max-width: 768px) {

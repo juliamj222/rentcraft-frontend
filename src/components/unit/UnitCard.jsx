@@ -352,7 +352,7 @@ function UnitCardF(props) {
                 Unit Status: {unitState}
               </CardText>
               <CardText className="monthlyRent text-muted">
-               Rent: {monthlyRent}
+               Rent: ${monthlyRent}
               </CardText>
               {/* <CardText className="monthlyRent text-muted">
                 Placeholder Paid?
