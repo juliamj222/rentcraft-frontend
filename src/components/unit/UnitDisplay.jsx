@@ -29,8 +29,7 @@ import ReturnToAuth from "../navigation-section/ReturnToAuth.jsx";
 // this function just toggles to the opposite, sets true to false etc
 
 function UnitDisplayOrUnitEdit(props) {
-
-  const params = useParams()
+  const params = useParams();
   console.log(params);
   const {
     user_id,
@@ -48,9 +47,9 @@ function UnitDisplayOrUnitEdit(props) {
 
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
-  
+
   const [editModeEnabled, setEditModeEnabled] = useState(false);
-  
+
   function handleToggleEdit() {
     console.log("Edit Toggle Works");
     if (editModeEnabled === true) {
@@ -64,66 +63,68 @@ function UnitDisplayOrUnitEdit(props) {
   async function fetchUnit() {
     try {
       // Headers
-      let myHeaders = new Headers()
-      myHeaders.append("Authorization", props.token)
+      let myHeaders = new Headers();
+      myHeaders.append("Authorization", props.token);
 
       // Request Options
       let requestOptions = {
         method: "GET",
         headers: myHeaders,
-      }
+      };
 
       // Send Request
-      const response = await fetch(API_UNIT_VIEW_BY_ID + "/" + params.id, requestOptions)
+      const response = await fetch(
+        API_UNIT_VIEW_BY_ID + "/" + params.id,
+        requestOptions
+      );
 
       // Get a Response
-      const data = await response.json()
-      console.log(data)
+      const data = await response.json();
+      console.log(data);
 
       // Set State
-      setThisUnit(data.unit)
-
+      setThisUnit(data.unit);
     } catch (error) {
       console.error(error);
     }
 
-  // Fetch Tenants
-  // const [tenantData, setTenantData] = useState([]);
-  // const [tenantId, setTenantId] = useState(tenant_id);
-  // async function fetchTenants() {
-  //   try {
-  //     // Headers
-  //     const myHeaders = new Headers();
-  //     myHeaders.append("Authorization", props.token);
+    // Fetch Tenants
+    // const [tenantData, setTenantData] = useState([]);
+    // const [tenantId, setTenantId] = useState(tenant_id);
+    // async function fetchTenants() {
+    //   try {
+    //     // Headers
+    //     const myHeaders = new Headers();
+    //     myHeaders.append("Authorization", props.token);
 
-  //     // Request Options
-  //     let requestOptions = {
-  //       method: "GET",
-  //       headers: myHeaders,
-  //     };
+    //     // Request Options
+    //     let requestOptions = {
+    //       method: "GET",
+    //       headers: myHeaders,
+    //     };
 
-  //     // Send Request
-  //     const response = await fetch(
-  //       API_TENANTS_VIEW_ALL + "/" + props.currentId,
-  //       requestOptions
-  //     );
+    //     // Send Request
+    //     const response = await fetch(
+    //       API_TENANTS_VIEW_ALL + "/" + props.currentId,
+    //       requestOptions
+    //     );
 
-  //     // Get a Response
-  //     const data = await response.json();
-  //     console.log(data);
+    //     // Get a Response
+    //     const data = await response.json();
+    //     console.log(data);
 
-  //     // Set State
-  //     setTenantData(data.user_tenants);
-  //     if (data.user_tenants.length > 0) {
-  //       setTenantId(data.user_tenants[0]._id);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+    //     // Set State
+    //     setTenantData(data.user_tenants);
+    //     if (data.user_tenants.length > 0) {
+    //       setTenantId(data.user_tenants[0]._id);
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
   }
-  
+
   // Fetch Tenant
-  const [thisTennant, setThisTenant] = useState([]);
+  const [thisTenant, setThisTenant] = useState([]);
   async function fetchTenant() {
     try {
       // Headers
@@ -147,7 +148,7 @@ function UnitDisplayOrUnitEdit(props) {
 
       // Set State
       setThisTenant(data.tenants);
-
+      console.log(data.tenants.firstName + " " + data.tenants.lastName);
     } catch (error) {
       console.error(error);
     }
@@ -155,27 +156,27 @@ function UnitDisplayOrUnitEdit(props) {
 
   useEffect(() => {
     if (!props.token) return;
-    fetchUnit()
-    fetchTenant()
+    fetchUnit();
+    // fetchTenant();
   }, [props.token]);
 
-  if (!props.token) return <ReturnToAuth />
+  if (!props.token) return <ReturnToAuth />;
 
   function UnitDisplay() {
     return (
       <div
-        // style={{
-        //   background: "var(--secondary)",
-        //   padding: "2%",
-        //   marginLeft: "20%",
-        //   marginRight: "20%",
-        //   //    marginTop: "2%",
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   alignItems: "center",
-        //   justifyContent: "center",
-        //   borderRadius: "10px",
-        // }}
+      // style={{
+      //   background: "var(--secondary)",
+      //   padding: "2%",
+      //   marginLeft: "20%",
+      //   marginRight: "20%",
+      //   //    marginTop: "2%",
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   alignItems: "center",
+      //   justifyContent: "center",
+      //   borderRadius: "10px",
+      // }}
       >
         <Card
           style={{
@@ -183,13 +184,24 @@ function UnitDisplayOrUnitEdit(props) {
             display: "flex",
             marginLeft: "20%",
             marginTop: "1em",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
-          <CardHeader className="address" style={{ fontSize: "1.5em", background: "var(--secondary)", display: "flex", justifyContent: "center"}}>
-              {address}
+          <CardHeader
+            className="address"
+            style={{
+              fontSize: "1.5em",
+              background: "var(--secondary)",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {address}
           </CardHeader>
-          <CardBody className="form-row" style={{ display: "flex", flexDirection: "column"}}>
+          <CardBody
+            className="form-row"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             <div
               className="form-row"
               style={{
@@ -214,11 +226,12 @@ function UnitDisplayOrUnitEdit(props) {
               }}
             >
               {/* <Label for="monthlyRent">Monthly rent:</Label> */}
-              <CardText>
-                Monthly Rent: ${monthlyRent}
-              </CardText>
+              <CardText>Monthly Rent: ${monthlyRent}</CardText>
               {/* <Label for="unitState">Unit state:</Label> */}
               <CardText>Unit State: {unitState}</CardText>
+              {/* <Label for="tenant_id">Tenant:</Label> */}
+
+              <CardText>Tenant ID: {tenant_id}</CardText>
             </div>
             <div
               className="form-row"
@@ -231,7 +244,7 @@ function UnitDisplayOrUnitEdit(props) {
               {/* <Label for="tenant_id">Tenant: </Label> */}
               {/* <CardText>Tenant: {thisTennant.firstName} {thisTennant.lastName}</CardText> */}
               {/* <CardText>Tenant: {tenant_id}</CardText> */}
-            {/* </div>
+              {/* </div>
             <div
               className="form-row"
               style={{
@@ -243,8 +256,8 @@ function UnitDisplayOrUnitEdit(props) {
               {/* <Label for="user_id">User ID:</Label> */}
               {/* <CardText>User ID: {user_id}</CardText> */}
             </div>
-            </CardBody>
-            {/* <div
+          </CardBody>
+          {/* <div
               className="form-row"
               style={{
                 display: "flex",
@@ -252,29 +265,35 @@ function UnitDisplayOrUnitEdit(props) {
                 justifyContent: "space-evenly",
               }}
             > */}
-            <CardFooter className="form-row" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", background: "var(--primary)"}}>
-              <Button
-                style={{
-                  background: "var(--quarternary)",
-                  width: "200px"
-                }}
-                onClick={handleToggleEdit}
-              >
-                Edit
-              </Button>
-              <Button
-                href={"/feed/" + props.currentId}
-                style={{
-                  background: "var(--quarternary)",
-                  width: "200px",
-                }}
-              >
-                All units
-              </Button>
-
-            </CardFooter>
-            {/* </div> */}
-          
+          <CardFooter
+            className="form-row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              background: "var(--primary)",
+            }}
+          >
+            <Button
+              style={{
+                background: "var(--quarternary)",
+                width: "200px",
+              }}
+              onClick={handleToggleEdit}
+            >
+              Edit
+            </Button>
+            <Button
+              href={"/feed/" + props.currentId}
+              style={{
+                background: "var(--quarternary)",
+                width: "200px",
+              }}
+            >
+              All units
+            </Button>
+          </CardFooter>
+          {/* </div> */}
         </Card>
       </div>
     );

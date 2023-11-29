@@ -39,7 +39,7 @@ function TenantsCard(props) {
   const [phoneInput, setPhoneInput] = useState(phone);
   const [emailInput, setEmailInput] = useState(email);
   const [activeInput, setActiveInput] = useState(active);
-  const [unitStateInput, setUnitStateInput] = useState("");
+  //  const [unitStateInput, setUnitStateInput] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [tenantUpdated, setTenantUpdated] = useState(false);
 

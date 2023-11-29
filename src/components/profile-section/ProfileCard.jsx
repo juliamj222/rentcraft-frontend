@@ -40,7 +40,7 @@ function ProfileCard(props) {
   }
 
   async function handleEdit(evt) {
-    evt.preventDefault(); 
+    evt.preventDefault();
     // Headers
     let myHeaders = new Headers();
     myHeaders.append("Authorization", props.token);
@@ -69,10 +69,10 @@ function ProfileCard(props) {
 
     // Get a Response
     const data = await response.json();
-    console.log(data); 
+    console.log(data);
 
     // refresh feed
-    props.fetchProfile()
+    props.fetchProfile();
 
     // Change the edit mode to false
     setEditModeEnabled(false);
@@ -114,14 +114,15 @@ function ProfileCard(props) {
           marginBottom: "1%",
         }}
       >
-        <CardHeader style={{
-          display: "flex",
-          background: "var(--secondary)"
-        }}>
-            {firstName}'s Account
+        <CardHeader
+          style={{
+            display: "flex",
+            background: "var(--secondary)",
+          }}
+        >
+          {firstName}'s Account
         </CardHeader>
         <CardBody>
-
           {editModeEnabled ? (
             <>
               <Label for="firstName">New First Name:</Label>
@@ -187,15 +188,16 @@ function ProfileCard(props) {
               />
             </>
           ) : (
-            <CardText>
-            </CardText>
+            <CardText></CardText>
           )}
         </CardBody>
 
-        <CardFooter style={{
-          display: "flex",
-          background: "var(--primary)"
-        }}>
+        <CardFooter
+          style={{
+            display: "flex",
+            background: "var(--primary)",
+          }}
+        >
           {/* Edit Button */}
           {props.user_id === props.user?.user_id?._id && (
             <Button
