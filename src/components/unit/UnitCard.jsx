@@ -60,13 +60,14 @@ function UnitCardF(props) {
   // const headerStatus = ["Paid", "Partial", "Late", "Default"]
   // let headerColor = "var(--secondary)"
 
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen)
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   // const [headerState, setHeaderState] = useState("Default");
-  const [headerColor, setHeaderColor] = useState('var(--secondary)');
+  const [headerColor, setHeaderColor] = useState("var(--secondary)");
 
-  const changeHeaderState = (selectedColor) => { setHeaderColor(selectedColor)}
+  const changeHeaderState = (selectedColor) => {
+    setHeaderColor(selectedColor);
+  };
 
   // function changeHeaderState() {
   //   if (headerState = "Paid") {
@@ -75,7 +76,6 @@ function UnitCardF(props) {
   //     headerColor = "var(--secondary)"
   //   }
   // }
-
 
   if (!props.unit) {
     return <div>Unit information not available</div>;
@@ -156,8 +156,6 @@ function UnitCardF(props) {
       console.error(error);
     }
   }
-
-
 
   // function changeHeaderState() {
   //   if (headerState = "Paid") {
@@ -327,19 +325,21 @@ function UnitCardF(props) {
 
   // function RegularView() {
   //   console.log(props.unit);
-    return (
-      <>
-        <Card
+  return (
+    <>
+      <Card
+        style={{
+          width: "100%",
+          display: "flex",
+          width: "30%",
+          marginTop: "10px",
+          marginBottom: "10px",
+          // flexDirection: "row",
+        }}
+      >
+        <CardHeader
+          className="header"
           style={{
-            width: "100%",
-            display: "flex",
-            width: "30%",
-            marginTop: "10px",
-            marginBottom: "10px"
-            // flexDirection: "row",
-          }}
-        >
-          <CardHeader className="header" style={{
             fontSize: "1.5em",
             // background: {headerColor}
             backgroundColor: `${headerColor}`
@@ -352,38 +352,50 @@ function UnitCardF(props) {
                 Unit Status: {unitState}
               </CardText>
               <CardText className="monthlyRent text-muted">
-               Rent: ${monthlyRent}
+               Monthly Rent: ${monthlyRent}
               </CardText>
               {/* <CardText className="monthlyRent text-muted">
                 Placeholder Paid?
               </CardText> */}
           </CardBody>
           <CardFooter style={{
+
             background: "var(--primary)",
             display: "flex",
-            justifyContent: "space-between"
-          }}>
-            <Button
+            justifyContent: "space-between",
+          }}
+        >
+          <Button
             href={"/unit/view-by-id/" + props.unit._id}
             style={{
-            background: "var(--quarternary)",
+              background: "var(--quarternary)",
             }}
-            >
-              Unit Display
-            </Button>
-            <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-              <DropdownToggle caret>Payment Status</DropdownToggle>
-              <DropdownMenu onChange={changeHeaderState}>
-                <DropdownItem onClick={() => changeHeaderState('green')}>Paid</DropdownItem>
-                <DropdownItem onClick={() => changeHeaderState('yellow')}>Partial</DropdownItem>
-                <DropdownItem onClick={() => changeHeaderState('red')}>Late</DropdownItem>
-                <DropdownItem onClick={() => changeHeaderState('var(--secondary)')}>Default</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </CardFooter>
+          >
+            Unit Display
+          </Button>
+          <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+            <DropdownToggle caret>Payment Status</DropdownToggle>
+            <DropdownMenu onChange={changeHeaderState}>
+              <DropdownItem onClick={() => changeHeaderState("green")}>
+                Paid
+              </DropdownItem>
+              <DropdownItem onClick={() => changeHeaderState("yellow")}>
+                Partial
+              </DropdownItem>
+              <DropdownItem onClick={() => changeHeaderState("red")}>
+                Late
+              </DropdownItem>
+              <DropdownItem
+                onClick={() => changeHeaderState("var(--secondary)")}
+              >
+                Default
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </CardFooter>
 
-          {/* TODO: Do we need this code below? */}
-          {/* <div
+        {/* TODO: Do we need this code below? */}
+        {/* <div
             style={{
               width: "100%",
             }}
@@ -400,10 +412,10 @@ function UnitCardF(props) {
               }}
             > */}
 
-              {/* <CardText className="state text-muted">{state} ||</CardText> */}
+        {/* <CardText className="state text-muted">{state} ||</CardText> */}
 
-              {/* <CardText className="zip text-muted">{zip}</CardText> */}
-            {/* </div>
+        {/* <CardText className="zip text-muted">{zip}</CardText> */}
+        {/* </div>
             <div
               className="form-row"
               style={{
@@ -433,9 +445,8 @@ function UnitCardF(props) {
                 justifyContent: "space-evenly",
               }}
             > */}
-              
 
-              {/* <Button
+        {/* <Button
                 style={{
                   background: "var(--quarternary)",
                 }}
@@ -443,8 +454,8 @@ function UnitCardF(props) {
               >
                 Edit
               </Button> */}
-              {/* If wanting to have DELETE UNIT functionality, just uncomment the code below */}
-              {/*               <Button
+        {/* If wanting to have DELETE UNIT functionality, just uncomment the code below */}
+        {/*               <Button
                 style={{
                   background: "#860A35",
                   //        width: "20%",
@@ -454,54 +465,54 @@ function UnitCardF(props) {
               >
                 Delete
               </Button> */}
-            {/* </div> */}
-          {/* </div> */}
-        </Card>
-      </>
-    );
-  }
-  // return (
-  //   <>
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         direction: "row",
-  //         flexWrap: "wrap",
-  //         justifyContent: "center",
-  //         marginBottom: "1.5%",
-  //       }}
-  //     >
-  //       <div
-  //         style={{
-  //           background: "var(--primary)",
-  //           paddingLeft: "2%",
-  //           paddingRight: "2%",
-  //           paddingBottom: "5%",
-  //           borderRadius: "10px",
-  //         }}
-  //       >
-  //         <Form>
-  //           <Card className="mt-3">
-  //             <CardBody
-  //               style={{
-  //                 background: "white",
-  //               }}
-  //             >
-  //               {editModeEnabled ? EditModeForm() : RegularView()}
-  //             </CardBody>
-  //           </Card>
-  //         </Form>
-  //       </div>
-  //       <DeleteConfirmation
-  //         modal={modal}
-  //         toggle={toggle}
-  //         address={address}
-  //         id={_id}
-  //         handleDelete={handleDelete}
-  //       />
-  //     </div>
-  //   </>
-  // );
+        {/* </div> */}
+        {/* </div> */}
+      </Card>
+    </>
+  );
+}
+// return (
+//   <>
+//     <div
+//       style={{
+//         display: "flex",
+//         direction: "row",
+//         flexWrap: "wrap",
+//         justifyContent: "center",
+//         marginBottom: "1.5%",
+//       }}
+//     >
+//       <div
+//         style={{
+//           background: "var(--primary)",
+//           paddingLeft: "2%",
+//           paddingRight: "2%",
+//           paddingBottom: "5%",
+//           borderRadius: "10px",
+//         }}
+//       >
+//         <Form>
+//           <Card className="mt-3">
+//             <CardBody
+//               style={{
+//                 background: "white",
+//               }}
+//             >
+//               {editModeEnabled ? EditModeForm() : RegularView()}
+//             </CardBody>
+//           </Card>
+//         </Form>
+//       </div>
+//       <DeleteConfirmation
+//         modal={modal}
+//         toggle={toggle}
+//         address={address}
+//         id={_id}
+//         handleDelete={handleDelete}
+//       />
+//     </div>
+//   </>
+// );
 // }
 
 export default UnitCardF;

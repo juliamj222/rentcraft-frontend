@@ -1,4 +1,4 @@
-import { Button, Card, Form, FormGroup, Input, Label } from "reactstrap";
+import { Alert, Button, Card, Form, FormGroup, Input, Label } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import {
@@ -11,18 +11,30 @@ import {} from "../constants/endpoints";
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function UnitUpdate(props) {
-  console.log(props);
+  const {
+    address,
+    city,
+    state,
+    zip,
+    monthlyRent,
+    unitState,
+    active,
+    tenant_id,
+    _id,
+  } = props.unit;
+  console.log(props.unit);
+  console.log(props.unit.tenant_id);
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [user_id, setUser_id] = useState("");
-  const [tenant_id, setTenant_id] = useState("");
+  const [tenant_idInput, setTenant_idInput] = useState(tenant_id);
   const [tenantData, setTenantData] = useState([]);
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [monthlyRent, setMonthlyRent] = useState("");
-  const [unitState, setUnitState] = useState("");
-  const [active, setActive] = useState("");
+  const [addressInput, setAddressInput] = useState(address);
+  const [cityInput, setCityInput] = useState(city);
+  const [stateInput, setStateInput] = useState(state);
+  const [zipInput, setZipInput] = useState(zip);
+  const [monthlyRentInput, setMonthlyRentInput] = useState(monthlyRent);
+  const [unitStateInput, setUnitStateInput] = useState(unitState);
+  const [activeInput, setActiveInput] = useState(active);
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -50,7 +62,7 @@ function UnitUpdate(props) {
       // Set State
       setTenantData(data.user_tenants);
       if (data.user_tenants.length > 0) {
-        setTenant_id(data.user_tenants[0]._id);
+        setTenant_idInput(data.user_tenants[0]._id);
       }
     } catch (error) {
       console.error(error);
@@ -102,7 +114,7 @@ function UnitUpdate(props) {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    console.log(typeof active);
+
     console.log("handleEdit called");
     // Headers
     let myHeaders = new Headers();
@@ -112,18 +124,19 @@ function UnitUpdate(props) {
     // Body
     let body = {
       user_id: props.currentId,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip,
-      monthlyRent: monthlyRent,
-      unitState: unitState,
+      address: addressInput,
+      city: cityInput,
+      state: stateInput,
+      zip: zipInput,
+      monthlyRent: monthlyRentInput,
+      unitState: unitStateInput,
+      tenant_id: tenant_idInput,
       _id: props.unitId,
-      active: active === /* " */ true /* " */ ? true : false,
+      active: activeInput === /* " */ true /* " */ ? true : false,
     };
 
     if (tenant_id) {
-      body.tenant_id = tenant_id;
+      body.tenant_id = tenant_idInput;
     }
     // Request Options
     const requestOptions = {
@@ -183,8 +196,6 @@ function UnitUpdate(props) {
       //  Get A Response
       const data = await response.json();
       console.log(data);
-      // Refresh the feed
-      //  props.fetchUnitFeed();
     } catch (error) {
       console.error(error);
     }
@@ -213,9 +224,9 @@ function UnitUpdate(props) {
           <Label for="address">Address</Label>
           <Input
             id="address"
-            value={address}
+            value={addressInput}
             placeholder="Enter to change the address"
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(e) => setAddressInput(e.target.value)}
             type="text"
           />
         </FormGroup>
@@ -235,8 +246,8 @@ function UnitUpdate(props) {
               name="city"
               id="city"
               placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={cityInput}
+              onChange={(e) => setCityInput(e.target.value)}
             />
           </FormGroup>
 
@@ -247,8 +258,8 @@ function UnitUpdate(props) {
               name="state"
               id="state"
               placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
+              value={stateInput}
+              onChange={(e) => setStateInput(e.target.value)}
             />
           </FormGroup>
 
@@ -259,9 +270,9 @@ function UnitUpdate(props) {
               name="zip"
               id="zip"
               placeholder="Zipcode"
-              value={zip}
+              value={zipInput}
               onChange={(e) => {
-                setZip(e.target.value);
+                setZipInput(e.target.value);
               }}
             />
           </FormGroup>
@@ -274,9 +285,9 @@ function UnitUpdate(props) {
             name="monthlyRent"
             id="monthlyRent"
             placeholder="Expected monthly rent"
-            value={monthlyRent}
+            value={monthlyRentInput}
             onChange={(e) => {
-              setMonthlyRent(e.target.value);
+              setMonthlyRentInput(e.target.value);
             }}
           />
         </FormGroup>
@@ -284,24 +295,29 @@ function UnitUpdate(props) {
         {/* Form Group unitState */}
         <FormGroup>
           <Label for="unitState">State of the unit:</Label>
+
           <Input
-            type="text"
             name="unitState"
-            id="unitState"
-            placeholder="Is the unit rented, vacant, or unavailable?"
-            value={unitState}
-            onChange={(e) => setUnitState(e.target.value)}
-          />
+            type="select"
+            value={unitStateInput}
+            onChange={(e) => setUnitStateInput(e.target.value)}
+          >
+            <option>Vacant</option>
+            <option>Rented</option>
+            <option>Unavailable</option>
+            <option>Under repairs</option>
+          </Input>
         </FormGroup>
         {/* Form Group unitState ends */}
         <FormGroup>
-          <Label for="tenant_id">Tenant ID</Label>
+          <Label for="tenant_id">Tenant:</Label>
           <Input
             type="select"
             name="tenant_id"
-            value={tenant_id}
-            onChange={(e) => setTenant_id(e.target.value)}
+            value={tenant_idInput}
+            onChange={(e) => setTenant_idInput(e.target.value)}
           >
+            <option value="No tenants assigned">No tenants assigned</option>
             {tenantData.map((tenant, index) => (
               <option key={index} value={tenant._id}>
                 {tenant.firstName} {tenant.lastName}
@@ -316,8 +332,8 @@ function UnitUpdate(props) {
           <Input
             name="active"
             type="select"
-            value={active}
-            onChange={(e) => setActive(e.target.value)}
+            value={activeInput}
+            onChange={(e) => setActiveInput(e.target.value)}
           >
             <option value="true">True</option>
             <option value="false">False</option>
@@ -327,7 +343,9 @@ function UnitUpdate(props) {
         {/* Form Group active ends */}
         <Button
           style={{ background: "var(--quarternary)", width: "200px" }}
-          onClick={handleEdit}
+          onClick={(e) => {
+            handleEdit(e);
+          }}
         >
           Save
         </Button>
