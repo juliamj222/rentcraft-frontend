@@ -27,7 +27,6 @@ import fetchTenants from "./TenantsFeed";
 import tenantsList from "./TenantsFeed";
 
 function TenantsCard(props) {
-  // console.log(params)
   const params = useParams();
   const navigate = useNavigate();
   const { firstName, lastName, phone, email, _id, active } = props.tenant;
@@ -47,11 +46,14 @@ function TenantsCard(props) {
   function TenantUpdated() {
     const [visible, setVisible] = useState(true);
 
-    const onDismiss = () => setVisible(false);
+    const onDismiss = () => {
+      setVisible(false);
+      window.location.reload();
+    };
 
     return (
       <Alert color="info" isOpen={visible} toggle={onDismiss}>
-        Tenant Updated!
+        Tenant Updated! CLOSE this banner to see the updates.
       </Alert>
     );
   }
@@ -333,9 +335,11 @@ function TenantsCard(props) {
                   handleEdit();
                   console.log(lastNameInput, firstNameInput, activeInput);
                   console.log("activeInput:", activeInput);
-                  navigate(`/tenants/view-all/${props.currentId}`);
-                  setShowAlert(true); /*  && <TenantUpdated />; */
+
+                  setShowAlert(true);
                   setShowAlert(false);
+                  setLastNameInput(lastNameInput);
+                  navigate(`/tenants/view-all/${props.currentId}`);
                 }}
               >
                 SAVE
