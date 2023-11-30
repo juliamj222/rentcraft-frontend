@@ -166,6 +166,7 @@ function UnitCreate(props) {
               value={unitState}
               onChange={(e) => setUnitState(e.target.value)}
             >
+              <option> </option>
               <option>Vacant</option>
               <option>Rented</option>
               <option>Unavailable</option>

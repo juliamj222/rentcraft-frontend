@@ -1,4 +1,10 @@
-import { Alert, Button, Card, Form, FormGroup, Input, Label } from "reactstrap";
+import {
+  /* Alert, */ Button,
+  /* Card, */ Form,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import {
@@ -7,7 +13,6 @@ import {
   API_UNIT_DELETE_BY_ID,
 } from "../constants/endpoints";
 import {} from "../constants/endpoints";
-
 import ReturnToAuth from "../navigation-section/ReturnToAuth";
 
 function UnitUpdate(props) {
@@ -24,8 +29,8 @@ function UnitUpdate(props) {
   } = props.unit;
   console.log(props.unit);
   console.log(props.unit.tenant_id);
-  const [editModeEnabled, setEditModeEnabled] = useState(false);
-  const [user_id, setUser_id] = useState("");
+  /*   const [editModeEnabled, setEditModeEnabled] = useState(false);
+  const [user_id, setUser_id] = useState(""); */
   const [tenant_idInput, setTenant_idInput] = useState(tenant_id);
   const [tenantData, setTenantData] = useState([]);
   const [addressInput, setAddressInput] = useState(address);
@@ -36,7 +41,7 @@ function UnitUpdate(props) {
   const [unitStateInput, setUnitStateInput] = useState(unitState);
   const [activeInput, setActiveInput] = useState(active);
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
+  /*  const toggle = () => setModal(!modal); */
 
   async function fetchTenants() {
     try {
@@ -61,55 +66,23 @@ function UnitUpdate(props) {
 
       // Set State
       setTenantData(data.user_tenants);
-      if (data.user_tenants.length > 0) {
+      /* if (data.user_tenants.length > 0) {
         setTenant_idInput(data.user_tenants[0]._id);
-      }
+      } else {
+        setTenant_idInput("No tenants assigned");
+      } */
     } catch (error) {
       console.error(error);
     }
   }
 
-  useEffect(() => {
-    if (!props.token) return;
-    fetchTenants();
-  }, [props.token]);
+  useEffect(
+    () => {
+      if (!props.token) return;
+      fetchTenants();
+    } /*  [props.token] */
+  );
 
-  async function handleSubmit() {
-    try {
-      // Headers
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", props.token);
-
-      let body = {
-        address: address,
-        city: city,
-        state: state,
-        zip: zip,
-        monthlyRent: monthlyRent,
-        unitState: unitState,
-        tenant_id: tenant_id,
-      };
-
-      // Request Options
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(body),
-      };
-
-      // Send Request
-      const response = await fetch(API_UNIT_UPDATE_BY_ID, requestOptions);
-
-      // Get a response
-      const data = await response.json();
-
-      props.fetchTenants();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
   if (!props.token) return <ReturnToAuth />;
 
   const handleEdit = async (e) => {
@@ -152,30 +125,12 @@ function UnitUpdate(props) {
     //  Get A Response
     const data = await response.json();
     console.log(data);
-    // refresh the feed
-    fetchUnitFeed();
+
     // change the edit mode to false
     props.handleToggleEdit();
   };
 
-  // Check if the request was successful
-  if (response.ok) {
-    //  Get A Response
-    const data = await response.json();
-    console.log(data);
-    // refresh the feed
-    fetchUnitFeed();
-    // change the edit mode to false
-    props.handleToggleEdit();
-  } else {
-    // Handle the error
-    console.error("Failed to update unit:", response.statusText);
-  }
-} catch (error) {
-  console.error("Error during unit update:", error);
-}
-  }
-
+  /* function to let users delete units, we decided against giving users that option, for safety. They can delete units from their portfolio */
   async function handleDelete() {
     console.log("handleDelete called");
     if (props.userId === props.unit.user_id) console.log(props.user._id);
@@ -203,21 +158,16 @@ function UnitUpdate(props) {
 
   return (
     <>
-      {/* <Card> */}
-
       <Form
         style={{
           display: "flex",
           flexDirection: "column",
           background: "var(--primary)",
-          // width: "70%",
           marginLeft: "15%",
           marginRight: "15%",
           marginTop: "20px",
           borderRadius: "10px",
           padding: "10px",
-          // justifyContent: "center",
-          // alignItems: "center"
         }}
       >
         <FormGroup>
@@ -302,6 +252,7 @@ function UnitUpdate(props) {
             value={unitStateInput}
             onChange={(e) => setUnitStateInput(e.target.value)}
           >
+            <option> </option>
             <option>Vacant</option>
             <option>Rented</option>
             <option>Unavailable</option>
@@ -328,7 +279,20 @@ function UnitUpdate(props) {
 
         {/* Form Group active starts */}
         <FormGroup className="col col-3.2">
-          <Label for="active">In my portfolio?</Label>
+          <Label for="active">
+            In my portfolio?{" "}
+            <div
+              style={{
+                color: "gray",
+              }}
+            >
+              <i>
+                {" "}
+                Only select False if you want to remove this unit's information
+                from your portfolio.
+              </i>
+            </div>
+          </Label>
           <Input
             name="active"
             type="select"
@@ -350,7 +314,6 @@ function UnitUpdate(props) {
           Save
         </Button>
       </Form>
-      {/* </Card> */}
     </>
   );
 }
