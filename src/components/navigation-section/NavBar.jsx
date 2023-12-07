@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import App from "../../App"; 
 import ReturnToAuth from "./ReturnToAuth";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 
 // import { Home, Folder, Message } from "@mui/icons-material";
 import {
@@ -13,7 +13,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink, 
+  // NavLink, 
   Button,
 } from "reactstrap";
 import { API_UNIT_VIEW_BY_USER } from "../constants/endpoints";
@@ -54,9 +54,10 @@ function Navigation(props) {
         >
           <NavItem>
             <NavLink
-              href="/auth"
+              to="/auth"
               style={{
                 color: "var(--tertiary)",
+                textDecoration: "none"
               }}
             >
               Login
@@ -64,9 +65,10 @@ function Navigation(props) {
           </NavItem>
           <NavItem>
             <NavLink
-              href={"/user/" + props.currentId}
+              to={"/user/" + props.currentId}
               style={{
                 color: "var(--tertiary)",
+                textDecoration: "none"
               }}
             >
               Profile
@@ -74,9 +76,10 @@ function Navigation(props) {
           </NavItem>
           <NavItem>
             <NavLink
-              href={"/feed/" + props.currentId}
+              to={"/feed/" + props.currentId}
               style={{
                 color: "var(--tertiary)",
+                textDecoration: "none"
               }}
             >
               Units
@@ -84,9 +87,10 @@ function Navigation(props) {
           </NavItem>
           <NavItem>
             <NavLink
-              href={"/tenants/view-all/" + props.currentId}
+              to={"/tenants/view-all/" + props.currentId}
               style={{
                 color: "var(--tertiary)",
+                textDecoration: "none"
               }}
             >
               Tenants
@@ -94,16 +98,17 @@ function Navigation(props) {
           </NavItem>
           <NavItem>
             <NavLink
-              href={"/payments/user/" + props.currentId}
+              to={"/payments/user/" + props.currentId}
               style={{
                 color: "var(--tertiary)",
+                textDecoration: "none"
               }}
             >
               Payments
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={props.clickLogout} href="/" style={{color: "var(--tertiary)"}}>Logout</NavLink>
+            <NavLink onClick={props.clickLogout} to="/auth" style={{color: "var(--tertiary)", textDecoration: "none"}}>Logout</NavLink>
             {/* <Button onClick={props.clickLogout}>Logout</Button> */}
           </NavItem>
         </Nav>
